@@ -750,7 +750,7 @@ Comprehensive Metabolic Panel:
       if (currentCategory !== 'all') {
         filtered = filtered.filter(function(ep) { 
           return ep.human_cat === currentCategory || ep.category.toLowerCase().includes(currentCategory); 
-        }});
+        });
       }
 
       if (query) {
