@@ -146,7 +146,7 @@ def build():
             select_inner_html += f'                <option value="{ep["key"]}">#{ep["id"]} {ep["name"]} ({ep["route"]})</option>\n'
         select_inner_html += '              </optgroup>\n'
 
-    new_select = f"""<select id="studio-endpoint-select" onchange="onStudioEndpointChange()" class="w-full bg-[#16161a] border border-white/[0.08] text-white rounded-lg p-2.5 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-none">
+    new_select = f"""<select id="studio-endpoint-select" onchange="onStudioEndpointChange()" aria-label="Select target microservice" class="w-full bg-[#16161a] border border-white/[0.08] text-white rounded-lg p-2.5 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-none">
 {select_inner_html.rstrip()}
             </select>"""
 

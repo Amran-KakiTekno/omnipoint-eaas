@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-3">
         <a href="#" class="flex items-center space-x-2.5 group">
           <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-            <i class="fa-solid fa-bolt"></i>
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
           </div>
           <span class="font-semibold text-sm tracking-tight text-white flex items-center gap-1.5">
             Smart EaaS
@@ -83,7 +83,7 @@
       <nav class="hidden md:flex items-center space-x-1 text-xs font-medium text-zinc-400">
         <button onclick="scrollToSection('directory')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">Directory</button>
         <button onclick="openStudio()" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition flex items-center gap-1.5 text-indigo-400 font-semibold">
-          <i class="fa-solid fa-play text-[10px]"></i> Live Studio
+          <i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i> Live Studio
         </button>
         <button onclick="scrollToSection('surfaces')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">UI Wireframes</button>
         <button onclick="scrollToSection('architecture')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">$0 Stack</button>
@@ -92,12 +92,12 @@
       <!-- Right Action -->
       <div class="flex items-center space-x-2.5">
         <a href="https://github.com/Amran-KakiTekno/omnipoint-eaas" target="_blank" class="h-8 px-3 rounded-lg border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/[0.15] text-xs font-medium text-zinc-300 flex items-center gap-1.5 transition">
-          <i class="fa-brands fa-github text-sm"></i>
+          <i class="fa-brands fa-github text-sm" aria-hidden="true"></i>
           <span class="hidden sm:inline">GitHub</span>
         </a>
         <button onclick="openStudio()" class="h-8 px-3.5 rounded-lg bg-white text-black hover:bg-zinc-200 text-xs font-semibold flex items-center gap-1.5 transition shadow-sm">
           <span>Open Studio</span>
-          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
         </button>
       </div>
 
@@ -167,43 +167,46 @@
 
       <!-- Search Bar -->
       <div class="relative w-full md:w-80">
-        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs" aria-hidden="true"></i>
         <input 
           type="text" 
           id="search-input" 
           onkeyup="filterCards()" 
-          placeholder="Search endpoints, personas, routes..." 
-          class="w-full bg-[#121215] border border-white/[0.08] hover:border-white/[0.15] focus:border-indigo-500/70 rounded-xl pl-9 pr-8 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 transition-all font-sans"
+          placeholder="Search endpoints, personas, routes... (Cmd+K)" 
+          aria-label="Search microservices directory"
+          class="w-full bg-[#121215] border border-white/[0.08] hover:border-white/[0.15] focus:border-indigo-500/70 rounded-xl pl-9 pr-10 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 transition-all font-sans"
         />
-        <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 text-xs">
-          <i class="fa-solid fa-xmark"></i>
+        <button type="button" id="clear-search" onclick="clearSearch()" class="hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.08] flex items-center justify-center transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" aria-label="Clear search query">
+          <i class="fa-solid fa-xmark text-xs" aria-hidden="true"></i>
         </button>
       </div>
     </div>
 
-    <!-- Category Filter Pills (skills.sh style) -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar text-xs font-medium">
-      <button onclick="setCategory('all')" id="pill-all" class="cat-pill active-pill px-3 py-1.5 rounded-full border border-white/[0.12] bg-white text-black transition whitespace-nowrap">
-        All Endpoints <span class="ml-1 text-[10px] opacity-70 font-mono">56</span>
-      </button>
-      <button onclick="setCategory('individuals')" id="pill-individuals" class="cat-pill px-3 py-1.5 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap">
-        Individuals & Family <span class="ml-1 text-[10px] font-mono text-zinc-500">15</span>
-      </button>
-      <button onclick="setCategory('non-profits')" id="pill-non-profits" class="cat-pill px-3 py-1.5 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap">
-        Non-Profits & NGOs <span class="ml-1 text-[10px] font-mono text-zinc-500">10</span>
-      </button>
-      <button onclick="setCategory('creators')" id="pill-creators" class="cat-pill px-3 py-1.5 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap">
-        Creators & Solos <span class="ml-1 text-[10px] font-mono text-zinc-500">10</span>
-      </button>
-      <button onclick="setCategory('smbs')" id="pill-smbs" class="cat-pill px-3 py-1.5 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap">
-        Local SMBs & Trades <span class="ml-1 text-[10px] font-mono text-zinc-500">10</span>
-      </button>
-      <button onclick="setCategory('education')" id="pill-education" class="cat-pill px-3 py-1.5 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap">
-        Education & Civic <span class="ml-1 text-[10px] font-mono text-zinc-500">10</span>
-      </button>
-      <button onclick="setCategory('vision')" id="pill-vision" class="cat-pill px-3 py-1.5 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap flex items-center gap-1.5">
-        <i class="fa-solid fa-eye text-[10px] text-purple-400"></i> Vision / OCR <span class="ml-1 text-[10px] font-mono text-zinc-500">Kimi-k3</span>
-      </button>
+    <!-- Category Filter Pills (skills.sh style with mobile overflow gradient) -->
+    <div class="relative mb-6">
+      <div class="flex items-center gap-2 overflow-x-auto pb-3 no-scrollbar text-xs font-medium [mask-image:linear-gradient(to_right,black_85%,transparent_100%)] sm:[mask-image:none]">
+        <button type="button" onclick="setCategory('all')" id="pill-all" class="cat-pill active-pill px-3.5 py-2 rounded-full border border-white/[0.12] bg-white text-black transition whitespace-nowrap min-h-[38px] flex items-center focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          All Endpoints <span class="ml-1.5 text-[10px] opacity-70 font-mono">56</span>
+        </button>
+        <button type="button" onclick="setCategory('individuals')" id="pill-individuals" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          Individuals & Family <span class="ml-1.5 text-[10px] font-mono text-zinc-500">15</span>
+        </button>
+        <button type="button" onclick="setCategory('non-profits')" id="pill-non-profits" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          Non-Profits & NGOs <span class="ml-1.5 text-[10px] font-mono text-zinc-500">10</span>
+        </button>
+        <button type="button" onclick="setCategory('creators')" id="pill-creators" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          Creators & Solos <span class="ml-1.5 text-[10px] font-mono text-zinc-500">10</span>
+        </button>
+        <button type="button" onclick="setCategory('smbs')" id="pill-smbs" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          Local SMBs & Trades <span class="ml-1.5 text-[10px] font-mono text-zinc-500">10</span>
+        </button>
+        <button type="button" onclick="setCategory('education')" id="pill-education" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          Education & Civic <span class="ml-1.5 text-[10px] font-mono text-zinc-500">10</span>
+        </button>
+        <button type="button" onclick="setCategory('vision')" id="pill-vision" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-400 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          <i class="fa-solid fa-eye text-[10px] text-purple-400" aria-hidden="true"></i> Vision / OCR <span class="ml-1.5 text-[10px] font-mono text-zinc-500">Kimi-k3</span>
+        </button>
+      </div>
     </div>
 
     <!-- Cards Grid -->
@@ -212,7 +215,7 @@
     <!-- Empty State -->
     <div id="empty-state" class="hidden py-16 text-center border border-dashed border-white/[0.08] rounded-2xl">
       <div class="w-10 h-10 rounded-full bg-white/[0.03] text-zinc-500 flex items-center justify-center mx-auto mb-3 text-sm">
-        <i class="fa-solid fa-filter"></i>
+        <i class="fa-solid fa-filter" aria-hidden="true"></i>
       </div>
       <p class="text-sm font-medium text-white">No matching endpoints found</p>
       <p class="text-xs text-zinc-500 mt-1">Try refining your search keyword or clearing the category filter.</p>
@@ -236,13 +239,13 @@
       <!-- Tabs for Surface Mockups -->
       <div class="flex space-x-2 border-b border-white/[0.08] mb-8 text-xs font-medium">
         <button onclick="switchSurface('whatsapp')" id="surface-btn-whatsapp" class="pb-3 text-white border-b-2 border-indigo-500 font-semibold px-2 transition">
-          <i class="fa-brands fa-whatsapp text-emerald-400 mr-1.5"></i> 1. WhatsApp & SMS Bot
+          <i class="fa-brands fa-whatsapp text-emerald-400 mr-1.5" aria-hidden="true"></i> 1. WhatsApp & SMS Bot
         </button>
         <button onclick="switchSurface('sheets')" id="surface-btn-sheets" class="pb-3 text-zinc-400 hover:text-white px-2 transition">
-          <i class="fa-solid fa-table text-emerald-500 mr-1.5"></i> 2. Google Sheets Formula
+          <i class="fa-solid fa-table text-emerald-500 mr-1.5" aria-hidden="true"></i> 2. Google Sheets Formula
         </button>
         <button onclick="switchSurface('zapier')" id="surface-btn-zapier" class="pb-3 text-zinc-400 hover:text-white px-2 transition">
-          <i class="fa-solid fa-diagram-project text-orange-400 mr-1.5"></i> 3. Zapier / Make Pipeline
+          <i class="fa-solid fa-diagram-project text-orange-400 mr-1.5" aria-hidden="true"></i> 3. Zapier / Make Pipeline
         </button>
       </div>
 
@@ -255,7 +258,7 @@
             <!-- Chat Header -->
             <div class="flex items-center gap-2.5 pb-2.5 border-b border-zinc-800/80">
               <div class="w-7 h-7 rounded-full bg-emerald-600 flex items-center justify-center text-[10px] text-white font-bold">
-                <i class="fa-solid fa-shield-halved"></i>
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
               </div>
               <div class="flex-1 min-w-0">
                 <div class="text-xs font-bold text-white truncate">Smart Family Shield</div>
@@ -272,13 +275,13 @@
               </div>
               <div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px] leading-relaxed">
                 <div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1">
-                  <i class="fa-solid fa-image"></i> [SMS: "Chase fraud alert: Account frozen. Click chase-verify82.com"]
+                  <i class="fa-solid fa-image" aria-hidden="true"></i> [SMS: "Chase fraud alert: Account frozen. Click chase-verify82.com"]
                 </div>
                 Is this real? I was scared to click.
               </div>
               <div class="bg-emerald-950/70 border border-emerald-500/30 p-2.5 rounded-2xl rounded-tl-none text-[10px] text-zinc-200 space-y-1">
                 <div class="font-bold text-red-400 flex items-center gap-1">
-                  <i class="fa-solid fa-triangle-exclamation"></i> 99% SCAM CONFIRMED
+                  <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 99% SCAM CONFIRMED
                 </div>
                 <p class="text-zinc-300 text-[9.5px]">This is an urgency phishing trap trying to steal your card PIN.</p>
                 <div class="bg-black/40 p-1.5 rounded text-[9px] space-y-0.5 text-zinc-300">
@@ -294,7 +297,7 @@
             <div class="pt-2 border-t border-zinc-800 flex items-center gap-2">
               <div class="flex-1 bg-zinc-900 text-zinc-500 text-[10px] py-1.5 px-3 rounded-full">Send photo or voice...</div>
               <div class="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-white text-[10px]">
-                <i class="fa-solid fa-paper-plane"></i>
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -383,7 +386,7 @@
           <div class="p-4 rounded-xl bg-[#121215] border border-white/[0.08] relative">
             <span class="text-[10px] text-zinc-500 font-bold uppercase block mb-1">Step 1 • Trigger</span>
             <div class="text-sm font-bold text-white flex items-center gap-2 mb-2">
-              <i class="fa-brands fa-google text-red-400"></i> New 1-Star Review
+              <i class="fa-brands fa-google text-red-400" aria-hidden="true"></i> New 1-Star Review
             </div>
             <p class="text-zinc-400 text-[11px] font-sans">Customer posts complaint on Google Business Profile regarding cold pizza.</p>
           </div>
@@ -391,7 +394,7 @@
           <div class="p-4 rounded-xl bg-indigo-950/40 border border-indigo-500/50 shadow-lg shadow-indigo-500/10 relative">
             <span class="text-[10px] text-indigo-400 font-bold uppercase block mb-1">Step 2 • Smart EaaS</span>
             <div class="text-sm font-bold text-white flex items-center gap-2 mb-2">
-              <i class="fa-solid fa-bolt text-indigo-400"></i> /v1/smb/review-reply
+              <i class="fa-solid fa-bolt text-indigo-400" aria-hidden="true"></i> /v1/smb/review-reply
             </div>
             <p class="text-zinc-300 text-[11px] font-sans">DeepSeek analyzes sentiment, validates policy, and drafts empathetic public reply.</p>
           </div>
@@ -399,7 +402,7 @@
           <div class="p-4 rounded-xl bg-[#121215] border border-white/[0.08] relative">
             <span class="text-[10px] text-zinc-500 font-bold uppercase block mb-1">Step 3 • Gate</span>
             <div class="text-sm font-bold text-white flex items-center gap-2 mb-2">
-              <i class="fa-brands fa-slack text-purple-400"></i> Slack Approval
+              <i class="fa-brands fa-slack text-purple-400" aria-hidden="true"></i> Slack Approval
             </div>
             <p class="text-zinc-400 text-[11px] font-sans">Manager receives push notification on mobile: "Tap to approve reply".</p>
           </div>
@@ -407,7 +410,7 @@
           <div class="p-4 rounded-xl bg-[#121215] border border-white/[0.08] relative">
             <span class="text-[10px] text-zinc-500 font-bold uppercase block mb-1">Step 4 • Action</span>
             <div class="text-sm font-bold text-white flex items-center gap-2 mb-2">
-              <i class="fa-solid fa-reply text-emerald-400"></i> Auto-Published
+              <i class="fa-solid fa-reply text-emerald-400" aria-hidden="true"></i> Auto-Published
             </div>
             <p class="text-zinc-400 text-[11px] font-sans">Approved response posted directly to Google Maps; incident logged to Airtable.</p>
           </div>
@@ -430,7 +433,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="p-5 rounded-2xl bg-[#121215] border border-white/[0.08] space-y-3">
         <div class="w-8 h-8 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center text-sm">
-          <i class="fa-solid fa-bolt"></i>
+          <i class="fa-solid fa-bolt" aria-hidden="true"></i>
         </div>
         <h3 class="text-sm font-bold text-white">Cloudflare Workers</h3>
         <p class="text-xs text-zinc-400 leading-relaxed">
@@ -443,7 +446,7 @@
 
       <div class="p-5 rounded-2xl bg-[#121215] border border-white/[0.08] space-y-3">
         <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm">
-          <i class="fa-solid fa-database"></i>
+          <i class="fa-solid fa-database" aria-hidden="true"></i>
         </div>
         <h3 class="text-sm font-bold text-white">Cloudflare R2 Storage</h3>
         <p class="text-xs text-zinc-400 leading-relaxed">
@@ -456,7 +459,7 @@
 
       <div class="p-5 rounded-2xl bg-[#121215] border border-white/[0.08] space-y-3">
         <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center text-sm">
-          <i class="fa-brands fa-github"></i>
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
         </div>
         <h3 class="text-sm font-bold text-white">GitHub CI/CD Deployment</h3>
         <p class="text-xs text-zinc-400 leading-relaxed">
@@ -470,7 +473,7 @@
   </section>
 
   <!-- ==================== STUDIO DRAWER / MODAL (skills.sh workbench inspired) ==================== -->
-  <div id="studio-drawer" class="fixed inset-0 z-50 hidden">
+  <div id="studio-drawer" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="studio-title">
     <!-- Backdrop -->
     <div onclick="closeStudio()" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"></div>
 
@@ -478,17 +481,20 @@
     <div class="absolute right-0 top-0 bottom-0 w-full max-w-4xl bg-[#0c0c0e] border-l border-white/[0.1] shadow-2xl flex flex-col z-10">
       
       <!-- Studio Header -->
-      <div class="h-14 px-5 border-b border-white/[0.08] flex items-center justify-between bg-[#121215]/80 backdrop-blur-md">
-        <div class="flex items-center space-x-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
-          <span class="text-xs font-bold text-white uppercase tracking-wider">Live Execution Studio</span>
-          <span class="text-zinc-600">|</span>
-          <span id="studio-route-pill" class="text-xs font-mono text-indigo-400 font-semibold">/v1/health/explain-lab</span><span id="studio-cost-badge" class="ml-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> $0.00 Token Cost (Verified)</span>
+      <div class="h-14 px-5 border-b border-white/[0.08] flex items-center justify-between bg-[#121215]/90 backdrop-blur-md shrink-0">
+        <div class="flex items-center space-x-2.5 min-w-0">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 shrink-0" aria-hidden="true"></span>
+          <span id="studio-title" class="text-xs font-bold text-white uppercase tracking-wider shrink-0">Live Execution Studio</span>
+          <span class="text-zinc-600 shrink-0">|</span>
+          <span id="studio-route-pill" class="text-xs font-mono text-indigo-400 font-semibold truncate">/v1/health/explain-lab</span>
+          <span id="studio-cost-badge" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0" aria-live="polite">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true"></span> $0.00 Token Cost (Verified)
+          </span>
         </div>
         
-        <div class="flex items-center space-x-2">
-          <button onclick="closeStudio()" class="w-8 h-8 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white flex items-center justify-center text-xs transition">
-            <i class="fa-solid fa-xmark text-sm"></i>
+        <div class="flex items-center space-x-2 shrink-0">
+          <button type="button" onclick="closeStudio()" class="w-10 h-10 sm:w-8 sm:h-8 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white flex items-center justify-center text-xs transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" aria-label="Close Studio drawer">
+            <i class="fa-solid fa-xmark text-base sm:text-sm" aria-hidden="true"></i>
           </button>
         </div>
       </div>
@@ -497,12 +503,13 @@
       <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
         
         <!-- LEFT: INPUT & CONFIG -->
-        <div class="lg:col-span-6 p-5 border-b lg:border-b-0 lg:border-r border-white/[0.08] flex flex-col space-y-4 overflow-y-auto">
+        <div class="lg:col-span-6 border-b lg:border-b-0 lg:border-r border-white/[0.08] flex flex-col h-full overflow-hidden">
+        <div class="flex-1 p-5 space-y-4 overflow-y-auto">
           
           <!-- Select Endpoint -->
           <div class="space-y-1.5">
             <label class="text-[11px] font-semibold text-zinc-300 uppercase tracking-wider">Target Microservice</label>
-            <select id="studio-endpoint-select" onchange="onStudioEndpointChange()" class="w-full bg-[#16161a] border border-white/[0.08] text-white rounded-lg p-2.5 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-none">
+            <select id="studio-endpoint-select" onchange="onStudioEndpointChange()" aria-label="Select target microservice" class="w-full bg-[#16161a] border border-white/[0.08] text-white rounded-lg p-2.5 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-none">
               <optgroup label="Data & Document Extraction (Universal)">
                 <option value="invoice-extract">#0 Universal Invoice & Receipt to JSON (/v1/extract/invoice)</option>
               </optgroup>
@@ -579,7 +586,7 @@
             <div class="flex justify-between items-center text-[11px]">
               <label class="font-semibold text-zinc-300 uppercase tracking-wider">Assigned Optimal Engine</label>
               <span class="text-[10px] text-emerald-400 font-mono font-medium flex items-center gap-1">
-                <i class="fa-solid fa-lock text-[9px]"></i> Auto-Predefined
+                <i class="fa-solid fa-lock text-[9px]" aria-hidden="true"></i> Auto-Predefined
               </span>
             </div>
             <div class="w-full bg-[#16161a] border border-white/[0.08] text-white rounded-lg p-2.5 text-xs flex items-center justify-between">
@@ -594,36 +601,40 @@
           <!-- Input Box -->
           <div class="flex-1 flex flex-col space-y-1.5 min-h-[220px]">
             <div class="flex justify-between items-center text-[11px]">
-              <label class="font-semibold text-zinc-300 uppercase tracking-wider">Raw Input Payload</label>
-              <button onclick="resetStudioSample()" class="text-[10px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
-                <i class="fa-solid fa-rotate-left"></i> Reload Preset
+              <label for="studio-input" class="font-semibold text-zinc-300 uppercase tracking-wider">Raw Input Payload</label>
+              <button type="button" onclick="resetStudioSample()" class="px-2.5 py-1 rounded bg-white/[0.04] hover:bg-white/[0.08] text-[11px] text-indigo-300 hover:text-indigo-200 border border-white/[0.06] flex items-center gap-1.5 transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" aria-label="Restore verified default sample payload">
+                <i class="fa-solid fa-rotate-left text-[10px]" aria-hidden="true"></i>
+                <span>Restore Sample</span>
               </button>
             </div>
-            <textarea id="studio-input" class="flex-1 w-full bg-[#16161a] border border-white/[0.08] rounded-lg p-3 text-xs font-mono text-zinc-200 focus:ring-1 focus:ring-indigo-500 focus:outline-none resize-none leading-relaxed" placeholder="Enter messy input text..."></textarea>
+            <textarea id="studio-input" class="flex-1 w-full min-h-[160px] bg-[#16161a] border border-white/[0.08] rounded-lg p-3 text-xs font-mono text-zinc-200 focus:ring-1 focus:ring-indigo-500 focus:outline-none resize-none leading-relaxed" placeholder="Enter messy input text..." aria-label="Raw input payload"></textarea>
           </div>
+        </div>
 
-          <!-- Execute Button -->
-          <button id="studio-run-btn" onclick="runStudioExecution()" class="w-full py-2.5 px-4 bg-white text-black hover:bg-zinc-200 font-semibold rounded-lg text-xs transition flex items-center justify-center gap-2 shadow-sm">
-            <i class="fa-solid fa-play text-[10px]"></i>
+        <!-- Sticky Execution Action Dock for Mobile Virtual Keyboard Ergonomics -->
+        <div class="sticky bottom-0 bg-[#0c0c0e]/95 backdrop-blur-md border-t border-white/[0.08] p-4 z-20 shrink-0">
+          <button id="studio-run-btn" type="button" onclick="runStudioExecution()" class="w-full py-3 px-4 bg-white text-black hover:bg-zinc-200 font-semibold rounded-lg text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-white/5 active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+            <i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i>
             <span>Execute Live Endpoint</span>
           </button>
         </div>
+      </div>
 
         <!-- RIGHT: RESULTS & INTEGRATION CODE -->
         <div class="lg:col-span-6 p-5 flex flex-col space-y-4 bg-[#09090b] overflow-hidden">
           
           <!-- Tabs: JSON Result vs cURL vs Zapier -->
-          <div class="flex items-center justify-between border-b border-white/[0.08] pb-2 text-xs">
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-2 text-xs shrink-0">
             <div class="flex space-x-2">
-              <button onclick="switchOutputTab('json')" id="tab-out-json" class="font-semibold text-white border-b-2 border-indigo-500 pb-2 px-1">JSON Output</button>
-              <button onclick="switchOutputTab('curl')" id="tab-out-curl" class="text-zinc-400 hover:text-white pb-2 px-1">cURL</button>
-              <button onclick="switchOutputTab('zapier')" id="tab-out-zapier" class="text-zinc-400 hover:text-white pb-2 px-1">Zapier / Make</button>
+              <button type="button" onclick="switchOutputTab('json')" id="tab-out-json" class="font-semibold text-white border-b-2 border-indigo-500 pb-2 px-1 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">JSON Output</button>
+              <button type="button" onclick="switchOutputTab('curl')" id="tab-out-curl" class="text-zinc-400 hover:text-white pb-2 px-1 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">cURL</button>
+              <button type="button" onclick="switchOutputTab('zapier')" id="tab-out-zapier" class="text-zinc-400 hover:text-white pb-2 px-1 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">Zapier / Make</button>
             </div>
 
             <div class="flex items-center gap-2">
-              <span id="studio-latency" class="hidden text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">0ms</span>
-              <button onclick="copyStudioOutput()" class="text-zinc-400 hover:text-white text-xs px-2 py-1 rounded bg-white/[0.04] hover:bg-white/[0.08] transition">
-                <i class="fa-regular fa-copy"></i>
+              <span id="studio-latency" class="hidden text-[10px] font-mono px-2.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700" aria-live="polite">0ms</span>
+              <button type="button" onclick="copyStudioOutput()" class="w-8 h-8 rounded-lg text-zinc-400 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" aria-label="Copy JSON output" title="Copy JSON output">
+                <i class="fa-regular fa-copy text-xs" aria-hidden="true"></i>
               </button>
             </div>
           </div>
@@ -3152,11 +3163,12 @@
 
       emptyState.classList.add('hidden');
       grid.innerHTML = endpoints.map(function(ep) {
+        const safeTitle = ep.title.replace(/"/g, '&quot;');
         const tagsHtml = ep.tags.map(function(t) {
           return '<span class="text-[9px] px-1.5 py-0.5 rounded bg-zinc-800/80 text-zinc-400 font-mono">' + t + '</span>';
         }).join('');
 
-        return '<div class="card-hover p-4 rounded-xl bg-[#121215] border border-white/[0.08] flex flex-col justify-between group cursor-pointer" onclick="openStudioWithKey(\'' + ep.key + '\')">' +
+        return '<div role="button" tabindex="0" class="card-hover p-4 rounded-xl bg-[#121215] border border-white/[0.08] flex flex-col justify-between group cursor-pointer focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none transition-all select-none" onclick="openStudioWithKey(\'' + ep.key + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault(); openStudioWithKey(\'' + ep.key + '\');}" aria-label="Open Studio for ' + safeTitle + '">' +
           '<div>' +
             '<div class="flex items-center justify-between mb-2.5">' +
               '<div class="flex items-center gap-1.5">' +
@@ -3170,13 +3182,13 @@
             '<p class="text-xs text-zinc-400 mt-2.5 line-clamp-2 leading-relaxed font-normal">' + ep.desc + '</p>' +
           '</div>' +
           '<div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">' +
-            '<div class="flex gap-1">' + tagsHtml + '</div>' +
-            '<div class="flex items-center gap-2">' +
-              '<button onclick="event.stopPropagation(); copyDirectCurl(\'' + ep.route + '\')" class="p-1 rounded text-zinc-500 hover:text-white transition" title="Copy cURL">' +
-                '<i class="fa-solid fa-terminal text-[11px]"></i>' +
+            '<div class="flex gap-1 flex-wrap">' + tagsHtml + '</div>' +
+            '<div class="flex items-center gap-1.5 ml-2 shrink-0">' +
+              '<button type="button" onclick="event.stopPropagation(); copyDirectCurl(\'' + ep.route + '\')" class="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/[0.08] transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" title="Copy cURL" aria-label="Copy cURL command for ' + safeTitle + '">' +
+                '<i class="fa-solid fa-terminal text-[11px]" aria-hidden="true"></i>' +
               '</button>' +
               '<span class="text-indigo-400 text-[11px] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">' +
-                'Test <i class="fa-solid fa-arrow-right text-[9px]"></i>' +
+                'Test <i class="fa-solid fa-arrow-right text-[9px]" aria-hidden="true"></i>' +
               '</span>' +
             '</div>' +
           '</div>' +
@@ -3333,7 +3345,7 @@
       const runBtn = document.getElementById('studio-run-btn');
 
       if (!input) {
-        alert("Please enter input text or reload the preset sample.");
+        showToast("Please enter input text or restore sample.", "fa-circle-exclamation");
         return;
       }
 
@@ -3389,18 +3401,46 @@
       document.getElementById('tab-out-' + tab).classList.remove('text-zinc-400');
     }
 
+    // Toast Notification System
+    function showToast(message, icon) {
+      icon = icon || 'fa-circle-check';
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#1e1e24]/95 border border-white/20 text-white text-xs font-medium shadow-2xl shadow-black/90 backdrop-blur-md transform transition-all duration-200 opacity-0 translate-y-2 pointer-events-auto';
+      toast.innerHTML = '<i class="fa-solid ' + icon + ' text-emerald-400 text-xs" aria-hidden="true"></i><span>' + message + '</span>';
+      container.appendChild(toast);
+      requestAnimationFrame(function() {
+        toast.classList.remove('opacity-0', 'translate-y-2');
+        toast.classList.add('opacity-100', 'translate-y-0');
+      });
+      setTimeout(function() {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(function() {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 250);
+      }, 2000);
+    }
+
     function copyStudioOutput() {
       const text = document.getElementById('studio-json-pre').innerText;
-      navigator.clipboard.writeText(text);
-      alert('JSON output copied to clipboard!');
+      navigator.clipboard.writeText(text).then(function() {
+        showToast('JSON output copied to clipboard!');
+      }).catch(function() {
+        showToast('Failed to copy JSON', 'fa-circle-exclamation');
+      });
     }
 
     function copyDirectCurl(route) {
       const curl = 'curl -X POST "' + window.location.origin + route + '" \\\n' +
         '  -H "Content-Type: application/json" \\\n' +
         '  -d \'{"input": "..."}\'';
-      navigator.clipboard.writeText(curl);
-      alert('cURL command copied to clipboard!');
+      navigator.clipboard.writeText(curl).then(function() {
+        showToast('cURL command copied to clipboard!');
+      }).catch(function() {
+        showToast('Failed to copy cURL', 'fa-circle-exclamation');
+      });
     }
 
     // Surface Switcher
@@ -3422,33 +3462,33 @@
         chat.innerHTML = 
           '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Forward any suspicious SMS or email here.</div>' +
           '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
-            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-image"></i> [SMS: "Chase Fraud Alert: Account frozen..."]</div>' +
+            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-image" aria-hidden="true"></i> [SMS: "Chase Fraud Alert: Account frozen..."]</div>' +
             'Is this real?' +
           '</div>' +
           '<div class="bg-emerald-950/70 border border-emerald-500/30 p-2.5 rounded-2xl rounded-tl-none text-[10px] text-zinc-200 space-y-1">' +
-            '<div class="font-bold text-red-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation"></i> 99% SCAM CONFIRMED</div>' +
+            '<div class="font-bold text-red-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 99% SCAM CONFIRMED</div>' +
             '<p class="text-[9.5px]">This is an urgency phishing trap trying to steal your card PIN.</p>' +
           '</div>';
       } else if (scenario === 'lab') {
         chat.innerHTML = 
           '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Forward any lab test photo here.</div>' +
           '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
-            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-file-medical"></i> [Photo: Fasting Glucose 118, A1c 5.9%]</div>' +
+            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-file-medical" aria-hidden="true"></i> [Photo: Fasting Glucose 118, A1c 5.9%]</div>' +
             'Doctor is busy until Friday. What does this mean?' +
           '</div>' +
           '<div class="bg-blue-950/70 border border-blue-500/30 p-2.5 rounded-2xl rounded-tl-none text-[10px] text-zinc-200 space-y-1">' +
-            '<div class="font-bold text-blue-400 flex items-center gap-1"><i class="fa-solid fa-heart-pulse"></i> PRE-DIABETES MARKER DETECTED</div>' +
+            '<div class="font-bold text-blue-400 flex items-center gap-1"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i> PRE-DIABETES MARKER DETECTED</div>' +
             '<p class="text-[9.5px]">Fasting glucose is slightly elevated above 99 mg/dL. This indicates early insulin resistance.</p>' +
           '</div>';
       } else if (scenario === 'lease') {
         chat.innerHTML = 
           '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Send lease agreement clause photo or text.</div>' +
           '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
-            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-file-contract"></i> [Clause: "Tenant pays all repairs under $350..."]</div>' +
+            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-file-contract" aria-hidden="true"></i> [Clause: "Tenant pays all repairs under $350..."]</div>' +
             'Can the landlord make me pay this?' +
           '</div>' +
           '<div class="bg-amber-950/70 border border-amber-500/30 p-2.5 rounded-2xl rounded-tl-none text-[10px] text-zinc-200 space-y-1">' +
-            '<div class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation"></i> UNLAWFUL CLAUSE WARNING</div>' +
+            '<div class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> UNLAWFUL CLAUSE WARNING</div>' +
             '<p class="text-[9.5px]">Most states hold landlords legally responsible for habitability repairs regardless of lease clauses.</p>' +
           '</div>';
       }
@@ -3468,5 +3508,7 @@
       onStudioEndpointChange();
     });
   </script>
+  <!-- Toast Notification System -->
+  <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] pointer-events-none flex flex-col items-center gap-2" aria-live="polite"></div>
 </body>
 </html>

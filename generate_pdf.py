@@ -41,7 +41,7 @@ class NumberedCanvas(canvas.Canvas):
             
             self.setFont("Helvetica", 8)
             self.setFillColor(colors.HexColor("#64748B"))
-            self.drawString(175, height - 24, "|   The Comprehensive AI Microservice Playbook (55+ Specialized Endpoints)")
+            self.drawString(175, height - 24, "|   The Comprehensive AI Microservice Playbook (56 Specialized Endpoints)")
             
             # Header rule
             self.setStrokeColor(colors.HexColor("#CBD5E1"))
@@ -52,7 +52,7 @@ class NumberedCanvas(canvas.Canvas):
             self.line(36, 28, width - 36, 28)
             self.setFont("Helvetica", 8)
             self.setFillColor(colors.HexColor("#64748B"))
-            self.drawString(36, 17, "Confidential Strategy Playbook  •  Built for Multi-Persona AI Endpoint Deployment")
+            self.drawString(36, 17, "Live Edge Web App: https://smart-eaas.pages.dev  •  Confidential Strategy Playbook")
             page_str = f"Page {self._pageNumber} of {page_count}"
             self.drawRightString(width - 36, 17, page_str)
             
@@ -203,8 +203,8 @@ def build_pdf(filename="AI_Endpoint_As_A_Service_Playbook.pdf"):
     
     # --- PAGE 1: EXECUTIVE BRIEF & ARCHITECTURE ---
     story.append(Paragraph("ENDPOINT AS A SERVICE (EaaS)", title_style))
-    story.append(Paragraph("The Comprehensive AI Microservice Playbook: 55+ Specialized Functions for Non-Devs, SMBs & NGOs", subtitle_style))
-    story.append(Paragraph("<b>Author / Project:</b> AI Endpoint Initiative &nbsp;|&nbsp; <b>Release:</b> Strategy Guide & Catalog &nbsp;|&nbsp; <b>Architecture:</b> Stateless Deterministic AI Microservices", meta_style))
+    story.append(Paragraph("The Comprehensive AI Microservice Playbook: 56 Specialized Functions for Non-Devs, SMBs & NGOs", subtitle_style))
+    story.append(Paragraph("<b>Author:</b> AI Endpoint Initiative &nbsp;|&nbsp; <b>Live Directory:</b> <a href='https://smart-eaas.pages.dev'><font color='#2563EB'><u>smart-eaas.pages.dev</u></font></a> &nbsp;|&nbsp; <b>GitHub:</b> <a href='https://github.com/Amran-KakiTekno/omnipoint-eaas'><font color='#2563EB'><u>github.com/Amran-KakiTekno/omnipoint-eaas</u></font></a> &nbsp;|&nbsp; <b>Edge Worker:</b> <a href='https://smart-eaas.muhammadamran40.workers.dev/api/health'><font color='#2563EB'><u>workers.dev/api/health</u></font></a>", meta_style))
     story.append(Spacer(1, 10))
     story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor('#2563EB'), spaceBefore=2, spaceAfter=10))
     
@@ -258,6 +258,12 @@ def build_pdf(filename="AI_Endpoint_As_A_Service_Playbook.pdf"):
             Paragraph("<b>Target Audience / Personas</b>", th_style),
             Paragraph("<b>Endpoint Count</b>", th_style),
             Paragraph("<b>Primary Value Proposition</b>", th_style)
+        ],
+        [
+            Paragraph("<b>0. Universal Data & OCR</b>", td_persona_style),
+            Paragraph("Accountants, developers, freelancers, SMB bookkeepers", td_cell_style),
+            Paragraph("1 Endpoint", td_num_style),
+            Paragraph("Multimodal vision OCR turning receipts & PDF invoices into deterministic JSON", td_cell_style)
         ],
         [
             Paragraph("<b>1. Individuals & Consumers</b>", td_persona_style),
@@ -356,6 +362,19 @@ def build_pdf(filename="AI_Endpoint_As_A_Service_Playbook.pdf"):
         t.setStyle(TableStyle(t_style))
         elements.append(t)
         return elements
+
+    # --- CATEGORY 0: DATA & DOCUMENT EXTRACTION (1 endpoint) ---
+    c0_rows = [
+        {
+            "id": 0, "name": "Universal Invoice & Receipt to JSON", "route": "POST /v1/extract/invoice",
+            "persona": "Accountant / Developer", "trigger": "Receipt Upload / Camera Snap",
+            "input": "Messy invoice text or scanned receipt photo with items, taxes, and vendor details.",
+            "output": "Strict JSON schema with vendor name, tax ID, itemized lines, subtotal, tax rate, and total due.",
+            "demand": "Businesses and freelancers manually type invoice receipts into accounting software; automated deterministic OCR saves hours weekly."
+        }
+    ]
+    story.extend(create_category_table("0. Universal Data & Document Extraction (Multimodal OCR)", c0_rows))
+    story.append(Spacer(1, 10))
 
     # --- CATEGORY 1: INDIVIDUALS & CONSUMERS (15 endpoints) ---
     c1_rows = [
