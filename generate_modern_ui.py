@@ -1,4 +1,220 @@
-<!DOCTYPE html>
+import json
+import subprocess
+import os
+
+# Complete prompts dictionary from index.js
+ENDPOINT_PROMPTS = {
+  "explain-lab": {
+    "name": "Medical Lab Report Explainer",
+    "route": "/v1/health/explain-lab",
+    "category": "Individuals & Consumers",
+    "systemPrompt": """You are a medical diagnostics communication specialist. 
+Your job is to analyze medical lab test data and translate it into a patient-friendly, clear, and reassuring explanation.
+CRITICAL: Always output strictly valid JSON with no markdown backticks and no conversational filler.
+Format:
+{
+  "summary": "1-2 sentence overall assessment",
+  "abnormal_findings": [
+    { "test_name": "...", "value": "...", "reference_range": "...", "clinical_meaning": "...", "urgency": "low|medium|high" }
+  ],
+  "potential_lifestyle_factors": ["Factor 1", "Factor 2"],
+  "questions_for_doctor": ["Question 1", "Question 2", "Question 3"],
+  "disclaimer": "This is an AI summary for educational purposes. Consult your licensed physician."
+}""",
+    "defaultSample": """Comprehensive Metabolic Panel & CBC:
+- Fasting Glucose: 118 mg/dL (Reference: 70-99 mg/dL) [HIGH]
+- Hemoglobin A1c: 5.9% (Reference: < 5.7%) [HIGH]
+- Total Cholesterol: 224 mg/dL (Reference: < 200 mg/dL) [HIGH]
+- LDL Cholesterol: 142 mg/dL (Reference: < 100 mg/dL) [HIGH]
+- Triglycerides: 165 mg/dL (Reference: < 150 mg/dL) [HIGH]
+- ALT (Liver enzyme): 38 U/L (Reference: 7-56 U/L) [NORMAL]
+- Creatinine: 0.9 mg/dL (Reference: 0.6-1.2 mg/dL) [NORMAL]"""
+  },
+
+  "lease-check": {
+    "name": "Apartment Lease Red-Flag Auditor",
+    "route": "/v1/legal/lease-check",
+    "category": "Individuals & Consumers",
+    "systemPrompt": """You are a tenant rights attorney auditor. 
+Audit rental lease text to detect exploitative, ambiguous, or illegal clauses.
+CRITICAL: Output strictly valid JSON with no markdown wrapping.
+Format:
+{
+  "risk_score": "low|medium|high|critical",
+  "summary": "...",
+  "flagged_clauses": [
+    { "clause_title": "...", "original_text": "...", "issue_explanation": "...", "state_law_concern": "...", "recommended_action": "..." }
+  ],
+  "hidden_costs_found": ["..."],
+  "tenant_negotiation_checklist": ["..."]
+}""",
+    "defaultSample": """Section 9. Maintenance and Repairs:
+"Tenant shall be responsible for all repairs under $350, including plumbing clogs, HVAC filter servicing, electrical switches, and appliance maintenance. Landlord shall not be liable for lack of heating during winter months if maintenance parts are on backorder."
+
+Section 14. Entry & Inspection:
+"Landlord reserves the right to enter the leased premises at any time without advance written notice for routine inspections, showing to prospective buyers, or general premises auditing."
+
+Section 22. Security Deposit:
+"A non-refundable refurbishment and administrative fee of $500 will be deducted from the security deposit upon vacancy, irrespective of apartment condition."""
+  },
+
+  "scam-detector": {
+    "name": "Elder Scam & Phishing Defender",
+    "route": "/v1/safety/scam-detector",
+    "category": "Individuals & Consumers",
+    "systemPrompt": """You are a cybersecurity and fraud defense investigator.
+Analyze suspicious text messages, voicemails, or emails targeted at consumers or seniors.
+CRITICAL: Output strictly valid JSON without markdown wrapping.
+Format:
+{
+  "is_scam": true,
+  "confidence_score": 0.98,
+  "scam_type": "IRS / Bank Impersonation / Urgency Phishing",
+  "red_flags": ["..."],
+  "psychological_tricks_used": ["..."],
+  "plain_language_verdict": "Clear, reassuring explanation for a senior",
+  "safe_action_steps": ["DO NOT click...", "Block...", "Call bank directly at..."]
+}""",
+    "defaultSample": """URGENT NOTICE FROM CHASE FRAUD ALERT:
+Your online access has been temporarily restricted due to 3 suspicious transactions totaling $1,420.89 in Chicago, IL.
+If you did not authorize these charges, you must immediately verify your identity and debit card PIN within 15 minutes by clicking:
+https://chase-security-resolver-update82.com/login?token=92842
+Failure to respond will result in immediate permanent account suspension and police filing."""
+  },
+
+  "review-reply": {
+    "name": "Google Business Review De-escalator",
+    "route": "/v1/smb/review-reply",
+    "category": "Local Small Businesses",
+    "systemPrompt": """You are a high-end customer relations and brand PR director.
+Generate a public response to a customer review that validates their frustration, preserves brand reputation, avoids admitting legal liability, and moves resolution offline.
+CRITICAL: Output strictly valid JSON.
+Format:
+{
+  "sentiment": "negative|neutral|positive",
+  "urgency": "low|medium|high",
+  "primary_complaint": "...",
+  "recommended_public_reply": "...",
+  "internal_process_fix": "What the staff should fix behind the scenes"
+}""",
+    "defaultSample": """1-Star Review on Google Maps for "Mario's Wood-Fired Pizzeria":
+"Waited 55 minutes for two pizzas on a Tuesday night. When they finally arrived, the crust was burnt on the bottom and cold on top. The waiter never checked on our drinks and when I asked for the manager, he acted like I was bothering him. Overpriced garbage. Will never come back with my family."""
+  },
+
+  "grant-match": {
+    "name": "Grant RFP Criteria Matcher",
+    "route": "/v1/ngo/grant-match",
+    "category": "Non-Profits & NGOs",
+    "systemPrompt": """You are a seasoned non-profit foundation grant evaluation officer.
+Evaluate an RFP summary against an NGO's mission to assess eligibility, disqualifications, and strategic alignment.
+CRITICAL: Output strictly valid JSON.
+Format:
+{
+  "eligibility_match_percentage": 88,
+  "eligibility_verdict": "Eligible|Borderline|Disqualified",
+  "aligned_focus_areas": ["..."],
+  "disqualification_risks": ["..."],
+  "required_metrics_to_prove": ["..."],
+  "strategic_recommendation": "..."
+}""",
+    "defaultSample": """GRANT RFP:
+Funder: The Global Green Community Trust
+Grant Size: $50,000 - $120,000
+Eligibility Requirements: Must be a registered 501(c)(3) operating for at least 3 years. Focus must be urban agricultural education or youth-led local food justice. Overhead/indirect administrative costs capped at 10%. Projects must track number of youth trained and pounds of fresh produce distributed.
+
+APPLICANT NGO PROFILE:
+Organization: CityRoots Community Gardens (501c3 founded 2021)
+Annual Budget: $320,000
+Mission: Transforming vacant municipal lots into community micro-farms in underserved food deserts, providing after-school apprenticeships to high schoolers."""
+  },
+
+  "scope-defense": {
+    "name": "Client Scope Creep Defense Assistant",
+    "route": "/v1/freelance/scope-defense",
+    "category": "Creators & Solopreneurs",
+    "systemPrompt": """You are a freelance contract strategist and client diplomacy expert.
+Analyze an incoming client request against the agreed project scope. Confirm if it is scope creep, write a friendly and polite email that upholds boundaries, and formulate a paid change-order proposal.
+CRITICAL: Output strictly valid JSON.
+Format:
+{
+  "is_scope_creep": true,
+  "creep_severity": "minor|moderate|major",
+  "analysis": "...",
+  "diplomatic_email_draft": "...",
+  "suggested_change_order_fee": "$300 - $500",
+  "estimated_additional_timeline": "3 business days"
+}""",
+    "defaultSample": """ORIGINAL CONTRACT SCOPE:
+"Design and build a 5-page responsive marketing website (Home, About, Services, Case Studies, Contact) in Webflow. Includes 2 rounds of design revisions. CMS integration for 10 case studies."
+
+INCOMING CLIENT MESSAGE:
+"Hi Alex! Love the progress on the site. Since we have a couple days before launch, could you also quickly hook up a multi-step user registration portal where clients can log in to upload PDF files and view their invoice history? It shouldn't take too long since it's just adding an account button. Thanks!"""
+  },
+
+  "differentiate": {
+    "name": "Differentiated Homework Generator",
+    "route": "/v1/edu/differentiate",
+    "category": "Education & Public Service",
+    "systemPrompt": """You are a master pedagogical curriculum designer.
+Given a core learning concept or standard, create 3 tiered assignments: Tier 1 (Remedial / Scaffolding), Tier 2 (Grade-level Mastery), and Tier 3 (Advanced Inquiry / Extension).
+CRITICAL: Output strictly valid JSON.
+Format:
+{
+  "core_concept": "...",
+  "target_grade": "...",
+  "tier_1_scaffolded": { "objective": "...", "assignment": "...", "support_scaffolds": ["..."] },
+  "tier_2_mastery": { "objective": "...", "assignment": "..." },
+  "tier_3_advanced": { "objective": "...", "assignment": "..." },
+  "quick_exit_ticket_question": "..."
+}""",
+    "defaultSample": """Grade Level: 7th Grade Science
+Topic: Ecosystems & Food Webs
+Learning Goal: Students must demonstrate understanding of how energy flows through trophic levels (producers, primary consumers, secondary consumers, apex predators) and what happens when an invasive species disrupts the balance."""
+  },
+
+  "invoice-extract": {
+    "name": "Universal Invoice & Receipt to JSON",
+    "route": "/v1/extract/invoice",
+    "category": "Data Extraction & OCR",
+    "systemPrompt": """You are an automated document parsing and accounting data extraction engine.
+Parse raw invoice/receipt text and extract strictly standardized accounting fields.
+CRITICAL: Output strictly valid JSON.
+Format:
+{
+  "vendor": { "name": "...", "address": "...", "tax_id": "..." },
+  "invoice_details": { "invoice_number": "...", "date": "YYYY-MM-DD", "due_date": "YYYY-MM-DD" },
+  "currency": "USD",
+  "line_items": [
+    { "description": "...", "quantity": 1, "unit_price": 0.0, "total": 0.0 }
+  ],
+  "subtotal": 0.0,
+  "tax_amount": 0.0,
+  "total_amount": 0.0,
+  "payment_terms": "..."
+}""",
+    "defaultSample": """INVOICE #INV-884920
+Vendor: Apex Cloud Solutions LLC
+1204 Innovation Way, Suite 400, Austin, TX 78701
+Tax ID / EIN: 84-2938192
+Bill To: Meridian Logistics Inc.
+Date: September 08, 2026
+Due Date: October 08, 2026
+
+Description                        Qty    Rate       Amount
+Kubernetes Dedicated Node Cluster    2    $450.00    $900.00
+Cloud Storage R2 Bucket (5TB)        1    $75.00     $75.00
+Edge Network DDOS Protection Addon   1    $120.00    $120.00
+
+Subtotal: $1,095.00
+State Sales Tax (8.25%): $90.34
+Total Due: $1,185.34
+Payment: Net 30 days. Wire to Bank of America Acct ending in 4921."""
+  }
+}
+
+def generate_html():
+    prompts_json = json.dumps(ENDPOINT_PROMPTS)
+    html_content = f"""<!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -11,46 +227,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
   <script>
-    tailwind.config = {
+    tailwind.config = {{
       darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
+      theme: {{
+        extend: {{
+          fontFamily: {{
             sans: ['Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            brand: {
+          }},
+          colors: {{
+            brand: {{
               50: '#eef2ff',
               100: '#e0e7ff',
               400: '#818cf8',
               500: '#6366f1',
               600: '#4f46e5',
-            }
-          }
-        }
-      }
-    }
+            }}
+          }}
+        }}
+      }}
+    }}
   </script>
 
   <style>
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #09090b; }
-    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    ::-webkit-scrollbar {{ width: 6px; height: 6px; }}
+    ::-webkit-scrollbar-track {{ background: #09090b; }}
+    ::-webkit-scrollbar-thumb {{ background: #27272a; border-radius: 9999px; }}
+    ::-webkit-scrollbar-thumb:hover {{ background: #3f3f46; }}
 
-    .grid-bg {
+    .grid-bg {{
       background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
       background-size: 24px 24px;
-    }
-    .card-hover {
+    }}
+    .card-hover {{
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .card-hover:hover {
+    }}
+    .card-hover:hover {{
       transform: translateY(-2px);
       border-color: rgba(255, 255, 255, 0.22);
       box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
-    }
+    }}
   </style>
 </head>
 <body class="bg-[#09090b] text-[#f4f4f5] antialiased min-h-screen flex flex-col font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
@@ -74,7 +290,7 @@
         <div class="hidden sm:flex items-center gap-2 pl-3 border-l border-white/[0.08]">
           <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            Edge Live (Cloudflare)
+            Edge Ready (Cloudflare)
           </span>
         </div>
       </div>
@@ -82,7 +298,7 @@
       <!-- Center Links -->
       <nav class="hidden md:flex items-center space-x-1 text-xs font-medium text-zinc-400">
         <button onclick="scrollToSection('directory')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">Directory</button>
-        <button onclick="openStudio()" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition flex items-center gap-1.5 text-indigo-400 font-semibold">
+        <button onclick="openStudio()" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition flex items-center gap-1.5 text-indigo-400">
           <i class="fa-solid fa-play text-[10px]"></i> Live Studio
         </button>
         <button onclick="scrollToSection('surfaces')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">UI Wireframes</button>
@@ -321,7 +537,7 @@
             </div>
             <div class="p-3.5 rounded-xl bg-[#121215] border border-white/[0.08]">
               <div class="text-xs font-semibold text-white mb-1">Monetization</div>
-              <p class="text-[11px] text-zinc-400">$4.99/mo subscription for up to 4 family members with unlimited audits.</p>
+              <p class="text-[11px] text-zinc-400">\$4.99/mo subscription for up to 4 family members with unlimited audits.</p>
             </div>
           </div>
         </div>
@@ -367,7 +583,7 @@
                 <tr>
                   <td class="p-2.5 text-center text-zinc-600">4</td>
                   <td class="p-2.5 text-zinc-200">Youth Arts & Community Literacy</td>
-                  <td class="p-2.5 text-zinc-400 truncate max-w-xs">Budget must be below $250,000; requires 1:1 matching cash grant...</td>
+                  <td class="p-2.5 text-zinc-400 truncate max-w-xs">Budget must be below \$250,000; requires 1:1 matching cash grant...</td>
                   <td class="p-2.5 text-amber-400 font-semibold">65% Match (Review Match)</td>
                   <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20">Verify Cash Match</span></td>
                 </tr>
@@ -423,7 +639,7 @@
       <span class="text-[11px] font-mono uppercase tracking-wider text-indigo-400 font-semibold">Infrastructure</span>
       <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">Zero-Cost Global Edge Architecture</h2>
       <p class="text-xs sm:text-sm text-zinc-400 mt-2">
-        How this entire platform runs at $0.00 fixed monthly cost using your Cloudflare and GitHub setup.
+        How this entire platform runs at \$0.00 fixed monthly cost using your Cloudflare and GitHub setup.
       </p>
     </div>
 
@@ -437,7 +653,7 @@
           Stateless edge functions running globally in 300+ cities. Handles routing, Pydantic/JSON validation, and upstream model failover.
         </p>
         <div class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">
-          100,000 free requests/day • $0/mo
+          100,000 free requests/day • \$0/mo
         </div>
       </div>
 
@@ -590,7 +806,7 @@
               <li>Add a <strong>"Webhooks by Zapier"</strong> action in your Zap.</li>
               <li>Choose <strong>"Custom Request"</strong> with method <code>POST</code>.</li>
               <li>Set URL to <code class="text-indigo-400" id="zapier-url">https://smart-eaas.muhammadamran40.workers.dev/...</code></li>
-              <li>Set Data to <code>{"input": "..."}</code> mapping your trigger fields.</li>
+              <li>Set Data to <code>{{"input": "..."}}</code> mapping your trigger fields.</li>
               <li>Zapier automatically maps each returned JSON field into following actions!</li>
             </ol>
           </div>
@@ -620,135 +836,94 @@
 
   <!-- CORE CLIENT-SIDE SCRIPT -->
   <script>
-    const ENDPOINT_CONFIGS = {
-      "explain-lab": {
-        name: "Medical Lab Report Explainer",
-        route: "/v1/health/explain-lab",
-        defaultSample: "Comprehensive Metabolic Panel & CBC:\n- Fasting Glucose: 118 mg/dL (Reference: 70-99 mg/dL) [HIGH]\n- Hemoglobin A1c: 5.9% (Reference: < 5.7%) [HIGH]\n- Total Cholesterol: 224 mg/dL (Reference: < 200 mg/dL) [HIGH]\n- LDL Cholesterol: 142 mg/dL (Reference: < 100 mg/dL) [HIGH]\n- Triglycerides: 165 mg/dL (Reference: < 150 mg/dL) [HIGH]\n- ALT (Liver enzyme): 38 U/L (Reference: 7-56 U/L) [NORMAL]\n- Creatinine: 0.9 mg/dL (Reference: 0.6-1.2 mg/dL) [NORMAL]"
-      },
-      "lease-check": {
-        name: "Apartment Lease Red-Flag Auditor",
-        route: "/v1/legal/lease-check",
-        defaultSample: "Section 9. Maintenance and Repairs:\n\"Tenant shall be responsible for all repairs under $350, including plumbing clogs, HVAC filter servicing, electrical switches, and appliance maintenance. Landlord shall not be liable for lack of heating during winter months if maintenance parts are on backorder.\"\n\nSection 14. Entry & Inspection:\n\"Landlord reserves the right to enter the leased premises at any time without advance written notice for routine inspections, showing to prospective buyers, or general premises auditing.\"\n\nSection 22. Security Deposit:\n\"A non-refundable refurbishment and administrative fee of $500 will be deducted from the security deposit upon vacancy, irrespective of apartment condition.\""
-      },
-      "scam-detector": {
-        name: "Elder Scam & Phishing Defender",
-        route: "/v1/safety/scam-detector",
-        defaultSample: "URGENT NOTICE FROM CHASE FRAUD ALERT:\nYour online access has been temporarily restricted due to 3 suspicious transactions totaling $1,420.89 in Chicago, IL.\nIf you did not authorize these charges, you must immediately verify your identity and debit card PIN within 15 minutes by clicking:\nhttps://chase-security-resolver-update82.com/login?token=92842\nFailure to respond will result in immediate permanent account suspension and police filing."
-      },
-      "review-reply": {
-        name: "Google Business Review De-escalator",
-        route: "/v1/smb/review-reply",
-        defaultSample: "1-Star Review on Google Maps for \"Mario's Wood-Fired Pizzeria\":\n\"Waited 55 minutes for two pizzas on a Tuesday night. When they finally arrived, the crust was burnt on the bottom and cold on top. The waiter never checked on our drinks and when I asked for the manager, he acted like I was bothering him. Overpriced garbage. Will never come back with my family.\""
-      },
-      "grant-match": {
-        name: "Grant RFP Criteria Matcher",
-        route: "/v1/ngo/grant-match",
-        defaultSample: "GRANT RFP:\nFunder: The Global Green Community Trust\nGrant Size: $50,000 - $120,000\nEligibility Requirements: Must be a registered 501(c)(3) operating for at least 3 years. Focus must be urban agricultural education or youth-led local food justice. Overhead/indirect administrative costs capped at 10%. Projects must track number of youth trained and pounds of fresh produce distributed.\n\nAPPLICANT NGO PROFILE:\nOrganization: CityRoots Community Gardens (501c3 founded 2021)\nAnnual Budget: $320,000\nMission: Transforming vacant municipal lots into community micro-farms in underserved food deserts, providing after-school apprenticeships to high schoolers."
-      },
-      "scope-defense": {
-        name: "Client Scope Creep Defense Assistant",
-        route: "/v1/freelance/scope-defense",
-        defaultSample: "ORIGINAL CONTRACT SCOPE:\n\"Design and build a 5-page responsive marketing website (Home, About, Services, Case Studies, Contact) in Webflow. Includes 2 rounds of design revisions. CMS integration for 10 case studies.\"\n\nINCOMING CLIENT MESSAGE:\n\"Hi Alex! Love the progress on the site. Since we have a couple days before launch, could you also quickly hook up a multi-step user registration portal where clients can log in to upload PDF files and view their invoice history? It shouldn't take too long since it's just adding an account button. Thanks!\""
-      },
-      "differentiate": {
-        name: "Differentiated Homework Generator",
-        route: "/v1/edu/differentiate",
-        defaultSample: "Grade Level: 7th Grade Science\nTopic: Ecosystems & Food Webs\nLearning Goal: Students must demonstrate understanding of how energy flows through trophic levels (producers, primary consumers, secondary consumers, apex predators) and what happens when an invasive species disrupts the balance."
-      },
-      "invoice-extract": {
-        name: "Universal Invoice & Receipt to JSON",
-        route: "/v1/extract/invoice",
-        defaultSample: "INVOICE #INV-884920\nVendor: Apex Cloud Solutions LLC\n1204 Innovation Way, Suite 400, Austin, TX 78701\nTax ID / EIN: 84-2938192\nBill To: Meridian Logistics Inc.\nDate: September 08, 2026\nDue Date: October 08, 2026\n\nDescription                        Qty    Rate       Amount\nKubernetes Dedicated Node Cluster    2    $450.00    $900.00\nCloud Storage R2 Bucket (5TB)        1    $75.00     $75.00\nEdge Network DDOS Protection Addon   1    $120.00    $120.00\n\nSubtotal: $1,095.00\nState Sales Tax (8.25%): $90.34\nTotal Due: $1,185.34\nPayment: Net 30 days. Wire to Bank of America Acct ending in 4921."
-      }
-    };
+    const ENDPOINT_CONFIGS = {prompts_json};
 
     // Full 55+ endpoint catalog data
     const ALL_ENDPOINTS = [
-      { id: 1, route: "/v1/health/explain-lab", cat: "individuals", title: "Medical Lab Report Explainer", persona: "Patient / Caregiver", desc: "Translates cryptic blood panels and metabolic tests into plain language with out-of-range highlights and doctor questions.", key: "explain-lab", tags: ["Health", "Safe"] },
-      { id: 2, route: "/v1/legal/lease-check", cat: "individuals", title: "Apartment Lease Red-Flag Auditor", persona: "Tenant / Student", desc: "Detects exploitative repair clauses, illegal entry rights, and hidden deposit deduction traps in rental contracts.", key: "lease-check", tags: ["Legal", "Tenant"] },
-      { id: 3, route: "/v1/safety/scam-detector", cat: "individuals", title: "Elder Scam & Phishing Defender", persona: "Senior / Family", desc: "Analyzes suspicious texts, fake bank warnings, and urgency phishing with reassurance and safe next steps.", key: "scam-detector", tags: ["Security", "Family"] },
-      { id: 4, route: "/v1/auto/quote-verifier", cat: "individuals", title: "Car Mechanic Quote Sanity Checker", persona: "Car Owner", desc: "Cross-checks repair estimates against market labor rates and flags unnecessary upsells vs critical safety fixes.", key: "explain-lab", tags: ["Auto", "Consumer"] },
-      { id: 5, route: "/v1/finance/fee-audit", cat: "individuals", title: "Subscription & Hidden Fee Hunter", persona: "Budgeter", desc: "Audits bank and card statements to flag stealth price increases, forgotten SaaS, and one-click cancel links.", key: "explain-lab", tags: ["Finance"] },
-      { id: 6, route: "/v1/diet/ingredient-alert", cat: "individuals", title: "Allergen & Additive Scanner", persona: "Allergy Sufferer", desc: "Deciphers food ingredient photos to flag hidden dairy derivatives, gluten, and dangerous E-numbers.", key: "explain-lab", tags: ["Health", "Vision"] },
-      { id: 7, route: "/v1/legal/ticket-appeal", cat: "individuals", title: "Parking Ticket & Tow Appeal Drafter", persona: "Urban Driver", desc: "Drafts formal municipal appeals citing signage ambiguities, curb markings, and local traffic codes.", key: "explain-lab", tags: ["Legal"] },
-      { id: 8, route: "/v1/insurance/appeal-generator", cat: "individuals", title: "Insurance Claim Denial Fighter", persona: "Homeowner / Patient", desc: "Generates structured rebuttal letters citing policy declaration clauses and statutory prompt-pay rules.", key: "explain-lab", tags: ["Insurance"] },
-      { id: 9, route: "/v1/edu/iep-analyzer", cat: "individuals", title: "Special-Ed IEP Document Decoder", persona: "Parent of Neurodivergent Child", desc: "Translates 40-page school IEPs into clear checklists, missing accommodations, and legal IDEA rights.", key: "explain-lab", tags: ["Education"] },
-      { id: 10, route: "/v1/food/fridge-inventory", cat: "individuals", title: "Zero-Waste Fridge-to-Meal Chef", persona: "Busy Parent", desc: "Turns a photo of your fridge interior into 3 exact meals utilizing only expiring perishables.", key: "explain-lab", tags: ["Vision", "Food"] },
-      { id: 11, route: "/v1/home/appliance-fix", cat: "individuals", title: "Appliance Error Code Decryptor", persona: "Homeowner", desc: "Decodes flashing dishwasher/boiler error codes, rating DIY repair feasibility and replacement part numbers.", key: "explain-lab", tags: ["DIY"] },
-      { id: 12, route: "/v1/energy/bill-optimizer", cat: "individuals", title: "Utility Tariff Optimizer", persona: "Household Manager", desc: "Audits electric bill usage against alternative time-of-use tariffs to calculate annual shifting savings.", key: "explain-lab", tags: ["Energy"] },
-      { id: 13, route: "/v1/career/transition-map", cat: "individuals", title: "Career Switcher Skill Crosswalk", persona: "Laid-Off Worker", desc: "Maps legacy job experience into modern tech & green economy roles with tailored resume narratives.", key: "explain-lab", tags: ["Career"] },
-      { id: 14, route: "/v1/parenting/coaching", cat: "individuals", title: "Child Behavioral De-escalator", persona: "Stressed Parent", desc: "Provides gentle, developmentally attuned verbal scripts during high-stress toddler tantrums or teen defiance.", key: "explain-lab", tags: ["Parenting"] },
-      { id: 15, route: "/v1/consumer/warranty-claim", cat: "individuals", title: "Statutory Warranty Dispute Writer", persona: "Online Shopper", desc: "Drafts formal demand letters invoking statutory implied warranties (Magnuson-Moss / EU Directives).", key: "explain-lab", tags: ["Consumer"] },
+      {{ id: 1, route: "/v1/health/explain-lab", cat: "individuals", title: "Medical Lab Report Explainer", persona: "Patient / Caregiver", desc: "Translates cryptic blood panels and metabolic tests into plain language with out-of-range highlights and doctor questions.", key: "explain-lab", tags: ["Health", "Safe"] }},
+      {{ id: 2, route: "/v1/legal/lease-check", cat: "individuals", title: "Apartment Lease Red-Flag Auditor", persona: "Tenant / Student", desc: "Detects exploitative repair clauses, illegal entry rights, and hidden deposit deduction traps in rental contracts.", key: "lease-check", tags: ["Legal", "Tenant"] }},
+      {{ id: 3, route: "/v1/safety/scam-detector", cat: "individuals", title: "Elder Scam & Phishing Defender", persona: "Senior / Family", desc: "Analyzes suspicious texts, fake bank warnings, and urgency phishing with reassurance and safe next steps.", key: "scam-detector", tags: ["Security", "Family"] }},
+      {{ id: 4, route: "/v1/auto/quote-verifier", cat: "individuals", title: "Car Mechanic Quote Sanity Checker", persona: "Car Owner", desc: "Cross-checks repair estimates against market labor rates and flags unnecessary upsells vs critical safety fixes.", key: "explain-lab", tags: ["Auto", "Consumer"] }},
+      {{ id: 5, route: "/v1/finance/fee-audit", cat: "individuals", title: "Subscription & Hidden Fee Hunter", persona: "Budgeter", desc: "Audits bank and card statements to flag stealth price increases, forgotten SaaS, and one-click cancel links.", key: "explain-lab", tags: ["Finance"] }},
+      {{ id: 6, route: "/v1/diet/ingredient-alert", cat: "individuals", title: "Allergen & Additive Scanner", persona: "Allergy Sufferer", desc: "Deciphers food ingredient photos to flag hidden dairy derivatives, gluten, and dangerous E-numbers.", key: "explain-lab", tags: ["Health", "Vision"] }},
+      {{ id: 7, route: "/v1/legal/ticket-appeal", cat: "individuals", title: "Parking Ticket & Tow Appeal Drafter", persona: "Urban Driver", desc: "Drafts formal municipal appeals citing signage ambiguities, curb markings, and local traffic codes.", key: "explain-lab", tags: ["Legal"] }},
+      {{ id: 8, route: "/v1/insurance/appeal-generator", cat: "individuals", title: "Insurance Claim Denial Fighter", persona: "Homeowner / Patient", desc: "Generates structured rebuttal letters citing policy declaration clauses and statutory prompt-pay rules.", key: "explain-lab", tags: ["Insurance"] }},
+      {{ id: 9, route: "/v1/edu/iep-analyzer", cat: "individuals", title: "Special-Ed IEP Document Decoder", persona: "Parent of Neurodivergent Child", desc: "Translates 40-page school IEPs into clear checklists, missing accommodations, and legal IDEA rights.", key: "explain-lab", tags: ["Education"] }},
+      {{ id: 10, route: "/v1/food/fridge-inventory", cat: "individuals", title: "Zero-Waste Fridge-to-Meal Chef", persona: "Busy Parent", desc: "Turns a photo of your fridge interior into 3 exact meals utilizing only expiring perishables.", key: "explain-lab", tags: ["Vision", "Food"] }},
+      {{ id: 11, route: "/v1/home/appliance-fix", cat: "individuals", title: "Appliance Error Code Decryptor", persona: "Homeowner", desc: "Decodes flashing dishwasher/boiler error codes, rating DIY repair feasibility and replacement part numbers.", key: "explain-lab", tags: ["DIY"] }},
+      {{ id: 12, route: "/v1/energy/bill-optimizer", cat: "individuals", title: "Utility Tariff Optimizer", persona: "Household Manager", desc: "Audits electric bill usage against alternative time-of-use tariffs to calculate annual shifting savings.", key: "explain-lab", tags: ["Energy"] }},
+      {{ id: 13, route: "/v1/career/transition-map", cat: "individuals", title: "Career Switcher Skill Crosswalk", persona: "Laid-Off Worker", desc: "Maps legacy job experience into modern tech & green economy roles with tailored resume narratives.", key: "explain-lab", tags: ["Career"] }},
+      {{ id: 14, route: "/v1/parenting/coaching", cat: "individuals", title: "Child Behavioral De-escalator", persona: "Stressed Parent", desc: "Provides gentle, developmentally attuned verbal scripts during high-stress toddler tantrums or teen defiance.", key: "explain-lab", tags: ["Parenting"] }},
+      {{ id: 15, route: "/v1/consumer/warranty-claim", cat: "individuals", title: "Statutory Warranty Dispute Writer", persona: "Online Shopper", desc: "Drafts formal demand letters invoking statutory implied warranties (Magnuson-Moss / EU Directives).", key: "explain-lab", tags: ["Consumer"] }},
 
       // Category 2: Non-Profits
-      { id: 16, route: "/v1/ngo/grant-match", cat: "non-profits", title: "Grant RFP Criteria Matcher", persona: "Grant Writer", desc: "Evaluates 50-page foundation RFPs against NGO missions, calculating eligibility match % and disqualifiers.", key: "grant-match", tags: ["Grants", "NPO"] },
-      { id: 17, route: "/v1/ngo/donor-story", cat: "non-profits", title: "Raw Field Impact-to-Story Engine", persona: "Fundraiser", desc: "Converts messy field notes into emotional donor newsletters, impact metrics, and thank-you cards.", key: "grant-match", tags: ["Donors"] },
-      { id: 18, route: "/v1/ngo/990-explainer", cat: "non-profits", title: "Form 990 Non-Profit Tax Simplifier", persona: "Board Trustee", desc: "Simplifies complex annual Form 990 filings into program-expense ratios, liquidity reserves, and audits.", key: "grant-match", tags: ["Finance"] },
-      { id: 19, route: "/v1/ngo/volunteer-dispatch", cat: "non-profits", title: "Volunteer Skill Matcher & Dispatcher", persona: "Volunteer Coordinator", desc: "Triages volunteer questionnaire skills to urgent operational shifts with automated SMS onboarding.", key: "grant-match", tags: ["Volunteers"] },
-      { id: 20, route: "/v1/ngo/localize-notice", cat: "non-profits", title: "Community Flyer Cultural Localizer", persona: "Organizer", desc: "Adapts announcements into Spanish, Arabic, or Vietnamese preserving cultural idioms and reading levels.", key: "grant-match", tags: ["Community"] },
-      { id: 21, route: "/v1/crisis/sos-triage", cat: "non-profits", title: "Disaster Crisis SOS Triage", persona: "Emergency Response", desc: "Extracts GPS, urgency scores (1-5), and required medical/rescue gear from incoming crisis texts.", key: "grant-match", tags: ["Emergency"] },
-      { id: 22, route: "/v1/ngo/donor-letter", cat: "non-profits", title: "Major Donor Stewardship Drafter", persona: "Development Director", desc: "Crafts bespoke cultivation letters referencing past personal gifts and tangible program outcomes.", key: "grant-match", tags: ["Fundraising"] },
-      { id: 23, route: "/v1/ngo/foodbank-recipes", cat: "non-profits", title: "Pantry Surplus Recipe Creator", persona: "Food Pantry Lead", desc: "Generates no-oven recipe cards for odd surplus donations (lentils, squash) to include in food boxes.", key: "grant-match", tags: ["Food"] },
-      { id: 24, route: "/v1/ngo/policy-impact", cat: "non-profits", title: "Legislative Bill Impact Digest", persona: "Advocacy Director", desc: "Section-by-section breakdown of state omnibus bills highlighting community threats and testimony points.", key: "grant-match", tags: ["Policy"] },
-      { id: 25, route: "/v1/ngo/budget-narrative", cat: "non-profits", title: "Grant Budget Narrative Writer", persona: "Program Manager", desc: "Writes comprehensive, audit-ready narrative justifications for every mathematical row in a budget.", key: "grant-match", tags: ["Grants"] },
+      {{ id: 16, route: "/v1/ngo/grant-match", cat: "non-profits", title: "Grant RFP Criteria Matcher", persona: "Grant Writer", desc: "Evaluates 50-page foundation RFPs against NGO missions, calculating eligibility match % and disqualifiers.", key: "grant-match", tags: ["Grants", "NPO"] }},
+      {{ id: 17, route: "/v1/ngo/donor-story", cat: "non-profits", title: "Raw Field Impact-to-Story Engine", persona: "Fundraiser", desc: "Converts messy field notes into emotional donor newsletters, impact metrics, and thank-you cards.", key: "grant-match", tags: ["Donors"] }},
+      {{ id: 18, route: "/v1/ngo/990-explainer", cat: "non-profits", title: "Form 990 Non-Profit Tax Simplifier", persona: "Board Trustee", desc: "Simplifies complex annual Form 990 filings into program-expense ratios, liquidity reserves, and audits.", key: "grant-match", tags: ["Finance"] }},
+      {{ id: 19, route: "/v1/ngo/volunteer-dispatch", cat: "non-profits", title: "Volunteer Skill Matcher & Dispatcher", persona: "Volunteer Coordinator", desc: "Triages volunteer questionnaire skills to urgent operational shifts with automated SMS onboarding.", key: "grant-match", tags: ["Volunteers"] }},
+      {{ id: 20, route: "/v1/ngo/localize-notice", cat: "non-profits", title: "Community Flyer Cultural Localizer", persona: "Organizer", desc: "Adapts announcements into Spanish, Arabic, or Vietnamese preserving cultural idioms and reading levels.", key: "grant-match", tags: ["Community"] }},
+      {{ id: 21, route: "/v1/crisis/sos-triage", cat: "non-profits", title: "Disaster Crisis SOS Triage", persona: "Emergency Response", desc: "Extracts GPS, urgency scores (1-5), and required medical/rescue gear from incoming crisis texts.", key: "grant-match", tags: ["Emergency"] }},
+      {{ id: 22, route: "/v1/ngo/donor-letter", cat: "non-profits", title: "Major Donor Stewardship Drafter", persona: "Development Director", desc: "Crafts bespoke cultivation letters referencing past personal gifts and tangible program outcomes.", key: "grant-match", tags: ["Fundraising"] }},
+      {{ id: 23, route: "/v1/ngo/foodbank-recipes", cat: "non-profits", title: "Pantry Surplus Recipe Creator", persona: "Food Pantry Lead", desc: "Generates no-oven recipe cards for odd surplus donations (lentils, squash) to include in food boxes.", key: "grant-match", tags: ["Food"] }},
+      {{ id: 24, route: "/v1/ngo/policy-impact", cat: "non-profits", title: "Legislative Bill Impact Digest", persona: "Advocacy Director", desc: "Section-by-section breakdown of state omnibus bills highlighting community threats and testimony points.", key: "grant-match", tags: ["Policy"] }},
+      {{ id: 25, route: "/v1/ngo/budget-narrative", cat: "non-profits", title: "Grant Budget Narrative Writer", persona: "Program Manager", desc: "Writes comprehensive, audit-ready narrative justifications for every mathematical row in a budget.", key: "grant-match", tags: ["Grants"] }},
 
       // Category 3: Creators & Solopreneurs
-      { id: 26, route: "/v1/creator/repurpose", cat: "creators", title: "Long-Form to Multi-Platform Repurposer", persona: "YouTuber / Podcaster", desc: "Turns 1 video transcript into 1 X thread, 3 LinkedIn posts, 5 TikTok hooks, and 1 email newsletter.", key: "scope-defense", tags: ["Content", "Social"] },
-      { id: 27, route: "/v1/freelance/scope-defense", cat: "creators", title: "Client Scope Creep Defense Assistant", persona: "Freelancer / Designer", desc: "Identifies scope breaches, drafting diplomatic boundary-holding emails with paid change orders.", key: "scope-defense", tags: ["Freelance", "Contracts"] },
-      { id: 28, route: "/v1/audio/shownotes", cat: "creators", title: "Podcast Show Notes & Timestamps", persona: "Audio Producer", desc: "Generates clickable chapter timestamps, guest bios, key discussion points, and quote summaries.", key: "scope-defense", tags: ["Audio"] },
-      { id: 29, route: "/v1/creator/pitch-brand", cat: "creators", title: "Sponsorship Pitch & Rate Matrix", persona: "Micro-Creator", desc: "Formulates brand outreach emails with CPM-benchmarked pricing quotes based on view analytics.", key: "scope-defense", tags: ["Sponsors"] },
-      { id: 30, route: "/v1/design/audit-portfolio", cat: "creators", title: "Portfolio First-Impression Audit", persona: "Junior Designer", desc: "Provides a 5-second visual clarity audit, UX friction points, and recruiter readability scoring.", key: "scope-defense", tags: ["Design"] },
-      { id: 31, route: "/v1/marketing/objection-handler", cat: "creators", title: "Landing Page Objection Buster", persona: "Indie Founder", desc: "Extracts top 10 hidden buyer hesitation fears from draft sales copy and writes punchy FAQ rebuttals.", key: "scope-defense", tags: ["Marketing"] },
-      { id: 32, route: "/v1/youtube/thumbnail-concepts", cat: "creators", title: "YouTube Thumbnail & Title Angle Engine", persona: "Video Creator", desc: "Generates 3 psychological framing angles (curiosity, contrarian, mistake) with thumbnail sketch prompts.", key: "scope-defense", tags: ["YouTube"] },
-      { id: 33, route: "/v1/freelance/lead-qualifier", cat: "creators", title: "Inbound Client Lead Qualifier", persona: "Agency Owner", desc: "Assesses prospective client inquiries for budget viability, project clarity, and red-flag traps.", key: "scope-defense", tags: ["Leads"] },
-      { id: 34, route: "/v1/audio/clean-transcript", cat: "creators", title: "Audio Filler Word & Glitch Cleaner", persona: "Audio Editor", desc: "Generates automated timecoded cut-lists for 'um', 'ah', mouth clicks, and repeated hesitations.", key: "scope-defense", tags: ["Audio"] },
-      { id: 35, route: "/v1/video/tone-subtitles", cat: "creators", title: "Nuanced Subtitle Slang Adapter", persona: "Global Creator", desc: "Localizes video subtitles preserving conversational internet slang, humor, and timing.", key: "scope-defense", tags: ["Video"] },
+      {{ id: 26, route: "/v1/creator/repurpose", cat: "creators", title: "Long-Form to Multi-Platform Repurposer", persona: "YouTuber / Podcaster", desc: "Turns 1 video transcript into 1 X thread, 3 LinkedIn posts, 5 TikTok hooks, and 1 email newsletter.", key: "scope-defense", tags: ["Content", "Social"] }},
+      {{ id: 27, route: "/v1/freelance/scope-defense", cat: "creators", title: "Client Scope Creep Defense Assistant", persona: "Freelancer / Designer", desc: "Identifies scope breaches, drafting diplomatic boundary-holding emails with paid change orders.", key: "scope-defense", tags: ["Freelance", "Contracts"] }},
+      {{ id: 28, route: "/v1/audio/shownotes", cat: "creators", title: "Podcast Show Notes & Timestamps", persona: "Audio Producer", desc: "Generates clickable chapter timestamps, guest bios, key discussion points, and quote summaries.", key: "scope-defense", tags: ["Audio"] }},
+      {{ id: 29, route: "/v1/creator/pitch-brand", cat: "creators", title: "Sponsorship Pitch & Rate Matrix", persona: "Micro-Creator", desc: "Formulates brand outreach emails with CPM-benchmarked pricing quotes based on view analytics.", key: "scope-defense", tags: ["Sponsors"] }},
+      {{ id: 30, route: "/v1/design/audit-portfolio", cat: "creators", title: "Portfolio First-Impression Audit", persona: "Junior Designer", desc: "Provides a 5-second visual clarity audit, UX friction points, and recruiter readability scoring.", key: "scope-defense", tags: ["Design"] }},
+      {{ id: 31, route: "/v1/marketing/objection-handler", cat: "creators", title: "Landing Page Objection Buster", persona: "Indie Founder", desc: "Extracts top 10 hidden buyer hesitation fears from draft sales copy and writes punchy FAQ rebuttals.", key: "scope-defense", tags: ["Marketing"] }},
+      {{ id: 32, route: "/v1/youtube/thumbnail-concepts", cat: "creators", title: "YouTube Thumbnail & Title Angle Engine", persona: "Video Creator", desc: "Generates 3 psychological framing angles (curiosity, contrarian, mistake) with thumbnail sketch prompts.", key: "scope-defense", tags: ["YouTube"] }},
+      {{ id: 33, route: "/v1/freelance/lead-qualifier", cat: "creators", title: "Inbound Client Lead Qualifier", persona: "Agency Owner", desc: "Assesses prospective client inquiries for budget viability, project clarity, and red-flag traps.", key: "scope-defense", tags: ["Leads"] }},
+      {{ id: 34, route: "/v1/audio/clean-transcript", cat: "creators", title: "Audio Filler Word & Glitch Cleaner", persona: "Audio Editor", desc: "Generates automated timecoded cut-lists for 'um', 'ah', mouth clicks, and repeated hesitations.", key: "scope-defense", tags: ["Audio"] }},
+      {{ id: 35, route: "/v1/video/tone-subtitles", cat: "creators", title: "Nuanced Subtitle Slang Adapter", persona: "Global Creator", desc: "Localizes video subtitles preserving conversational internet slang, humor, and timing.", key: "scope-defense", tags: ["Video"] }},
 
       // Category 4: Small Business & Trades
-      { id: 36, route: "/v1/smb/review-reply", cat: "smbs", title: "Google Business Review De-escalator", persona: "Bistro / Clinic Owner", desc: "Drafts empathetic public responses that validate customer frustration, prevent PR damage, and move dialogue offline.", key: "review-reply", tags: ["Reputation", "SMB"] },
-      { id: 37, route: "/v1/restaurant/menu-digitizer", cat: "smbs", title: "Menu Allergen & Digitize Engine", persona: "Cafe Owner", desc: "Converts smartphone photos of paper menus into structured JSON with allergen badges and translations.", key: "review-reply", tags: ["Restaurant", "Vision"] },
-      { id: 38, route: "/v1/salon/fill-slot", cat: "smbs", title: "Last-Minute Cancellation Slot Filler", persona: "Salon / Clinic", desc: "Matches sudden cancelled slots against client waitlists, drafting personalized 1-click SMS offers.", key: "review-reply", tags: ["Booking"] },
-      { id: 39, route: "/v1/trades/quote-builder", cat: "smbs", title: "Voice-to-Trades Job Estimate", persona: "Plumber / Electrician", desc: "Translates voice memos recorded in work trucks into itemized estimates with parts markup and terms.", key: "review-reply", tags: ["Trades", "Audio"] },
-      { id: 40, route: "/v1/smb/local-seo", cat: "smbs", title: "Local Search SEO Optimizer", persona: "Contractor", desc: "Generates geo-targeted Google Business Profile updates targeting voice search ('plumber near me').", key: "review-reply", tags: ["SEO"] },
-      { id: 41, route: "/v1/retail/vendor-slip", cat: "smbs", title: "Supplier Slip to POS Normalizer", persona: "Boutique Grocer", desc: "Scans wrinkled paper wholesale delivery slips into clean inventory imports with SKUs and unit costs.", key: "review-reply", tags: ["Retail", "Vision"] },
-      { id: 42, route: "/v1/retail/shift-swap", cat: "smbs", title: "Employee Shift Swap Arbiter", persona: "Store Manager", desc: "Verifies shift swap requests against weekly overtime thresholds, certifications, and labor laws.", key: "review-reply", tags: ["Staff"] },
-      { id: 43, route: "/v1/repair/status-update", cat: "smbs", title: "Repair Status Customer Bot", persona: "Repair Workshop", desc: "Converts cryptic internal technician bench notes into friendly, reassuring customer SMS updates.", key: "review-reply", tags: ["Service"] },
-      { id: 44, route: "/v1/smb/lease-cam-check", cat: "smbs", title: "Commercial Lease CAM Auditor", persona: "Storefront Tenant", desc: "Scans annual Common Area Maintenance bills to detect unauthorized landlord management surcharges.", key: "review-reply", tags: ["Lease"] },
-      { id: 45, route: "/v1/trades/maintenance-log", cat: "smbs", title: "Equipment Maintenance Voice Logger", persona: "Bakery / Brewery", desc: "Logs machinery noise and service voice notes, calculating predicted component wear and service dates.", key: "review-reply", tags: ["Machinery"] },
+      {{ id: 36, route: "/v1/smb/review-reply", cat: "smbs", title: "Google Business Review De-escalator", persona: "Bistro / Clinic Owner", desc: "Drafts empathetic public responses that validate customer frustration, prevent PR damage, and move dialogue offline.", key: "review-reply", tags: ["Reputation", "SMB"] }},
+      {{ id: 37, route: "/v1/restaurant/menu-digitizer", cat: "smbs", title: "Menu Allergen & Digitize Engine", persona: "Cafe Owner", desc: "Converts smartphone photos of paper menus into structured JSON with allergen badges and translations.", key: "review-reply", tags: ["Restaurant", "Vision"] }},
+      {{ id: 38, route: "/v1/salon/fill-slot", cat: "smbs", title: "Last-Minute Cancellation Slot Filler", persona: "Salon / Clinic", desc: "Matches sudden cancelled slots against client waitlists, drafting personalized 1-click SMS offers.", key: "review-reply", tags: ["Booking"] }},
+      {{ id: 39, route: "/v1/trades/quote-builder", cat: "smbs", title: "Voice-to-Trades Job Estimate", persona: "Plumber / Electrician", desc: "Translates voice memos recorded in work trucks into itemized estimates with parts markup and terms.", key: "review-reply", tags: ["Trades", "Audio"] }},
+      {{ id: 40, route: "/v1/smb/local-seo", cat: "smbs", title: "Local Search SEO Optimizer", persona: "Contractor", desc: "Generates geo-targeted Google Business Profile updates targeting voice search ('plumber near me').", key: "review-reply", tags: ["SEO"] }},
+      {{ id: 41, route: "/v1/retail/vendor-slip", cat: "smbs", title: "Supplier Slip to POS Normalizer", persona: "Boutique Grocer", desc: "Scans wrinkled paper wholesale delivery slips into clean inventory imports with SKUs and unit costs.", key: "review-reply", tags: ["Retail", "Vision"] }},
+      {{ id: 42, route: "/v1/retail/shift-swap", cat: "smbs", title: "Employee Shift Swap Arbiter", persona: "Store Manager", desc: "Verifies shift swap requests against weekly overtime thresholds, certifications, and labor laws.", key: "review-reply", tags: ["Staff"] }},
+      {{ id: 43, route: "/v1/repair/status-update", cat: "smbs", title: "Repair Status Customer Bot", persona: "Repair Workshop", desc: "Converts cryptic internal technician bench notes into friendly, reassuring customer SMS updates.", key: "review-reply", tags: ["Service"] }},
+      {{ id: 44, route: "/v1/smb/lease-cam-check", cat: "smbs", title: "Commercial Lease CAM Auditor", persona: "Storefront Tenant", desc: "Scans annual Common Area Maintenance bills to detect unauthorized landlord management surcharges.", key: "review-reply", tags: ["Lease"] }},
+      {{ id: 45, route: "/v1/trades/maintenance-log", cat: "smbs", title: "Equipment Maintenance Voice Logger", persona: "Bakery / Brewery", desc: "Logs machinery noise and service voice notes, calculating predicted component wear and service dates.", key: "review-reply", tags: ["Machinery"] }},
 
       // Category 5: Education & Public Service
-      { id: 46, route: "/v1/edu/differentiate", cat: "education", title: "Differentiated Homework Generator", persona: "School Teacher", desc: "Creates 3 tiered assignments (Tier 1 Remedial/ESL, Tier 2 Grade Mastery, Tier 3 Extension) from one lesson.", key: "differentiate", tags: ["Teaching", "Edu"] },
-      { id: 47, route: "/v1/edu/rubric-feedback", cat: "education", title: "Student Rubric Feedback Drafter", persona: "High School Teacher", desc: "Generates constructive feedback for student essays highlighting 2 strengths and 2 concrete revision steps.", key: "differentiate", tags: ["Grading"] },
-      { id: 48, route: "/v1/social/casenotes", cat: "education", title: "Objective Social Work Case Note Distiller", persona: "Caseworker", desc: "Converts rambling home-visit voice notes into legally objective, court-compliant case files.", key: "differentiate", tags: ["Social Work"] },
-      { id: 49, route: "/v1/civic/council-digest", cat: "education", title: "City Council & Zoning Digest", persona: "Civic Organizer", desc: "Distills 3-hour municipal council broadcasts into 5 key votes impacting zoning, taxes, and road spending.", key: "differentiate", tags: ["Civic"] },
-      { id: 50, route: "/v1/med/soap-note", cat: "education", title: "Clinical SOAP Note from Ambient Audio", persona: "Physician / Therapist", desc: "Formats ambient doctor-patient encounter audio into structured medical SOAP notes with ICD-10 codes.", key: "differentiate", tags: ["Medical"] },
-      { id: 51, route: "/v1/edu/homeschool-plan", cat: "education", title: "Homeschool Interdisciplinary Planner", persona: "Homeschool Parent", desc: "Designs a 5-day interdisciplinary curriculum integrating a child's passions into core standards.", key: "differentiate", tags: ["Homeschool"] },
-      { id: 52, route: "/v1/edu/parent-comms", cat: "education", title: "Bilingual Parent-Teacher Bridge", persona: "Teacher / Admin", desc: "Drafts culturally respectful updates in Spanish/Arabic/etc. framing behavioral feedback constructively.", key: "differentiate", tags: ["Comms"] },
-      { id: 53, route: "/v1/social/benefits-finder", cat: "education", title: "Social Safety-Net Benefit Matcher", persona: "Low-Income Advocate", desc: "Calculates eligible federal/state programs (SNAP, Medicaid, WIC, LIHEAP) from household demographics.", key: "differentiate", tags: ["Benefits"] },
-      { id: 54, route: "/v1/mentalhealth/crisis-aid", cat: "education", title: "Youth Crisis Text De-escalator", persona: "School Counselor", desc: "Provides active listening phrasing, empathy validation, and safety triage cues for youth distress texts.", key: "differentiate", tags: ["Mental Health"] },
-      { id: 55, route: "/v1/legal/court-prep", cat: "education", title: "Pro-Se Court Hearing Companion", persona: "Self-Represented Litigant", desc: "Translates small claims summons into plain English allegations, evidence checklists, and court decorum.", key: "differentiate", tags: ["Legal"] }
+      {{ id: 46, route: "/v1/edu/differentiate", cat: "education", title: "Differentiated Homework Generator", persona: "School Teacher", desc: "Creates 3 tiered assignments (Tier 1 Remedial/ESL, Tier 2 Grade Mastery, Tier 3 Extension) from one lesson.", key: "differentiate", tags: ["Teaching", "Edu"] }},
+      {{ id: 47, route: "/v1/edu/rubric-feedback", cat: "education", title: "Student Rubric Feedback Drafter", persona: "High School Teacher", desc: "Generates constructive feedback for student essays highlighting 2 strengths and 2 concrete revision steps.", key: "differentiate", tags: ["Grading"] }},
+      {{ id: 48, route: "/v1/social/casenotes", cat: "education", title: "Objective Social Work Case Note Distiller", persona: "Caseworker", desc: "Converts rambling home-visit voice notes into legally objective, court-compliant case files.", key: "differentiate", tags: ["Social Work"] }},
+      {{ id: 49, route: "/v1/civic/council-digest", cat: "education", title: "City Council & Zoning Digest", persona: "Civic Organizer", desc: "Distills 3-hour municipal council broadcasts into 5 key votes impacting zoning, taxes, and road spending.", key: "differentiate", tags: ["Civic"] }},
+      {{ id: 50, route: "/v1/med/soap-note", cat: "education", title: "Clinical SOAP Note from Ambient Audio", persona: "Physician / Therapist", desc: "Formats ambient doctor-patient encounter audio into structured medical SOAP notes with ICD-10 codes.", key: "differentiate", tags: ["Medical"] }},
+      {{ id: 51, route: "/v1/edu/homeschool-plan", cat: "education", title: "Homeschool Interdisciplinary Planner", persona: "Homeschool Parent", desc: "Designs a 5-day interdisciplinary curriculum integrating a child's passions into core standards.", key: "differentiate", tags: ["Homeschool"] }},
+      {{ id: 52, route: "/v1/edu/parent-comms", cat: "education", title: "Bilingual Parent-Teacher Bridge", persona: "Teacher / Admin", desc: "Drafts culturally respectful updates in Spanish/Arabic/etc. framing behavioral feedback constructively.", key: "differentiate", tags: ["Comms"] }},
+      {{ id: 53, route: "/v1/social/benefits-finder", cat: "education", title: "Social Safety-Net Benefit Matcher", persona: "Low-Income Advocate", desc: "Calculates eligible federal/state programs (SNAP, Medicaid, WIC, LIHEAP) from household demographics.", key: "differentiate", tags: ["Benefits"] }},
+      {{ id: 54, route: "/v1/mentalhealth/crisis-aid", cat: "education", title: "Youth Crisis Text De-escalator", persona: "School Counselor", desc: "Provides active listening phrasing, empathy validation, and safety triage cues for youth distress texts.", key: "differentiate", tags: ["Mental Health"] }},
+      {{ id: 55, route: "/v1/legal/court-prep", cat: "education", title: "Pro-Se Court Hearing Companion", persona: "Self-Represented Litigant", desc: "Translates small claims summons into plain English allegations, evidence checklists, and court decorum.", key: "differentiate", tags: ["Legal"] }}
     ];
 
     let currentCategory = 'all';
 
-    function renderCards(endpoints) {
+    function renderCards(endpoints) {{
       const grid = document.getElementById('cards-grid');
       const emptyState = document.getElementById('empty-state');
 
-      if (endpoints.length === 0) {
+      if (endpoints.length === 0) {{
         grid.innerHTML = '';
         emptyState.classList.remove('hidden');
         return;
-      }
+      }}
 
       emptyState.classList.add('hidden');
-      grid.innerHTML = endpoints.map(function(ep) {
-        const tagsHtml = ep.tags.map(function(t) {
+      grid.innerHTML = endpoints.map(function(ep) {{
+        const tagsHtml = ep.tags.map(function(t) {{
           return '<span class="text-[9px] px-1.5 py-0.5 rounded bg-zinc-800/80 text-zinc-400 font-mono">' + t + '</span>';
-        }).join('');
+        }}).join('');
 
-        return '<div class="card-hover p-4 rounded-xl bg-[#121215] border border-white/[0.08] flex flex-col justify-between group cursor-pointer" onclick="openStudioWithKey(\'' + ep.key + '\')">' +
+        return '<div class="card-hover p-4 rounded-xl bg-[#121215] border border-white/[0.08] flex flex-col justify-between group cursor-pointer" onclick="openStudioWithKey(\\'' + ep.key + '\\')">' +
           '<div>' +
             '<div class="flex items-center justify-between mb-2.5">' +
               '<div class="flex items-center gap-1.5">' +
@@ -764,7 +939,7 @@
           '<div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">' +
             '<div class="flex gap-1">' + tagsHtml + '</div>' +
             '<div class="flex items-center gap-2">' +
-              '<button onclick="event.stopPropagation(); copyDirectCurl(\'' + ep.route + '\')" class="p-1 rounded text-zinc-500 hover:text-white transition" title="Copy cURL">' +
+              '<button onclick="event.stopPropagation(); copyDirectCurl(\\'' + ep.route + '\\')" class="p-1 rounded text-zinc-500 hover:text-white transition" title="Copy cURL">' +
                 '<i class="fa-solid fa-terminal text-[11px]"></i>' +
               '</button>' +
               '<span class="text-indigo-400 text-[11px] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">' +
@@ -773,100 +948,100 @@
             '</div>' +
           '</div>' +
         '</div>';
-      }).join('');
-    }
+      }}).join('');
+    }}
 
-    function filterCards() {
+    function filterCards() {{
       const query = document.getElementById('search-input').value.toLowerCase().trim();
       const clearBtn = document.getElementById('clear-search');
       
-      if (query) {
+      if (query) {{
         clearBtn.classList.remove('hidden');
-      } else {
+      }} else {{
         clearBtn.classList.add('hidden');
-      }
+      }}
 
       let filtered = ALL_ENDPOINTS;
 
-      if (currentCategory !== 'all') {
-        if (currentCategory === 'vision') {
-          filtered = filtered.filter(function(ep) { return ep.tags.includes('Vision'); });
-        } else {
-          filtered = filtered.filter(function(ep) { return ep.cat === currentCategory; });
-        }
-      }
+      if (currentCategory !== 'all') {{
+        if (currentCategory === 'vision') {{
+          filtered = filtered.filter(function(ep) {{ return ep.tags.includes('Vision'); }});
+        }} else {{
+          filtered = filtered.filter(function(ep) {{ return ep.cat === currentCategory; }});
+        }}
+      }}
 
-      if (query) {
-        filtered = filtered.filter(function(ep) { 
+      if (query) {{
+        filtered = filtered.filter(function(ep) {{ 
           return ep.title.toLowerCase().includes(query) ||
                  ep.route.toLowerCase().includes(query) ||
                  ep.persona.toLowerCase().includes(query) ||
                  ep.desc.toLowerCase().includes(query);
-        });
-      }
+        }});
+      }}
 
       renderCards(filtered);
-    }
+    }}
 
-    function setCategory(cat) {
+    function setCategory(cat) {{
       currentCategory = cat;
-      document.querySelectorAll('.cat-pill').forEach(function(btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(btn) {{
         btn.classList.remove('active-pill', 'bg-white', 'text-black', 'border-white/[0.12]');
         btn.classList.add('bg-[#121215]', 'text-zinc-400', 'border-white/[0.08]');
-      });
+      }});
 
       const activeBtn = document.getElementById('pill-' + cat);
-      if (activeBtn) {
+      if (activeBtn) {{
         activeBtn.classList.remove('bg-[#121215]', 'text-zinc-400', 'border-white/[0.08]');
         activeBtn.classList.add('active-pill', 'bg-white', 'text-black', 'border-white/[0.12]');
-      }
+      }}
 
       filterCards();
-    }
+    }}
 
-    function clearSearch() {
+    function clearSearch() {{
       document.getElementById('search-input').value = '';
       filterCards();
-    }
+    }}
 
-    function resetFilters() {
+    function resetFilters() {{
       document.getElementById('search-input').value = '';
       setCategory('all');
-    }
+    }}
 
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    }
+    function scrollToSection(id) {{
+      document.getElementById(id).scrollIntoView({{ behavior: 'smooth' }});
+    }}
 
     // Studio Drawer Controls
-    function openStudio() {
+    function openStudio() {{
       document.getElementById('studio-drawer').classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
       onStudioEndpointChange();
-    }
+    }}
 
-    function openStudioWithKey(key) {
+    function openStudioWithKey(key) {{
       const select = document.getElementById('studio-endpoint-select');
-      if (select) {
+      if (select) {{
         select.value = key;
-      }
+      }}
       openStudio();
-    }
+    }}
 
-    function closeStudio() {
+    function closeStudio() {{
       document.getElementById('studio-drawer').classList.add('hidden');
       document.body.classList.remove('overflow-hidden');
-    }
+    }}
 
-    window.addEventListener('keydown', function(e) {
+    window.addEventListener('keydown', function(e) {{
       if (e.key === 'Escape') closeStudio();
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {{
         e.preventDefault();
         document.getElementById('search-input').focus();
-      }
-    });
+      }}
+    }});
 
-    function onStudioEndpointChange() {
+    function onStudioEndpointChange() {{
       const select = document.getElementById('studio-endpoint-select');
       const key = select.value;
       const conf = ENDPOINT_CONFIGS[key] || ENDPOINT_CONFIGS['explain-lab'];
@@ -875,23 +1050,23 @@
       document.getElementById('studio-input').value = conf.defaultSample;
       document.getElementById('zapier-url').innerText = window.location.origin + conf.route;
       updateCurlPreview();
-    }
+    }}
 
-    function resetStudioSample() {
+    function resetStudioSample() {{
       onStudioEndpointChange();
-    }
+    }}
 
-    function updateCurlPreview() {
+    function updateCurlPreview() {{
       const select = document.getElementById('studio-endpoint-select');
       const conf = ENDPOINT_CONFIGS[select.value] || ENDPOINT_CONFIGS['explain-lab'];
       const host = window.location.origin;
-      const curl = 'curl -X POST "' + host + conf.route + '" \\\n' +
-        '  -H "Content-Type: application/json" \\\n' +
-        '  -d \'{"input": "..."}\'';
+      const curl = 'curl -X POST "' + host + conf.route + '" \\\\\n' +
+        '  -H "Content-Type: application/json" \\\\\n' +
+        '  -d \\'{"input": "..."}\\'' ;
       document.getElementById('studio-curl-pre').innerText = curl;
-    }
+    }}
 
-    async function runStudioExecution() {
+    async function runStudioExecution() {{
       const select = document.getElementById('studio-endpoint-select');
       const model = document.getElementById('studio-model-select').value;
       const input = document.getElementById('studio-input').value.trim();
@@ -900,93 +1075,93 @@
       const latencyBadge = document.getElementById('studio-latency');
       const runBtn = document.getElementById('studio-run-btn');
 
-      if (!input) {
+      if (!input) {{
         alert("Please enter input text or reload the preset sample.");
         return;
-      }
+      }}
 
       loader.classList.remove('hidden');
       latencyBadge.classList.add('hidden');
       runBtn.disabled = true;
       runBtn.classList.add('opacity-50');
 
-      try {
+      try {{
         const targetUrl = window.location.hostname.includes('pages.dev')
           ? 'https://smart-eaas.muhammadamran40.workers.dev/api/execute'
           : '/api/execute';
 
-        const resp = await fetch(targetUrl, {
+        const resp = await fetch(targetUrl, {{
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify({{
             endpoint: select.value,
             model: model,
             input: input
-          })
-        });
+          }})
+        }});
 
         const data = await resp.json();
         loader.classList.add('hidden');
         runBtn.disabled = false;
         runBtn.classList.remove('opacity-50');
 
-        if (data.success) {
+        if (data.success) {{
           jsonPre.innerText = JSON.stringify(data.data, null, 2);
           latencyBadge.innerText = data.latency_ms + 'ms';
           latencyBadge.classList.remove('hidden');
-        } else {
+        }} else {{
           jsonPre.innerText = '// Error: ' + (data.error || 'Execution failed');
-        }
-      } catch (err) {
+        }}
+      }} catch (err) {{
         loader.classList.add('hidden');
         runBtn.disabled = false;
         runBtn.classList.remove('opacity-50');
         jsonPre.innerText = '// Network Error: ' + err.message;
-      }
-    }
+      }}
+    }}
 
-    function switchOutputTab(tab) {
-      ['json', 'curl', 'zapier'].forEach(function(t) {
+    function switchOutputTab(tab) {{
+      ['json', 'curl', 'zapier'].forEach(function(t) {{
         document.getElementById('view-out-' + t).classList.add('hidden');
         document.getElementById('tab-out-' + t).classList.remove('text-white', 'border-b-2', 'border-indigo-500', 'font-semibold');
         document.getElementById('tab-out-' + t).classList.add('text-zinc-400');
-      });
+      }});
 
       document.getElementById('view-out-' + tab).classList.remove('hidden');
       document.getElementById('tab-out-' + tab).classList.add('text-white', 'border-b-2', 'border-indigo-500', 'font-semibold');
       document.getElementById('tab-out-' + tab).classList.remove('text-zinc-400');
-    }
+    }}
 
-    function copyStudioOutput() {
+    function copyStudioOutput() {{
       const text = document.getElementById('studio-json-pre').innerText;
       navigator.clipboard.writeText(text);
       alert('JSON output copied to clipboard!');
-    }
+    }}
 
-    function copyDirectCurl(route) {
-      const curl = 'curl -X POST "' + window.location.origin + route + '" \\\n' +
-        '  -H "Content-Type: application/json" \\\n' +
-        '  -d \'{"input": "..."}\'';
+    function copyDirectCurl(route) {{
+      const curl = 'curl -X POST "' + window.location.origin + route + '" \\\\\n' +
+        '  -H "Content-Type: application/json" \\\\\n' +
+        '  -d \\'{"input": "..."}\\'' ;
       navigator.clipboard.writeText(curl);
       alert('cURL command copied to clipboard!');
-    }
+    }}
 
     // Surface Switcher
-    function switchSurface(surface) {
-      ['whatsapp', 'sheets', 'zapier'].forEach(function(s) {
+    function switchSurface(surface) {{
+      ['whatsapp', 'sheets', 'zapier'].forEach(function(s) {{
         document.getElementById('surface-' + s).classList.add('hidden');
         document.getElementById('surface-btn-' + s).classList.remove('text-white', 'border-b-2', 'border-indigo-500', 'font-semibold');
         document.getElementById('surface-btn-' + s).classList.add('text-zinc-400');
-      });
+      }});
 
       document.getElementById('surface-' + surface).classList.remove('hidden');
       document.getElementById('surface-btn-' + surface).classList.add('text-white', 'border-b-2', 'border-indigo-500', 'font-semibold');
       document.getElementById('surface-btn-' + surface).classList.remove('text-zinc-400');
-    }
+    }}
 
-    function setSimScenario(scenario) {
+    function setSimScenario(scenario) {{
       const chat = document.getElementById('chat-stream');
-      if (scenario === 'scam') {
+      if (scenario === 'scam') {{
         chat.innerHTML = 
           '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Forward any suspicious SMS or email here.</div>' +
           '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
@@ -997,7 +1172,7 @@
             '<div class="font-bold text-red-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation"></i> 99% SCAM CONFIRMED</div>' +
             '<p class="text-[9.5px]">This is an urgency phishing trap trying to steal your card PIN.</p>' +
           '</div>';
-      } else if (scenario === 'lab') {
+      }} else if (scenario === 'lab') {{
         chat.innerHTML = 
           '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Forward any lab test photo here.</div>' +
           '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
@@ -1008,7 +1183,7 @@
             '<div class="font-bold text-blue-400 flex items-center gap-1"><i class="fa-solid fa-heart-pulse"></i> PRE-DIABETES MARKER DETECTED</div>' +
             '<p class="text-[9.5px]">Fasting glucose is slightly elevated above 99 mg/dL. This indicates early insulin resistance.</p>' +
           '</div>';
-      } else if (scenario === 'lease') {
+      }} else if (scenario === 'lease') {{
         chat.innerHTML = 
           '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Send lease agreement clause photo or text.</div>' +
           '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
@@ -1019,14 +1194,196 @@
             '<div class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation"></i> UNLAWFUL CLAUSE WARNING</div>' +
             '<p class="text-[9.5px]">Most states hold landlords legally responsible for habitability repairs regardless of lease clauses.</p>' +
           '</div>';
-      }
-    }
+      }}
+    }}
 
     // Init
-    window.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('DOMContentLoaded', function() {{
       renderCards(ALL_ENDPOINTS);
       onStudioEndpointChange();
-    });
+    }});
   </script>
 </body>
-</html>
+</html>"""
+    return html_content
+
+def build_all():
+    # 1. Generate HTML
+    html = generate_html()
+    os.makedirs("public", exist_ok=True)
+    with open("public/index.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    print("Generated public/index.html:", len(html), "bytes")
+
+    # 2. Generate src/index.js embedding the HTML safely via json.dumps
+    prompts_code = "const ENDPOINT_PROMPTS = " + json.dumps(ENDPOINT_PROMPTS, indent=2) + ";"
+    escaped_html = json.dumps(html)
+
+    worker_code = f"""// Smart EaaS — Production Endpoint as a Service
+// Engineered with inspiration from recent.design and skills.sh
+
+{prompts_code}
+
+const APP_HTML = {escaped_html};
+
+export default {{
+  async fetch(request, env, ctx) {{
+    const url = new URL(request.url);
+    const path = url.pathname;
+
+    const corsHeaders = {{
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
+    }};
+
+    if (request.method === "OPTIONS") {{
+      return new Response(null, {{ headers: corsHeaders }});
+    }}
+
+    if (path === "/api/health") {{
+      return new Response(JSON.stringify({{
+        status: "operational",
+        service: "Smart EaaS - Production AI Microservices",
+        version: "2.0.0",
+        cloud: "Cloudflare Workers (Edge)",
+        models_supported: ["deepseek-v4.1-flash", "kimi-k3", "deepseek-v4-pro", "glm-5.3"]
+      }}), {{
+        headers: {{ ...corsHeaders, "Content-Type": "application/json" }}
+      }});
+    }}
+
+    if (path === "/api/execute" && request.method === "POST") {{
+      try {{
+        const body = await request.json();
+        const endpointKey = body.endpoint || "explain-lab";
+        const customInput = body.input || "";
+        const selectedModel = body.model || env.DEFAULT_TEXT_MODEL || "deepseek-v4.1-flash";
+        const apiKey = body.api_key || env.ROOTSYS_API_KEY || "fiq-c05ed74847755db048eef8038724c336";
+
+        const config = ENDPOINT_PROMPTS[endpointKey] || ENDPOINT_PROMPTS["explain-lab"];
+        const startTime = Date.now();
+
+        const llmPayload = {{
+          model: selectedModel,
+          messages: [
+            {{ role: "system", content: config.systemPrompt }},
+            {{ role: "user", content: customInput }}
+          ],
+          temperature: 0.1
+        }};
+
+        const response = await fetch(`${{env.ROOTSYS_BASE_URL || "https://rootsys.cloud/v1"}}/chat/completions`, {{
+          method: "POST",
+          headers: {{
+            "Authorization": `Bearer ${{apiKey}}`,
+            "Content-Type": "application/json"
+          }},
+          body: JSON.stringify(llmPayload)
+        }});
+
+        if (!response.ok) {{
+          const errText = await response.text();
+          return new Response(JSON.stringify({{
+            success: false,
+            error: `Upstream LLM error (${{response.status}}): ${{errText}}`
+          }}), {{
+            status: 502,
+            headers: {{ ...corsHeaders, "Content-Type": "application/json" }}
+          }});
+        }}
+
+        const data = await response.json();
+        const latencyMs = Date.now() - startTime;
+        let outputContent = data.choices[0]?.message?.content || "{{}}";
+
+        outputContent = outputContent.replace(/^```json\\s*/i, "").replace(/^```\\s*/i, "").replace(/\\s*```$/i, "").trim();
+
+        let parsedJson = null;
+        try {{
+          parsedJson = JSON.parse(outputContent);
+        }} catch (e) {{
+          parsedJson = {{ raw_output: outputContent, parsing_note: "Output received as raw string" }};
+        }}
+
+        return new Response(JSON.stringify({{
+          success: true,
+          endpoint: config.name,
+          route: config.route,
+          model_used: selectedModel,
+          latency_ms: latencyMs,
+          usage: data.usage || {{}},
+          data: parsedJson
+        }}), {{
+          headers: {{ ...corsHeaders, "Content-Type": "application/json" }}
+        }});
+      }} catch (err) {{
+        return new Response(JSON.stringify({{ success: false, error: err.message }}), {{
+          status: 500,
+          headers: {{ ...corsHeaders, "Content-Type": "application/json" }}
+        }});
+      }}
+    }}
+
+    // Direct REST API paths
+    for (const [key, conf] of Object.entries(ENDPOINT_PROMPTS)) {{
+      if (path === conf.route && request.method === "POST") {{
+        try {{
+          const body = await request.json();
+          const rawInput = body.input || (typeof body === "string" ? body : JSON.stringify(body));
+          const authHeader = request.headers.get("Authorization") || "";
+          const token = authHeader.startsWith("Bearer ") ? authHeader.substring(7) : (env.ROOTSYS_API_KEY || "fiq-c05ed74847755db048eef8038724c336");
+
+          const response = await fetch(`${{env.ROOTSYS_BASE_URL || "https://rootsys.cloud/v1"}}/chat/completions`, {{
+            method: "POST",
+            headers: {{
+              "Authorization": `Bearer ${{token}}`,
+              "Content-Type": "application/json"
+            }},
+            body: JSON.stringify({{
+              model: env.DEFAULT_TEXT_MODEL || "deepseek-v4.1-flash",
+              messages: [
+                {{ role: "system", content: conf.systemPrompt }},
+                {{ role: "user", content: typeof rawInput === "string" ? rawInput : JSON.stringify(rawInput) }}
+              ],
+              temperature: 0.1
+            }})
+          }});
+
+          const data = await response.json();
+          let rawRes = data.choices[0]?.message?.content || "{{}}";
+          rawRes = rawRes.replace(/^```json\\s*/i, "").replace(/^```\\s*/i, "").replace(/\\s*```$/i, "").trim();
+
+          return new Response(rawRes, {{
+            headers: {{ ...corsHeaders, "Content-Type": "application/json" }}
+          }});
+        }} catch (e) {{
+          return new Response(JSON.stringify({{ error: e.message }}), {{
+            status: 500,
+            headers: {{ ...corsHeaders, "Content-Type": "application/json" }}
+          }});
+        }}
+      }}
+    }}
+
+    // Return HTML Application
+    return new Response(APP_HTML, {{
+      headers: {{ ...corsHeaders, "Content-Type": "text/html; charset=utf-8" }}
+    }});
+  }}
+}};
+"""
+    with open("src/index.js", "w", encoding="utf-8") as f:
+        f.write(worker_code)
+    print("Generated src/index.js:", len(worker_code), "bytes")
+
+    # 3. Check with node
+    res = subprocess.run(["node", "--check", "src/index.js"], capture_output=True, text=True)
+    if res.returncode == 0:
+        print("[SUCCESS] node --check passed with 0 errors!")
+    else:
+        print("[ERROR] node --check failed:", res.stderr)
+        raise SystemExit(1)
+
+if __name__ == "__main__":
+    build_all()
