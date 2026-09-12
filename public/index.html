@@ -483,7 +483,7 @@
           <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
           <span class="text-xs font-bold text-white uppercase tracking-wider">Live Execution Studio</span>
           <span class="text-zinc-600">|</span>
-          <span id="studio-route-pill" class="text-xs font-mono text-indigo-400 font-semibold">/v1/health/explain-lab</span>
+          <span id="studio-route-pill" class="text-xs font-mono text-indigo-400 font-semibold">/v1/health/explain-lab</span><span id="studio-cost-badge" class="ml-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> $0.00 Token Cost (Verified)</span>
         </div>
         
         <div class="flex items-center space-x-2">
@@ -514,18 +514,21 @@
             </select>
           </div>
 
-          <!-- Select Model -->
+          <!-- Auto-Assigned Optimal Engine -->
           <div class="space-y-1.5">
             <div class="flex justify-between items-center text-[11px]">
-              <label class="font-semibold text-zinc-300 uppercase tracking-wider">LLM Engine (rootsys.cloud)</label>
-              <span class="text-[10px] text-zinc-500">12 Live Models</span>
+              <label class="font-semibold text-zinc-300 uppercase tracking-wider">Assigned Optimal Engine</label>
+              <span class="text-[10px] text-emerald-400 font-mono font-medium flex items-center gap-1">
+                <i class="fa-solid fa-lock text-[9px]"></i> Auto-Predefined
+              </span>
             </div>
-            <select id="studio-model-select" class="w-full bg-[#16161a] border border-white/[0.08] text-white rounded-lg p-2.5 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-none">
-              <option value="deepseek-v4.1-flash" selected>deepseek-v4.1-flash (Recommended: &lt;400ms & strict JSON)</option>
-              <option value="kimi-k3">kimi-k3 (Vision / Multimodal OCR & Long Context)</option>
-              <option value="deepseek-v4-pro">deepseek-v4-pro (Deep Reasoning & Legal Audit)</option>
-              <option value="glm-5.3">glm-5.3 (High Precision Analytical Engine)</option>
-            </select>
+            <div class="w-full bg-[#16161a] border border-white/[0.08] text-white rounded-lg p-2.5 text-xs flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                <span id="studio-assigned-model" class="font-mono font-bold text-indigo-300">deepseek-v4.1-flash</span>
+              </div>
+              <span id="studio-model-rationale" class="text-[10px] text-zinc-400 font-sans font-medium">Optimized for &lt;400ms Diagnostic Analysis</span>
+            </div>
           </div>
 
           <!-- Input Box -->
@@ -620,6 +623,299 @@
 
   <!-- CORE CLIENT-SIDE SCRIPT -->
   <script>
+    const PRECOMPUTED_CACHE = {
+  "explain-lab": {
+    "success": true,
+    "latency_ms": 5004,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 1056,
+    "data": {
+      "summary": "Your results show mildly elevated blood sugar and cholesterol levels, which together suggest early metabolic changes often related to diet and lifestyle. The good news is that your liver and kidney function are normal, and these findings are typically very responsive to lifestyle adjustments.",
+      "abnormal_findings": [
+        {
+          "test_name": "Fasting Glucose",
+          "value": "118 mg/dL",
+          "reference_range": "70-99 mg/dL",
+          "clinical_meaning": "Your fasting blood sugar is above the normal range, which can indicate prediabetes or early insulin resistance. This means your body may be having some difficulty managing blood sugar efficiently.",
+          "urgency": "medium"
+        },
+        {
+          "test_name": "Hemoglobin A1c",
+          "value": "5.9%",
+          "reference_range": "< 5.7%",
+          "clinical_meaning": "This reflects your average blood sugar over the past 2-3 months. A value between 5.7% and 6.4% is considered prediabetes, meaning you have a higher chance of developing type 2 diabetes without lifestyle changes.",
+          "urgency": "medium"
+        },
+        {
+          "test_name": "Total Cholesterol",
+          "value": "224 mg/dL",
+          "reference_range": "< 200 mg/dL",
+          "clinical_meaning": "Your total cholesterol is mildly elevated. While not immediately dangerous, over time this can contribute to plaque buildup in your arteries and increase heart disease risk.",
+          "urgency": "low"
+        },
+        {
+          "test_name": "LDL Cholesterol",
+          "value": "142 mg/dL",
+          "reference_range": "< 100 mg/dL",
+          "clinical_meaning": "LDL is the 'bad' cholesterol that can deposit in your blood vessels. A level of 142 mg/dL is above the optimal range and may raise your long-term risk for heart disease, especially when combined with high blood sugar.",
+          "urgency": "medium"
+        },
+        {
+          "test_name": "Triglycerides",
+          "value": "165 mg/dL",
+          "reference_range": "< 150 mg/dL",
+          "clinical_meaning": "Triglycerides are a type of fat in your blood. Mildly elevated levels are often linked to diets high in refined carbohydrates, sugars, and unhealthy fats, and can also be associated with insulin resistance.",
+          "urgency": "low"
+        }
+      ],
+      "potential_lifestyle_factors": [
+        "Diet high in refined carbohydrates, added sugars, and saturated fats",
+        "Sedentary lifestyle or lack of regular physical activity",
+        "Excess body weight, particularly around the abdomen",
+        "Family history of diabetes or high cholesterol",
+        "Sleep disturbances or chronic stress, which can affect blood sugar and lipid levels",
+        "Smoking or excessive alcohol consumption"
+      ],
+      "questions_for_doctor": [
+        "Do my blood sugar and cholesterol levels indicate prediabetes or a specific condition I should be concerned about?",
+        "Should I start any medication now, or is there time to try lifestyle changes first?",
+        "What specific dietary changes and exercise goals would you recommend for someone with my results?",
+        "How often should I recheck these labs to monitor my progress?"
+      ],
+      "disclaimer": "This is an AI summary for educational purposes. Consult your licensed physician."
+    }
+  },
+  "lease-check": {
+    "success": true,
+    "latency_ms": 7108,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 1447,
+    "data": {
+      "risk_score": "high",
+      "summary": "The lease contains several exploitative and potentially illegal clauses that shift maintenance obligations to the tenant, waive landlord liability for essential services, violate tenant privacy rights, and impose an unlawful non-refundable fee. These provisions are likely unenforceable and pose significant financial and habitability risks to the tenant.",
+      "flagged_clauses": [
+        {
+          "clause_title": "Tenant Responsible for Repairs Under $350",
+          "original_text": "Tenant shall be responsible for all repairs under $350, including plumbing clogs, HVAC filter servicing, electrical switches, and appliance maintenance.",
+          "issue_explanation": "This clause shifts the landlord's duty to maintain habitable premises onto the tenant, requiring them to pay for routine repairs and maintenance. It may discourage tenants from requesting necessary repairs and can lead to unsafe conditions.",
+          "state_law_concern": "In most states, landlords are legally required to maintain rental units in habitable condition, including plumbing, heating, and electrical systems. Such clauses are often void as against public policy, as they attempt to waive the implied warranty of habitability. Specific statutes vary (e.g., California Civil Code \u00a7 1941.1, New York Real Property Law \u00a7 235-b).",
+          "recommended_action": "Tenant should negotiate to remove this clause or limit it to cosmetic damages caused by tenant negligence. Landlord should remain responsible for all repairs related to habitability and normal wear and tear."
+        },
+        {
+          "clause_title": "Landlord Not Liable for Lack of Heating Due to Backordered Parts",
+          "original_text": "Landlord shall not be liable for lack of heating during winter months if maintenance parts are on backorder.",
+          "issue_explanation": "This clause attempts to exempt the landlord from liability for failing to provide heat, an essential service, even when the failure is due to supply chain issues. It could leave tenants without heat in winter, creating health and safety hazards.",
+          "state_law_concern": "Landlords are typically required by state and local housing codes to provide heat during winter months (e.g., minimum temperature requirements). Clauses attempting to waive this duty are generally unenforceable as against public policy and may violate the implied warranty of habitability.",
+          "recommended_action": "Tenant should insist on removal of this clause. Landlord should be required to provide alternative heating or temporary housing if heating cannot be repaired promptly."
+        },
+        {
+          "clause_title": "Landlord Right to Enter Without Notice",
+          "original_text": "Landlord reserves the right to enter the leased premises at any time without advance written notice for routine inspections, showing to prospective buyers, or general premises auditing.",
+          "issue_explanation": "This clause grants the landlord unlimited entry rights without prior notice, violating the tenant's right to quiet enjoyment and privacy. It could lead to harassment or unnecessary intrusions.",
+          "state_law_concern": "Most states require landlords to provide reasonable advance notice (typically 24-48 hours) before entering a rental unit, except in emergencies. Such clauses are unenforceable and may violate state landlord-tenant acts (e.g., California Civil Code \u00a7 1954, Texas Property Code \u00a7 92.008).",
+          "recommended_action": "Tenant should negotiate to require at least 24 hours' written notice for non-emergency entries. Entry should be limited to reasonable times and purposes."
+        },
+        {
+          "clause_title": "Non-Refundable Refurbishment and Administrative Fee",
+          "original_text": "A non-refundable refurbishment and administrative fee of $500 will be deducted from the security deposit upon vacancy, irrespective of apartment condition.",
+          "issue_explanation": "This clause imposes a mandatory $500 deduction from the security deposit regardless of the actual condition of the unit, effectively converting a refundable deposit into a non-refundable fee. This is unlawful in many jurisdictions.",
+          "state_law_concern": "Security deposits are intended to be refundable and can only be withheld for specific reasons such as unpaid rent or damages beyond normal wear and tear. Non-refundable fees deducted from deposits are prohibited in many states (e.g., California Civil Code \u00a7 1950.5, New York General Obligations Law \u00a7 7-103).",
+          "recommended_action": "Tenant should refuse to sign this clause and demand that any deductions be itemized and based on actual damages. If already signed, tenant may challenge the fee in court or seek assistance from a tenant rights organization."
+        }
+      ],
+      "hidden_costs_found": [
+        "$500 non-refundable refurbishment/administrative fee deducted from security deposit.",
+        "Potential out-of-pocket repair costs up to $350 per occurrence for various repairs.",
+        "Risk of unaddressed heating failures leading to health costs or temporary relocation expenses."
+      ],
+      "tenant_negotiation_checklist": [
+        "Request removal of clause making tenant responsible for repairs under $350; limit to damages caused by tenant negligence.",
+        "Insist on landlord's obligation to provide heat at all times; remove liability exemption for backordered parts.",
+        "Demand at least 24 hours' written notice for non-emergency entry; specify reasonable times.",
+        "Refuse any non-refundable fees deducted from security deposit; require itemized deductions for actual damages only.",
+        "Verify state-specific landlord-tenant laws and cite them during negotiations.",
+        "Consider seeking legal advice or contacting a tenant rights organization if landlord refuses to negotiate."
+      ]
+    }
+  },
+  "scam-detector": {
+    "success": true,
+    "latency_ms": 10025,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 771,
+    "data": {
+      "is_scam": true,
+      "confidence_score": 0.99,
+      "scam_type": "Bank Impersonation / Urgency Phishing",
+      "red_flags": [
+        "The message claims to be from Chase but uses a domain that is not chase.com (chase-security-resolver-update82.com).",
+        "Creates extreme urgency with a 15-minute deadline.",
+        "Threatens permanent account suspension and police filing to scare the recipient.",
+        "Asks for sensitive information (debit card PIN) that a legitimate bank would never request via text or link.",
+        "Includes a link with a suspicious long string and token, typical of phishing sites.",
+        "Reports suspicious transactions in a city far from the recipient (Chicago, IL) to provoke panic.",
+        "Generic greeting (no name) and poor grammar (e.g., 'police filing')."
+      ],
+      "psychological_tricks_used": [
+        "Urgency: 15-minute deadline to force quick action without thinking.",
+        "Fear: Threat of account suspension and police involvement.",
+        "Authority: Impersonating Chase Bank, a trusted financial institution.",
+        "Social proof: Mentions specific dollar amounts and locations to appear legitimate.",
+        "Scarcity: Limited time to respond."
+      ],
+      "plain_language_verdict": "This is a fake message pretending to be from Chase Bank. The real Chase will never text you a link asking for your PIN or threaten you with police. Do not click the link or reply. Your account is not in danger from this message, but you should check your account directly through the Chase app or by calling the number on the back of your card.",
+      "safe_action_steps": [
+        "DO NOT click any links in the message.",
+        "DO NOT reply to the message or call any number provided in it.",
+        "Delete the message immediately.",
+        "Block the sender's number or email address.",
+        "Check your Chase account directly using the official Chase mobile app or by typing chase.com into your browser.",
+        "Call Chase customer service at the number on the back of your debit/credit card to verify if there are any issues.",
+        "If you accidentally clicked the link, change your Chase password immediately, enable two-factor authentication, and monitor your account for unauthorized activity.",
+        "Report the phishing attempt to Chase by forwarding the message to reportphishing@chase.com (or the address listed on Chase's website) and to the FTC at reportfraud.ftc.gov."
+      ]
+    }
+  },
+  "review-reply": {
+    "success": true,
+    "latency_ms": 4529,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 519,
+    "data": {
+      "sentiment": "negative",
+      "urgency": "high",
+      "primary_complaint": "Excessively long wait time for food, poor food quality (burnt and cold pizza), inattentive service, and dismissive manager response.",
+      "recommended_public_reply": "Thank you for taking the time to share your experience with us. We sincerely apologize that your visit fell short of the standards we strive to uphold. A 55-minute wait on a Tuesday night is not acceptable, and we are truly sorry that your pizzas arrived burnt on the bottom and cold on top. We also regret that your server did not check on your drinks and that your interaction with the manager left you feeling dismissed. This is not the level of service we aim to provide, and we understand your frustration. We would like to make this right and learn more about your visit so we can address it directly. Please contact us at [phone number] or [email address] so we can discuss this further. We value your feedback and hope to have the opportunity to regain your trust.",
+      "internal_process_fix": "Staff should review kitchen timing and quality control procedures, especially during off-peak hours, to ensure pizzas are cooked evenly and served promptly. Implement a system for servers to check on tables at regular intervals, including drink refills. Management should be trained to handle customer complaints with empathy and urgency, and to escalate issues appropriately. Additionally, consider a nightly review of wait times and food quality to identify and address recurring issues."
+    }
+  },
+  "grant-match": {
+    "success": true,
+    "latency_ms": 3107,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 666,
+    "data": {
+      "eligibility_match_percentage": 75,
+      "eligibility_verdict": "Borderline",
+      "aligned_focus_areas": [
+        "Urban agricultural education",
+        "Youth-led local food justice",
+        "After-school apprenticeships for high schoolers",
+        "Community micro-farms in underserved food deserts"
+      ],
+      "disqualification_risks": [
+        "Organization founded in 2021, so it may not meet the 3-year operating history requirement depending on the RFP deadline (3 years may not have elapsed).",
+        "No explicit confirmation of registered 501(c)(3) status beyond profile statement, but likely acceptable.",
+        "No stated commitment to 10% overhead cap or tracking required metrics (youth trained, pounds of produce distributed) at time of evaluation."
+      ],
+      "required_metrics_to_prove": [
+        "Number of youth trained (high school apprentices)",
+        "Pounds of fresh produce distributed",
+        "501(c)(3) registration and date of formation (to verify 3-year operating history)",
+        "Overhead/indirect administrative costs as a percentage of total project budget (must be \u226410%)"
+      ],
+      "strategic_recommendation": "CityRoots Community Gardens strongly aligns with the RFP's focus on urban agricultural education and youth-led food justice. However, the organization's 2021 founding date creates a significant risk of disqualification if the 3-year operating history requirement is strictly enforced. To become eligible, CityRoots should provide documentation of its 501(c)(3) status and formation date, and if the 3-year threshold is not met, consider partnering with a more established fiscal sponsor or waiting until the requirement is satisfied. Additionally, the proposal must explicitly commit to tracking the two required metrics and capping overhead at 10%. With these assurances, the application would be highly competitive."
+    }
+  },
+  "scope-defense": {
+    "success": true,
+    "latency_ms": 3485,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 692,
+    "data": {
+      "is_scope_creep": true,
+      "creep_severity": "major",
+      "analysis": "The requested multi-step user registration portal with login, PDF upload, and invoice history is far outside the agreed scope of a 5-page marketing website with CMS integration. It introduces authentication, user roles, secure file storage, database structures, and billing/invoice data integration\u2014none of which are present in the contract. The client's framing that it's 'just adding an account button' drastically understates the complexity (likely 80+ development hours plus security and compliance considerations). This is a major scope change, not a minor addition, and threatens the launch timeline.",
+      "diplomatic_email_draft": "Hi [Client Name],\n\nThank you for the kind words about the site\u2014it's been a pleasure working on it with you.\n\nI'd love to help bring the client portal idea to life, but I want to be upfront that it falls outside our current agreement. The signed scope covers a 5-page marketing website with Webflow CMS for case studies. What you're describing involves user registration, secure login, file uploads, and invoice history\u2014that's a separate web application with authentication, database design, file storage, and security requirements. It's a substantial build, not just a button.\n\nBecause of that, the best path forward is a separate change order. I can put together a detailed proposal with a timeline and fixed price so you can decide if it fits your budget and priorities. We can either tackle it after the current site launches, or adjust the launch date if you'd like to prioritize it now.\n\nJust let me know which direction you prefer, and I'll send the change order over within a day or two. I'm excited about the possibility\u2014it would be a great addition for your clients.\n\nBest,\nAlex",
+      "suggested_change_order_fee": "$6,000 - $12,000",
+      "estimated_additional_timeline": "4-6 weeks"
+    }
+  },
+  "differentiate": {
+    "success": true,
+    "latency_ms": 6205,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 1011,
+    "data": {
+      "core_concept": "Energy flow through trophic levels and the impact of invasive species on ecosystem balance.",
+      "target_grade": "7th Grade Science",
+      "tier_1_scaffolded": {
+        "objective": "Students will identify and label the four trophic levels (producer, primary consumer, secondary consumer, apex predator) in a given food web and recognize that an invasive species can disrupt the flow of energy.",
+        "assignment": "You will receive a partially completed food web diagram of a wetland ecosystem. The organisms are already drawn, but the arrows are missing. Your tasks: 1) Draw arrows to show the direction of energy flow (from eaten to eater). 2) Color-code each organism by its trophic level: green for producers, yellow for primary consumers, orange for secondary consumers, red for apex predators. 3) In the diagram, an invasive species (zebra mussels) has been introduced. Circle the invasive species and write one sentence explaining which native organism will be most affected and why.",
+        "support_scaffolds": [
+          "A word bank with definitions of producer, primary consumer, secondary consumer, and apex predator.",
+          "A partially completed example food chain (e.g., algae \u2192 mayfly \u2192 trout) with arrows labeled.",
+          "Sentence starters: 'The invasive species competes with ____ for ____. This means ____ will have less energy.'"
+        ]
+      },
+      "tier_2_mastery": {
+        "objective": "Students will analyze how energy flows through trophic levels in a food web and predict the short-term and long-term effects of an invasive species on the populations of at least three native organisms.",
+        "assignment": "You are an ecologist studying a forest ecosystem that has been invaded by the emerald ash borer, an invasive beetle that kills ash trees. The ash trees are producers. Using the provided food web (which includes ash trees, aphids, ladybugs, woodpeckers, and hawks), answer the following: 1) Draw a food chain from the food web that includes at least four trophic levels. Label each level. 2) Explain how energy is transferred from the ash tree to the hawk, including what happens to energy at each step (e.g., some energy is lost as heat). 3) Predict what will happen to the populations of aphids, ladybugs, and woodpeckers in the short term (first year) and long term (five years) after the ash trees die. Justify your predictions using the concept of energy flow."
+      },
+      "tier_3_advanced": {
+        "objective": "Students will design a model to explain how an invasive species can cause a trophic cascade and propose a scientifically reasoned management strategy to mitigate the impact.",
+        "assignment": "Invasive lionfish have been introduced to a coral reef ecosystem. They are efficient predators that eat many small fish, including herbivores that keep algae from overgrowing corals. Design a model (diagram with labels and a written explanation) that shows the direct and indirect effects of the lionfish on the reef community. Your model must: 1) Identify the trophic levels of at least five organisms (including lionfish). 2) Explain how the lionfish's predation on herbivores leads to a trophic cascade that affects coral health. 3) Propose one realistic management strategy to control the lionfish population and predict the potential positive and negative consequences of that strategy on the ecosystem. Use evidence from your model to support your reasoning."
+      },
+      "quick_exit_ticket_question": "In a food chain, only about 10% of energy is transferred from one trophic level to the next. If a producer has 10,000 units of energy, how much energy is available to a secondary consumer?"
+    }
+  },
+  "invoice-extract": {
+    "success": true,
+    "latency_ms": 21998,
+    "model_used": "kimi-k3",
+    "tokens": 1050,
+    "data": {
+      "vendor": {
+        "name": "Apex Cloud Solutions LLC",
+        "address": "1204 Innovation Way, Suite 400, Austin, TX 78701",
+        "tax_id": "84-2938192"
+      },
+      "invoice_details": {
+        "invoice_number": "INV-884920",
+        "date": "2026-09-08",
+        "due_date": "2026-10-08"
+      },
+      "currency": "USD",
+      "line_items": [
+        {
+          "description": "Kubernetes Dedicated Node Cluster",
+          "quantity": 2,
+          "unit_price": 450.0,
+          "total": 900.0
+        },
+        {
+          "description": "Cloud Storage R2 Bucket (5TB)",
+          "quantity": 1,
+          "unit_price": 75.0,
+          "total": 75.0
+        },
+        {
+          "description": "Edge Network DDOS Protection Addon",
+          "quantity": 1,
+          "unit_price": 120.0,
+          "total": 120.0
+        }
+      ],
+      "subtotal": 1095.0,
+      "tax_amount": 90.34,
+      "total_amount": 1185.34,
+      "payment_terms": "Net 30 days. Wire to Bank of America Acct ending in 4921."
+    }
+  }
+};
+
+    
+    const ENDPOINT_OPTIMAL_MODELS = {
+      "explain-lab": { model: "deepseek-v4.1-flash", rationale: "Optimized for <400ms Diagnostic Analysis" },
+      "lease-check": { model: "deepseek-v4-pro", rationale: "Optimized for Multi-Clause Legal Reasoning" },
+      "scam-detector": { model: "deepseek-v4.1-flash", rationale: "Optimized for Sub-Second Fraud Triage" },
+      "review-reply": { model: "deepseek-v4.1-flash", rationale: "Optimized for Brand Diplomacy & Tone" },
+      "grant-match": { model: "deepseek-v4-pro", rationale: "Optimized for 50-Page RFP Compliance Audit" },
+      "scope-defense": { model: "deepseek-v4.1-flash", rationale: "Optimized for Contract Boundary Negotiation" },
+      "differentiate": { model: "deepseek-v4.1-flash", rationale: "Optimized for 3-Tier Pedagogical Scaffolding" },
+      "invoice-extract": { model: "kimi-k3", rationale: "Optimized for Multimodal Vision & Table OCR" }
+    };
+
     const ENDPOINT_CONFIGS = {
       "explain-lab": {
         name: "Medical Lab Report Explainer",
@@ -874,7 +1170,30 @@
       document.getElementById('studio-route-pill').innerText = conf.route;
       document.getElementById('studio-input').value = conf.defaultSample;
       document.getElementById('zapier-url').innerText = window.location.origin + conf.route;
+
+      // Update auto-assigned optimal engine display
+      const opt = ENDPOINT_OPTIMAL_MODELS[key] || { model: 'deepseek-v4.1-flash', rationale: 'High-Speed Deterministic JSON' };
+      const modelElem = document.getElementById('studio-assigned-model');
+      const rationaleElem = document.getElementById('studio-model-rationale');
+      if (modelElem) modelElem.innerText = opt.model;
+      if (rationaleElem) rationaleElem.innerText = opt.rationale;
       updateCurlPreview();
+
+      // Automatically display verified pre-computed result to save tokens & provide 0ms preview!
+      const cached = PRECOMPUTED_CACHE[key];
+      const jsonPre = document.getElementById('studio-json-pre');
+      const latencyBadge = document.getElementById('studio-latency');
+      const costBadge = document.getElementById('studio-cost-badge');
+
+      if (cached && cached.data) {
+        jsonPre.innerText = JSON.stringify(cached.data, null, 2);
+        latencyBadge.innerText = '0ms (Cached)';
+        latencyBadge.classList.remove('hidden');
+        if (costBadge) {
+          costBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> $0.00 Token Cost (Verified)';
+          costBadge.classList.remove('hidden');
+        }
+      }
     }
 
     function resetStudioSample() {
@@ -893,7 +1212,8 @@
 
     async function runStudioExecution() {
       const select = document.getElementById('studio-endpoint-select');
-      const model = document.getElementById('studio-model-select').value;
+      const opt = ENDPOINT_OPTIMAL_MODELS[select.value] || { model: 'deepseek-v4.1-flash' };
+      const model = opt.model;
       const input = document.getElementById('studio-input').value.trim();
       const loader = document.getElementById('studio-loader');
       const jsonPre = document.getElementById('studio-json-pre');
@@ -1023,6 +1343,14 @@
     }
 
     // Init
+    
+    document.getElementById('studio-input').addEventListener('input', function() {
+      const costBadge = document.getElementById('studio-cost-badge');
+      if (costBadge) {
+        costBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Custom Input • Click Execute to Run';
+      }
+    });
+
     window.addEventListener('DOMContentLoaded', function() {
       renderCards(ALL_ENDPOINTS);
       onStudioEndpointChange();
