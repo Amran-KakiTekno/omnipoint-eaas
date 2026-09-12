@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart EaaS — Everyday AI Superpowers for Non-Developers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #09090b; }
+    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+    .grid-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .card-hover {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 14px 35px -10px rgba(0, 0, 0, 0.65);
+    }
+  </style>
+</head>
+<body class="bg-[#09090b] text-[#f4f4f5] antialiased min-h-screen flex flex-col font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-40 border-b border-white/[0.08] bg-[#09090b]/85 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      
+      <!-- Brand -->
+      <div class="flex items-center space-x-3">
+        <a href="#" class="flex items-center space-x-2.5 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-sparkles text-sm" aria-hidden="true"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
+              Smart EaaS
+              <span class="text-[9px] font-medium px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Everyday AI</span>
+            </span>
+            <span class="text-[10px] text-zinc-400 hidden sm:inline">Zero Code • Instant Clarity</span>
+          </div>
+        </a>
+
+        <div class="hidden md:flex items-center gap-2 pl-3 border-l border-white/[0.08]">
+          <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Global Edge Live (Free Forever)
+          </span>
+        </div>
+      </div>
+
+      <!-- Center Links -->
+      <nav class="hidden lg:flex items-center space-x-1 text-xs font-medium text-zinc-400">
+        <button onclick="scrollToSection('hero-showcase')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">Before & After</button>
+        <button onclick="scrollToSection('directory')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">56 Life Situations</button>
+        <button onclick="scrollToSection('surfaces')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">WhatsApp & Phone</button>
+        <button onclick="scrollToSection('architecture')" class="px-3 py-1.5 rounded-md hover:text-white hover:bg-white/[0.04] transition">$0 Stack</button>
+      </nav>
+
+      <!-- Right Action & Mode Toggle -->
+      <div class="flex items-center space-x-2.5">
+        <!-- Dual Mode Switch -->
+        <button id="mode-toggle-btn" onclick="toggleUserMode()" class="h-8 px-2.5 sm:px-3 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-xs font-medium text-zinc-200 flex items-center gap-1.5 transition" title="Toggle between Human View and Developer API View">
+          <span id="mode-toggle-icon">👤</span>
+          <span id="mode-toggle-label" class="hidden sm:inline">Human Mode</span>
+        </button>
+
+        <button onclick="openStudio()" class="h-8 px-3.5 rounded-lg bg-white text-black hover:bg-zinc-200 text-xs font-semibold flex items-center gap-1.5 transition shadow-sm">
+          <i class="fa-solid fa-play text-[9px]" aria-hidden="true"></i>
+          <span>Try Interactive Studio</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- HERO SECTION: THE WOW FACTOR -->
+  <section class="relative pt-12 pb-14 overflow-hidden border-b border-white/[0.08]">
+    <div class="absolute inset-0 grid-bg opacity-40 pointer-events-none"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-600/15 blur-[130px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      
+      <!-- Eyebrow Pill -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-xs text-indigo-300 mb-5 backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-medium">Zero Technical Skills Needed • 100% Plain English</span>
+        <span class="text-zinc-600">•</span>
+        <span class="text-zinc-400 font-mono">56 Life Solutions</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] mb-4">
+        Turn Life's Complicated Papers <br/>
+        <span class="bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">
+          Into Clear, Simple Answers.
+        </span>
+      </h1>
+
+      <!-- Description -->
+      <p class="max-w-2xl mx-auto text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-8">
+        Scared by strange blood test numbers? Wondering if your rental lease has illegal traps? Got an urgent text claiming your bank is frozen? See how AI turns stressful, confusing papers into calm, reassuring solutions.
+      </p>
+
+      <!-- INTERACTIVE BEFORE & AFTER SHOWCASE WIDGET -->
+      <div id="hero-showcase" class="max-w-4xl mx-auto bg-[#121216] border border-white/[0.1] rounded-2xl p-4 sm:p-6 shadow-2xl shadow-black/80 text-left relative overflow-hidden">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.08]">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-wand-magic-sparkles text-indigo-400" aria-hidden="true"></i>
+              Live Transformation Preview
+            </span>
+            <span class="text-[10px] text-zinc-400 hidden sm:inline">(Click a scenario to see how it works)</span>
+          </div>
+
+          <!-- Scenario Tabs -->
+          <div class="flex flex-wrap gap-1.5 text-xs">
+            <button onclick="setHeroShowcase('lab')" id="hero-tab-lab" class="px-2.5 py-1 rounded-lg bg-white text-black font-semibold transition">
+              🩺 Blood Test
+            </button>
+            <button onclick="setHeroShowcase('lease')" id="hero-tab-lease" class="px-2.5 py-1 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-zinc-300 transition">
+              📑 Rental Lease
+            </button>
+            <button onclick="setHeroShowcase('scam')" id="hero-tab-scam" class="px-2.5 py-1 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-zinc-300 transition">
+              🚨 Scam SMS
+            </button>
+            <button onclick="setHeroShowcase('quote')" id="hero-tab-quote" class="px-2.5 py-1 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-zinc-300 transition">
+              🚗 Car Repair
+            </button>
+          </div>
+        </div>
+
+        <!-- Before & After Comparison Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-5 items-stretch">
+          
+          <!-- LEFT: THE MESSY PAPER -->
+          <div class="bg-[#09090b] border border-white/[0.08] rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1">
+                  <i class="fa-solid fa-file-circle-xmark" aria-hidden="true"></i> What You Receive (Messy & Confusing)
+                </span>
+                <span id="hero-input-label" class="text-[9px] font-mono text-zinc-500">Medical Portal Excerpt</span>
+              </div>
+              <div id="hero-input-text" class="text-xs font-mono text-zinc-300 bg-black/40 p-3 rounded-lg border border-white/[0.04] leading-relaxed whitespace-pre-wrap">
+Comprehensive Metabolic Panel:
+- Fasting Glucose: 118 mg/dL [HIGH] (Ref: 70-99)
+- Hemoglobin A1c: 5.9% [HIGH] (Ref: < 5.7)
+- Total Cholesterol: 224 mg/dL [HIGH] (Ref: < 200)
+- ALT Liver: 38 U/L [NORMAL] (Ref: 7-56)
+              </div>
+            </div>
+            <div class="mt-3 text-[11px] text-zinc-500 italic flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-info text-zinc-600" aria-hidden="true"></i>
+              <span>Doctor appointment is 5 days away. You're left anxious wondering what it means.</span>
+            </div>
+          </div>
+
+          <!-- RIGHT: THE INSTANT CLARITY -->
+          <div class="bg-[#0e0e13] border border-indigo-500/30 rounded-xl p-4 flex flex-col justify-between shadow-lg shadow-indigo-500/5">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i> What AI Gives You (Calm & Clear)
+                </span>
+                <span id="hero-badge" class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                  No Immediate Panic
+                </span>
+              </div>
+
+              <!-- Dynamic Output Body -->
+              <div id="hero-output-content" class="space-y-2.5 text-xs">
+                <div class="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-zinc-200">
+                  <span class="font-semibold text-indigo-300">Plain-English Assessment:</span>
+                  <p class="mt-0.5 leading-relaxed text-zinc-300">Your numbers indicate mild prediabetes, but your liver and kidney functions are 100% normal. This is an early warning sign that is very often reversible with basic diet tweaks.</p>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-black/40 border border-white/[0.06] text-zinc-300">
+                  <span class="font-semibold text-white flex items-center gap-1 mb-1">
+                    <i class="fa-solid fa-circle-question text-indigo-400" aria-hidden="true"></i> 3 Questions to Ask Your Doctor:
+                  </span>
+                  <ul class="space-y-1 text-[11px] text-zinc-300">
+                    <li>1. Should we recheck these numbers in 3 months?</li>
+                    <li>2. What daily carbohydrate target do you recommend?</li>
+                    <li>3. Would a dietitian consultation be covered by insurance?</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <button id="hero-action-btn" onclick="openStudioWithKey('explain-lab')" class="mt-3 w-full py-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition">
+              <span>Try With Your Own Document</span>
+              <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DIRECTORY SECTION -->
+  <section id="directory" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">
+    
+    <!-- Controls Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">56 Everyday Situations Ready to Use</h2>
+        <p class="text-xs text-zinc-400 mt-0.5">Click any problem card to see a real verified example, or paste your own document to test.</p>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="relative w-full md:w-84">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs" aria-hidden="true"></i>
+        <input 
+          type="text" 
+          id="search-input" 
+          onkeyup="filterCards()" 
+          placeholder="Search by problem (e.g. blood test, lease, scam, quote)..." 
+          aria-label="Search situations directory"
+          class="w-full bg-[#121215] border border-white/[0.08] hover:border-white/[0.15] focus:border-indigo-500/70 rounded-xl pl-9 pr-10 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 transition-all font-sans"
+        />
+        <button type="button" id="clear-search" onclick="clearSearch()" class="hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.08] flex items-center justify-center transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" aria-label="Clear search query">
+          <i class="fa-solid fa-xmark text-xs" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="relative mb-8">
+      <div class="flex items-center gap-2 overflow-x-auto pb-3 no-scrollbar text-xs font-medium [mask-image:linear-gradient(to_right,black_85%,transparent_100%)] sm:[mask-image:none]">
+        <button type="button" onclick="setCategory('all')" id="pill-all" class="cat-pill active-pill px-3.5 py-2 rounded-full border border-white/[0.12] bg-white text-black transition whitespace-nowrap min-h-[38px] flex items-center focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none font-semibold">
+          All Situations <span class="ml-1.5 text-[10px] opacity-70 font-mono">56</span>
+        </button>
+        <button type="button" onclick="setCategory('health')" id="pill-health" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-300 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          <i class="fa-solid fa-heart-pulse text-[11px] text-rose-400" aria-hidden="true"></i> Health & Family <span class="ml-1 text-[10px] font-mono text-zinc-500">15</span>
+        </button>
+        <button type="button" onclick="setCategory('legal')" id="pill-legal" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-300 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          <i class="fa-solid fa-file-contract text-[11px] text-amber-400" aria-hidden="true"></i> Tenant & Consumer Rights <span class="ml-1 text-[10px] font-mono text-zinc-500">10</span>
+        </button>
+        <button type="button" onclick="setCategory('safety')" id="pill-safety" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-300 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          <i class="fa-solid fa-shield-halved text-[11px] text-red-400" aria-hidden="true"></i> Scam & Fraud Shield <span class="ml-1 text-[10px] font-mono text-zinc-500">10</span>
+        </button>
+        <button type="button" onclick="setCategory('business')" id="pill-business" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-300 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          <i class="fa-solid fa-briefcase text-[11px] text-blue-400" aria-hidden="true"></i> Small Business & Work <span class="ml-1 text-[10px] font-mono text-zinc-500">10</span>
+        </button>
+        <button type="button" onclick="setCategory('community')" id="pill-community" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-300 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          <i class="fa-solid fa-hand-holding-heart text-[11px] text-emerald-400" aria-hidden="true"></i> Non-Profits & Community <span class="ml-1 text-[10px] font-mono text-zinc-500">10</span>
+        </button>
+        <button type="button" onclick="setCategory('vision')" id="pill-vision" class="cat-pill px-3.5 py-2 rounded-full border border-white/[0.08] bg-[#121215] text-zinc-300 hover:text-white hover:border-white/[0.15] transition whitespace-nowrap min-h-[38px] flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+          <i class="fa-solid fa-file-invoice-dollar text-[11px] text-purple-400" aria-hidden="true"></i> Receipt & Bill Scanner <span class="ml-1 text-[10px] font-mono text-zinc-500">1</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden py-16 text-center border border-dashed border-white/[0.08] rounded-2xl">
+      <div class="w-10 h-10 rounded-full bg-white/[0.03] text-zinc-500 flex items-center justify-center mx-auto mb-3 text-sm">
+        <i class="fa-solid fa-filter" aria-hidden="true"></i>
+      </div>
+      <p class="text-sm font-medium text-white">No matching situations found</p>
+      <p class="text-xs text-zinc-500 mt-1">Try a different keyword like "blood test", "lease", or "scam".</p>
+      <button onclick="resetFilters()" class="mt-4 px-3 py-1.5 text-xs bg-white/[0.06] hover:bg-white/[0.1] text-zinc-300 rounded-lg transition">Reset Search</button>
+    </div>
+
+  </section>
+
+  <!-- INTERACTIVE SURFACES SECTION (WhatsApp & Everyday Workflows) -->
+  <section id="surfaces" class="py-16 border-t border-white/[0.08] bg-[#0c0c0e]/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-2xl mb-10">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-indigo-400 font-semibold">Everyday Interfaces</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">How Normal People Actually Use This</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 mt-2">
+          You don't need any special app or programming skills. These AI helpers connect directly to WhatsApp, Google Sheets, or email.
+        </p>
+      </div>
+
+      <!-- Tabs for Surface Mockups -->
+      <div class="flex space-x-2 border-b border-white/[0.08] mb-8 text-xs font-medium">
+        <button onclick="switchSurface('whatsapp')" id="surface-btn-whatsapp" class="pb-3 text-white border-b-2 border-indigo-500 font-semibold px-2 transition">
+          <i class="fa-brands fa-whatsapp text-emerald-400 mr-1.5" aria-hidden="true"></i> 1. WhatsApp & SMS Helper
+        </button>
+        <button onclick="switchSurface('sheets')" id="surface-btn-sheets" class="pb-3 text-zinc-400 hover:text-white px-2 transition">
+          <i class="fa-solid fa-table text-emerald-500 mr-1.5" aria-hidden="true"></i> 2. Google Sheets Formula
+        </button>
+        <button onclick="switchSurface('zapier')" id="surface-btn-zapier" class="pb-3 text-zinc-400 hover:text-white px-2 transition">
+          <i class="fa-solid fa-diagram-project text-orange-400 mr-1.5" aria-hidden="true"></i> 3. Zapier Automation
+        </button>
+      </div>
+
+      <!-- SURFACE 1: WHATSAPP PHONE SIMULATOR -->
+      <div id="surface-whatsapp" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-[320px] bg-[#020408] border-4 border-zinc-800 rounded-[40px] p-3 shadow-2xl relative">
+            <div class="w-20 h-4 bg-zinc-800 rounded-full mx-auto mb-3"></div>
+            <!-- Chat Header -->
+            <div class="flex items-center gap-2.5 pb-2.5 border-b border-zinc-800/80">
+              <div class="w-7 h-7 rounded-full bg-emerald-600 flex items-center justify-center text-[10px] text-white font-bold">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="text-xs font-bold text-white truncate">Smart Family Shield</div>
+                <div class="text-[9px] text-emerald-400 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified WhatsApp Bot
+                </div>
+              </div>
+            </div>
+
+            <!-- Messages Stream -->
+            <div class="py-3 space-y-2.5 text-[11px] min-h-[300px] flex flex-col justify-end" id="chat-stream">
+              <div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px] leading-relaxed">
+                Hi! Forward any suspicious SMS, blood test photo, or mechanic bill here.
+              </div>
+              <div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px] leading-relaxed">
+                <div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1">
+                  <i class="fa-solid fa-image" aria-hidden="true"></i> [SMS: "Chase fraud alert: Account frozen. Click chase-verify82.com"]
+                </div>
+                Is this real? I was scared to click.
+              </div>
+              <div class="bg-emerald-950/70 border border-emerald-500/30 p-2.5 rounded-2xl rounded-tl-none text-[10px] text-zinc-200 space-y-1">
+                <div class="font-bold text-red-400 flex items-center gap-1">
+                  <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 99% SCAM CONFIRMED
+                </div>
+                <p class="text-zinc-300 text-[9.5px]">This is an urgency phishing trap trying to steal your card PIN.</p>
+                <div class="bg-black/40 p-1.5 rounded text-[9px] space-y-0.5 text-zinc-300">
+                  <p class="text-emerald-400 font-semibold">Steps to take:</p>
+                  <p>1. Do not tap the link.</p>
+                  <p>2. Delete the message.</p>
+                  <p>3. Your account is completely safe.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Input Mock -->
+            <div class="pt-2 border-t border-zinc-800 flex items-center gap-2">
+              <div class="flex-1 bg-zinc-900 text-zinc-500 text-[10px] py-1.5 px-3 rounded-full">Send photo or voice note...</div>
+              <div class="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-white text-[10px]">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
+            <span>Everyday Household Protection</span>
+          </div>
+          <h3 class="text-xl font-bold text-white tracking-tight">Zero Learning Curve for Elderly Parents & Families</h3>
+          <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            By connecting to WhatsApp, users never see code or technical menus. They simply forward a photo of their bill or share a voice note, and receive compassionate, actionable clarity in 2 seconds.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div class="p-3.5 rounded-xl bg-[#121215] border border-white/[0.08]">
+              <div class="text-xs font-semibold text-white mb-1.5">Try a Sample Chat:</div>
+              <div class="flex flex-wrap gap-1.5 text-[10px]">
+                <button onclick="setSimScenario('scam')" class="px-2.5 py-1 rounded-lg bg-zinc-800 text-zinc-200 hover:text-white transition">Scam SMS</button>
+                <button onclick="setSimScenario('lab')" class="px-2.5 py-1 rounded-lg bg-zinc-800 text-zinc-200 hover:text-white transition">Blood Test</button>
+                <button onclick="setSimScenario('lease')" class="px-2.5 py-1 rounded-lg bg-zinc-800 text-zinc-200 hover:text-white transition">Lease Clause</button>
+              </div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[#121215] border border-white/[0.08]">
+              <div class="text-xs font-semibold text-white mb-1">Simple Setup</div>
+              <p class="text-[11px] text-zinc-400">Scan QR code, save contact in WhatsApp, and you have a 24/7 personal assistant.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SURFACE 2: GOOGLE SHEETS SIMULATOR -->
+      <div id="surface-sheets" class="hidden space-y-6">
+        <div class="p-5 rounded-2xl bg-[#121215] border border-white/[0.08]">
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.08] text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">fx</span>
+              <span class="text-indigo-400">=AI_GRANT_MATCH(A2, B2)</span>
+            </div>
+            <span class="text-zinc-500">Google Sheets Custom Formula</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs font-mono text-left">
+              <thead class="bg-zinc-900 text-zinc-400 border-b border-zinc-800">
+                <tr>
+                  <th class="p-2.5 w-12 text-center text-zinc-500">#</th>
+                  <th class="p-2.5 w-1/3">A (Foundation RFP)</th>
+                  <th class="p-2.5 w-1/3">B (Eligibility Criteria)</th>
+                  <th class="p-2.5 text-indigo-400">C (=AI_GRANT_MATCH)</th>
+                  <th class="p-2.5 text-emerald-400">Action Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-800/80 bg-zinc-950/40 text-[11px]">
+                <tr>
+                  <td class="p-2.5 text-center text-zinc-600">2</td>
+                  <td class="p-2.5 text-zinc-200">Gates STEM Education Initiative</td>
+                  <td class="p-2.5 text-zinc-400 truncate max-w-xs">Requires 501(c)(3), Title I school focus, 3yr operating history...</td>
+                  <td class="p-2.5 text-emerald-400 font-semibold">92% Match (Eligible)</td>
+                  <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Draft Stage 1 LOI</span></td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 text-center text-zinc-600">3</td>
+                  <td class="p-2.5 text-zinc-200">Clean Water Infrastructure Fund</td>
+                  <td class="p-2.5 text-zinc-400 truncate max-w-xs">Municipalities & universities only. Non-profit entities excluded under Sec 4...</td>
+                  <td class="p-2.5 text-red-400 font-semibold">0% Match (Disqualified)</td>
+                  <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] bg-red-500/10 text-red-400 border border-red-500/20">Skip / Reject</span></td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 text-center text-zinc-600">4</td>
+                  <td class="p-2.5 text-zinc-200">Youth Arts & Community Literacy</td>
+                  <td class="p-2.5 text-zinc-400 truncate max-w-xs">Budget must be below $250,000; requires 1:1 matching cash grant...</td>
+                  <td class="p-2.5 text-amber-400 font-semibold">65% Match (Review Match)</td>
+                  <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20">Verify Cash Match</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SURFACE 3: ZAPIER AUTOMATION -->
+      <div id="surface-zapier" class="hidden space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-[#121215] border border-white/[0.08] relative">
+            <span class="text-[10px] text-zinc-500 font-bold uppercase block mb-1">Step 1 • Customer Post</span>
+            <div class="text-sm font-bold text-white flex items-center gap-2 mb-2">
+              <i class="fa-brands fa-google text-red-400" aria-hidden="true"></i> 1-Star Review
+            </div>
+            <p class="text-zinc-400 text-[11px] leading-relaxed">Customer complains about cold food on your Google Business profile.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-indigo-950/40 border border-indigo-500/50 shadow-lg shadow-indigo-500/10 relative">
+            <span class="text-[10px] text-indigo-400 font-bold uppercase block mb-1">Step 2 • Smart AI Helper</span>
+            <div class="text-sm font-bold text-white flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-sparkles text-indigo-400" aria-hidden="true"></i> De-escalation
+            </div>
+            <p class="text-zinc-300 text-[11px] leading-relaxed">AI reads the complaint and drafts a sincere, de-escalating apology in seconds.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#121215] border border-white/[0.08] relative">
+            <span class="text-[10px] text-zinc-500 font-bold uppercase block mb-1">Step 3 • Owner Approval</span>
+            <div class="text-sm font-bold text-white flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-mobile-screen text-purple-400" aria-hidden="true"></i> 1-Tap Notification
+            </div>
+            <p class="text-zinc-400 text-[11px] leading-relaxed">You get a notification on your phone: "Tap to approve reply".</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#121215] border border-white/[0.08] relative">
+            <span class="text-[10px] text-zinc-500 font-bold uppercase block mb-1">Step 4 • Published</span>
+            <div class="text-sm font-bold text-white flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-reply text-emerald-400" aria-hidden="true"></i> Reputation Saved
+            </div>
+            <p class="text-zinc-400 text-[11px] leading-relaxed">Approved response posted directly to Google Maps; customer appeased.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== STUDIO DRAWER / MODAL (The WOW Visual Experience) ==================== -->
+  <div id="studio-drawer" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="studio-title">
+    <!-- Backdrop -->
+    <div onclick="closeStudio()" class="absolute inset-0 bg-black/85 backdrop-blur-sm transition-opacity"></div>
+
+    <!-- Panel -->
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-4xl bg-[#0c0c0e] border-l border-white/[0.1] shadow-2xl flex flex-col z-10">
+      
+      <!-- Studio Header -->
+      <div class="h-16 px-5 border-b border-white/[0.08] flex items-center justify-between bg-[#121215]/95 backdrop-blur-md shrink-0">
+        <div class="flex items-center space-x-3 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-sm shrink-0 border border-indigo-500/30">
+            <i id="studio-header-icon" class="fa-solid fa-heart-pulse" aria-hidden="true"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <h3 id="studio-title" class="text-xs sm:text-sm font-bold text-white truncate">Medical Lab Report Explainer</h3>
+              <span id="studio-cost-badge" class="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0" aria-live="polite">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified $0.00 Free Preview
+              </span>
+            </div>
+            <div id="studio-subtitle" class="text-[11px] text-zinc-400 truncate">Translates complex blood work into simple, reassuring next steps</div>
+          </div>
+        </div>
+        
+        <div class="flex items-center space-x-2 shrink-0">
+          <button type="button" onclick="closeStudio()" class="w-10 h-10 sm:w-8 sm:h-8 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white flex items-center justify-center text-xs transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" aria-label="Close Studio drawer">
+            <i class="fa-solid fa-xmark text-base sm:text-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Studio Body (Split view) -->
+      <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
+        
+        <!-- LEFT: INPUT & SITUATION PICKER -->
+        <div class="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/[0.08] flex flex-col h-full overflow-hidden bg-[#0e0e12]">
+          
+          <div class="flex-1 p-5 space-y-4 overflow-y-auto">
+            
+            <!-- Select Situation -->
+            <div class="space-y-1.5">
+              <label for="studio-endpoint-select" class="text-[11px] font-semibold text-zinc-300 uppercase tracking-wider flex items-center justify-between">
+                <span>Choose Situation</span>
+                <span class="text-[10px] text-indigo-400 font-normal">56 Options Available</span>
+              </label>
+              <select id="studio-endpoint-select" onchange="onStudioEndpointChange()" aria-label="Select life situation" class="w-full bg-[#16161c] border border-white/[0.1] text-white rounded-xl p-2.5 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-none font-sans">
+                <!-- Injected dynamically -->
+              </select>
+            </div>
+
+            <!-- Input Box -->
+            <div class="flex-1 flex flex-col space-y-1.5 min-h-[220px]">
+              <div class="flex justify-between items-center text-[11px]">
+                <label for="studio-input" class="font-semibold text-zinc-300 uppercase tracking-wider">Your Information / Document</label>
+                <button type="button" onclick="resetStudioSample()" class="px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-[11px] text-indigo-300 hover:text-indigo-200 border border-white/[0.08] flex items-center gap-1.5 transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" aria-label="Restore verified default sample payload">
+                  <i class="fa-solid fa-rotate-left text-[10px]" aria-hidden="true"></i>
+                  <span>Restore Sample</span>
+                </button>
+              </div>
+              <textarea id="studio-input" class="flex-1 w-full min-h-[180px] bg-[#16161c] border border-white/[0.1] rounded-xl p-3 text-xs font-sans text-zinc-200 focus:ring-1 focus:ring-indigo-500 focus:outline-none resize-none leading-relaxed" placeholder="Type or paste messy text, bill details, or blood test numbers here..." aria-label="Your information or document"></textarea>
+            </div>
+
+            <!-- Developer Badge (shown only if dev mode enabled) -->
+            <div id="dev-meta-box" class="hidden p-2.5 rounded-lg bg-black/40 border border-white/[0.06] text-[10px] font-mono text-zinc-400 space-y-1">
+              <div>Route: <span id="studio-dev-route" class="text-indigo-400 font-bold"></span></div>
+              <div>Model: <span id="studio-assigned-model" class="text-emerald-400"></span></div>
+            </div>
+
+          </div>
+
+          <!-- Sticky Execution Action Dock -->
+          <div class="sticky bottom-0 bg-[#0c0c0e]/95 backdrop-blur-md border-t border-white/[0.08] p-4 z-20 shrink-0">
+            <button id="studio-run-btn" type="button" onclick="runStudioExecution()" class="w-full py-3 px-4 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl text-xs transition flex items-center justify-center gap-2 shadow-xl shadow-white/5 active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+              <i class="fa-solid fa-sparkles text-indigo-600 text-sm" aria-hidden="true"></i>
+              <span id="studio-btn-text">✨ Explain This in Plain English</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: RESULTS & VISUAL CARD RENDERER -->
+        <div class="lg:col-span-7 p-5 flex flex-col space-y-3 bg-[#09090b] overflow-hidden">
+          
+          <!-- Result Tabs -->
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-2 text-xs shrink-0">
+            <div class="flex space-x-1.5">
+              <button type="button" onclick="switchOutputTab('visual')" id="tab-out-visual" class="font-bold text-white border-b-2 border-indigo-500 pb-2 px-2.5 flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+                <i class="fa-solid fa-wand-magic-sparkles text-indigo-400 text-xs" aria-hidden="true"></i>
+                <span>Visual Clarity Report</span>
+              </button>
+              <button type="button" onclick="switchOutputTab('json')" id="tab-out-json" class="text-zinc-400 hover:text-white pb-2 px-2 flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">
+                <i class="fa-solid fa-code text-xs" aria-hidden="true"></i>
+                <span>Raw Data (JSON)</span>
+              </button>
+              <button type="button" onclick="switchOutputTab('curl')" id="tab-out-curl" class="hidden text-zinc-400 hover:text-white pb-2 px-2 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none">cURL</button>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span id="studio-latency" class="hidden text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700" aria-live="polite">0ms</span>
+              <button type="button" onclick="copyActiveReport()" class="h-7 px-2.5 rounded-lg text-xs text-zinc-300 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] flex items-center gap-1.5 transition focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none" aria-label="Copy report summary" title="Copy Plain-English Summary">
+                <i class="fa-regular fa-copy text-xs" aria-hidden="true"></i>
+                <span class="hidden sm:inline text-[11px]">Copy Summary</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- View 1: VISUAL HUMAN REPORT (DEFAULT) -->
+          <div id="view-out-visual" class="flex-1 flex flex-col overflow-y-auto relative pr-1">
+            <div id="studio-loader" class="hidden absolute inset-0 bg-[#09090b]/90 backdrop-blur-sm flex flex-col items-center justify-center z-20">
+              <div class="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mb-3"></div>
+              <p class="text-sm font-semibold text-white">Analyzing Document...</p>
+              <p class="text-xs text-zinc-400">Translating into plain English</p>
+            </div>
+            
+            <div id="studio-visual-container" class="space-y-3">
+              <!-- Rendered dynamically by renderHumanResult -->
+            </div>
+          </div>
+
+          <!-- View 2: Raw JSON Output -->
+          <div id="view-out-json" class="hidden flex-1 flex flex-col overflow-hidden relative">
+            <pre id="studio-json-pre" class="flex-1 p-3.5 bg-[#0e0e11] border border-white/[0.06] rounded-xl text-xs font-mono text-emerald-400 overflow-auto whitespace-pre-wrap select-all leading-relaxed"></pre>
+          </div>
+
+          <!-- View 3: cURL snippet -->
+          <div id="view-out-curl" class="hidden flex-1 flex flex-col overflow-hidden">
+            <pre id="studio-curl-pre" class="flex-1 p-3.5 bg-[#0e0e11] border border-white/[0.06] rounded-xl text-xs font-mono text-indigo-300 overflow-auto whitespace-pre-wrap select-all leading-relaxed"></pre>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/[0.08] py-8 bg-[#09090b] text-center text-xs text-zinc-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>Smart EaaS • Zero-Cost Cloudflare Edge Architecture</span>
+      </div>
+      <div class="flex items-center space-x-4 text-xs">
+        <a href="https://github.com/Amran-KakiTekno/omnipoint-eaas" target="_blank" class="hover:text-white transition">GitHub Repository</a>
+        <a href="/api/health" target="_blank" class="hover:text-white transition">Edge Health Check</a>
+        <a href="AI_Endpoint_As_A_Service_Playbook.pdf" download class="text-indigo-400 hover:text-indigo-300 transition flex items-center gap-1 font-semibold">
+          <i class="fa-solid fa-download text-[10px]" aria-hidden="true"></i> Download Strategy Playbook (PDF)
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification System -->
+  <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] pointer-events-none flex flex-col items-center gap-2" aria-live="polite"></div>
+
+  <!-- CLIENT-SIDE LOGIC & SCRIPTS -->
+  <script>
+    // All 56 merged endpoints with human-centric details
+    const ALL_ENDPOINTS = __ALL_ENDPOINTS_JSON__;
+
+    // Precomputed 0ms results cache
+    const PRECOMPUTED_CACHE = __PRECOMPUTED_CACHE_JSON__;
+
+    let currentCategory = 'all';
+    let isDeveloperMode = false;
+
+    // Mode Toggle Logic
+    function toggleUserMode() {
+      isDeveloperMode = !isDeveloperMode;
+      const btnIcon = document.getElementById('mode-toggle-icon');
+      const btnLabel = document.getElementById('mode-toggle-label');
+      const devBox = document.getElementById('dev-meta-box');
+      const curlTab = document.getElementById('tab-out-curl');
+
+      if (isDeveloperMode) {
+        btnIcon.innerText = '⚡';
+        btnLabel.innerText = 'Developer Mode';
+        devBox.classList.remove('hidden');
+        curlTab.classList.remove('hidden');
+        showToast('Developer Mode Active: Routes and cURL enabled', 'fa-code');
+      } else {
+        btnIcon.innerText = '👤';
+        btnLabel.innerText = 'Human Mode';
+        devBox.classList.add('hidden');
+        curlTab.classList.add('hidden');
+        showToast('Human Mode Active: Pure visual simplicity', 'fa-user');
+      }
+      renderCards(ALL_ENDPOINTS);
+    }
+
+    // Render Cards in Directory
+    function renderCards(endpointsList) {
+      const grid = document.getElementById('cards-grid');
+      const emptyState = document.getElementById('empty-state');
+
+      if (endpointsList.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.innerHTML = endpointsList.map(function(ep) {
+        const safeTitle = ep.title.replace(/"/g, '&quot;');
+        const safeDesc = ep.human_desc.replace(/"/g, '&quot;');
+        
+        return '<div role="button" tabindex="0" class="card-hover p-5 rounded-2xl bg-[#121216] border border-white/[0.08] flex flex-col justify-between group cursor-pointer focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none transition-all select-none" onclick="openStudioWithKey(\'' + ep.key + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault(); openStudioWithKey(\'' + ep.key + '\');}" aria-label="Open solution for ' + safeTitle + '">' +
+          '<div>' +
+            '<div class="flex items-center justify-between mb-3">' +
+              '<div class="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-indigo-600/20 group-hover:border-indigo-500/40 text-indigo-400 border border-white/[0.08] flex items-center justify-center text-base transition-colors">' +
+                '<i class="fa-solid ' + ep.icon + '" aria-hidden="true"></i>' +
+              '</div>' +
+              '<span class="text-[10px] font-medium text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">' +
+                ep.badge +
+              '</span>' +
+            '</div>' +
+            '<h3 class="text-sm font-bold text-white group-hover:text-indigo-300 transition tracking-tight">' + ep.title + '</h3>' +
+            '<p class="text-xs text-zinc-400 mt-2 line-clamp-2 leading-relaxed font-normal">' + ep.human_desc + '</p>' +
+            (isDeveloperMode ? '<div class="text-[10px] font-mono text-indigo-400 truncate mt-2 bg-black/40 p-1 rounded">' + ep.route + '</div>' : '') +
+          '</div>' +
+          '<div class="mt-4 pt-3.5 border-t border-white/[0.06] flex items-center justify-between text-xs">' +
+            '<span class="text-[10px] font-medium text-zinc-500 uppercase tracking-wider">' + ep.tag + '</span>' +
+            '<div class="flex items-center gap-2">' +
+              (isDeveloperMode ? '<button type="button" onclick="event.stopPropagation(); copyDirectCurl(\'' + ep.route + '\')" class="w-7 h-7 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/[0.08] transition" title="Copy cURL" aria-label="Copy cURL command"><i class="fa-solid fa-terminal text-[10px]" aria-hidden="true"></i></button>' : '') +
+              '<span class="text-indigo-400 text-xs font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">' +
+                'Try Live <i class="fa-solid fa-arrow-right text-[9px]" aria-hidden="true"></i>' +
+              '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    // Filter Cards
+    function filterCards() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      const clearBtn = document.getElementById('clear-search');
+      
+      if (query) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+
+      let filtered = ALL_ENDPOINTS;
+
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(function(ep) { 
+          return ep.human_cat === currentCategory || ep.category.toLowerCase().includes(currentCategory); 
+        }});
+      }
+
+      if (query) {
+        filtered = filtered.filter(function(ep) { 
+          return ep.title.toLowerCase().includes(query) ||
+                 ep.human_desc.toLowerCase().includes(query) ||
+                 ep.tag.toLowerCase().includes(query) ||
+                 ep.route.toLowerCase().includes(query);
+        });
+      }
+
+      renderCards(filtered);
+    }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(function(btn) {
+        btn.classList.remove('active-pill', 'bg-white', 'text-black', 'border-white/[0.12]', 'font-semibold');
+        btn.classList.add('bg-[#121215]', 'text-zinc-300', 'border-white/[0.08]');
+      });
+
+      const activeBtn = document.getElementById('pill-' + cat);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-[#121215]', 'text-zinc-300', 'border-white/[0.08]');
+        activeBtn.classList.add('active-pill', 'bg-white', 'text-black', 'border-white/[0.12]', 'font-semibold');
+      }
+
+      filterCards();
+    }
+
+    function clearSearch() {
+      document.getElementById('search-input').value = '';
+      filterCards();
+    }
+
+    function resetFilters() {
+      document.getElementById('search-input').value = '';
+      setCategory('all');
+    }
+
+    function scrollToSection(id) {
+      const elem = document.getElementById(id);
+      if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // HERO INTERACTIVE SHOWCASE DATA
+    const HERO_SCENARIOS = {
+      lab: {
+        label: "Medical Portal Excerpt",
+        input: "Comprehensive Metabolic Panel:\n- Fasting Glucose: 118 mg/dL [HIGH] (Ref: 70-99)\n- Hemoglobin A1c: 5.9% [HIGH] (Ref: < 5.7)\n- Total Cholesterol: 224 mg/dL [HIGH] (Ref: < 200)\n- ALT Liver: 38 U/L [NORMAL] (Ref: 7-56)",
+        badge: "No Immediate Panic",
+        endpointKey: "explain-lab",
+        content: `
+          <div class="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-zinc-200">
+            <span class="font-semibold text-indigo-300">Plain-English Assessment:</span>
+            <p class="mt-0.5 leading-relaxed text-zinc-300">Your numbers indicate mild prediabetes, but your liver and kidney functions are 100% normal. This is an early warning sign that is very often reversible with basic diet tweaks.</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-black/40 border border-white/[0.06] text-zinc-300">
+            <span class="font-semibold text-white flex items-center gap-1 mb-1">
+              <i class="fa-solid fa-circle-question text-indigo-400" aria-hidden="true"></i> 3 Questions to Ask Your Doctor:
+            </span>
+            <ul class="space-y-1 text-[11px] text-zinc-300">
+              <li>1. Should we recheck these numbers in 3 months?</li>
+              <li>2. What daily carbohydrate target do you recommend?</li>
+              <li>3. Would a dietitian consultation be covered by insurance?</li>
+            </ul>
+          </div>
+        `
+      },
+      lease: {
+        label: "Rental Agreement Excerpt",
+        input: 'Section 9. Maintenance:\n"Tenant is strictly responsible for all repairs under $350, including plumbing leaks, air conditioning servicing, and electrical."\nSection 14. Entry:\n"Landlord may enter premises at any time without advance notice."',
+        badge: "High Risk • 2 Unlawful Clauses",
+        endpointKey: "lease-check",
+        content: `
+          <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-200">
+            <span class="font-semibold text-amber-300">Legal Audit Alert:</span>
+            <p class="mt-0.5 leading-relaxed text-zinc-300">Clauses 9 and 14 violate statutory tenant rights in almost all jurisdictions. Landlords cannot legally shift habitability repairs (AC/plumbing) onto tenants, nor enter without 24 hours notice.</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-black/40 border border-white/[0.06] text-zinc-300">
+            <span class="font-semibold text-white flex items-center gap-1 mb-1">
+              <i class="fa-solid fa-hand-holding-hand text-amber-400" aria-hidden="true"></i> What to Ask Before Signing:
+            </span>
+            <ul class="space-y-1 text-[11px] text-zinc-300">
+              <li>• Request Section 14 require 24-hour advance written notice.</li>
+              <li>• Delete the $350 repair clause except for tenant-caused damage.</li>
+            </ul>
+          </div>
+        `
+      },
+      scam: {
+        label: "Incoming Urgent SMS",
+        input: 'URGENT FRAUD ALERT from Chase Bank:\nSuspicious charge of $1,420.89 detected in Chicago.\nConfirm your debit card PIN within 15 mins at:\nhttps://chase-security-verify82.com or account will be frozen.',
+        badge: "🚨 99.9% Scam Confirmed",
+        endpointKey: "scam-detector",
+        content: `
+          <div class="p-2.5 rounded-lg bg-red-500/15 border border-red-500/40 text-red-200">
+            <span class="font-bold text-red-400 flex items-center gap-1">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> High-Danger Phishing Trap
+            </span>
+            <p class="mt-0.5 leading-relaxed text-zinc-200">Real banks NEVER ask for your ATM PIN via SMS or links. The fake web address and 15-minute countdown are engineered to cause panic.</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-emerald-200">
+            <span class="font-semibold text-emerald-300">What to do right now:</span>
+            <p class="text-[11px] text-zinc-300 mt-0.5">Do not click. Block the number. Your real bank account is completely safe.</p>
+          </div>
+        `
+      },
+      quote: {
+        label: "Auto Mechanic Repair Estimate",
+        input: '2021 Honda Civic (42,000 miles):\n- Front Brake Pads: $480.00\n- Fuel Induction & Throttle Body Flush: $290.00\n- Transmission Flush: $310.00\nTotal Estimate: $1,080.00',
+        badge: "Overpriced by ~$500",
+        endpointKey: "auto-quote",
+        content: `
+          <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-zinc-200">
+            <span class="font-semibold text-amber-300">Price & Need Analysis:</span>
+            <p class="mt-0.5 leading-relaxed text-zinc-300">The $290 Fuel Induction Flush is an unnecessary dealer upsell for a 42k-mile Civic. The brake pads are also marked up ~35% over fair regional rates ($320).</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-black/40 border border-white/[0.06] text-zinc-300">
+            <span class="font-semibold text-white flex items-center gap-1 mb-1">
+              <i class="fa-solid fa-comment-dots text-indigo-400" aria-hidden="true"></i> Say This to the Mechanic:
+            </span>
+            <p class="text-[11px] text-zinc-300">"Please skip the fuel flush. Can you show me the brake pad thickness measurement before replacing?"</p>
+          </div>
+        `
+      }
+    };
+
+    function setHeroShowcase(scenarioKey) {
+      const sc = HERO_SCENARIOS[scenarioKey];
+      if (!sc) return;
+
+      ['lab', 'lease', 'scam', 'quote'].forEach(k => {
+        const btn = document.getElementById('hero-tab-' + k);
+        if (k === scenarioKey) {
+          btn.className = "px-2.5 py-1 rounded-lg bg-white text-black font-semibold transition";
+        } else {
+          btn.className = "px-2.5 py-1 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-zinc-300 transition";
+        }
+      });
+
+      document.getElementById('hero-input-label').innerText = sc.label;
+      document.getElementById('hero-input-text').innerText = sc.input;
+      document.getElementById('hero-badge').innerText = sc.badge;
+      document.getElementById('hero-output-content').innerHTML = sc.content;
+      document.getElementById('hero-action-btn').onclick = function() {
+        openStudioWithKey(sc.endpointKey);
+      };
+    }
+
+    // Studio Drawer Controls
+    function openStudio() {
+      document.getElementById('studio-drawer').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      onStudioEndpointChange();
+    }
+
+    function openStudioWithKey(key) {
+      const select = document.getElementById('studio-endpoint-select');
+      if (select) {
+        select.value = key;
+      }
+      openStudio();
+    }
+
+    function closeStudio() {
+      document.getElementById('studio-drawer').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeStudio();
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('search-input').focus();
+      }
+    });
+
+    // Populate Studio Dropdown
+    function initStudioDropdown() {
+      const select = document.getElementById('studio-endpoint-select');
+      const groups = {
+        "Health & Family Safety": [],
+        "Tenant & Consumer Rights": [],
+        "Scam & Fraud Defense": [],
+        "Small Business & Work": [],
+        "Non-Profits & Community": [],
+        "Document & Receipt Reader": []
+      };
+
+      ALL_ENDPOINTS.forEach(ep => {
+        if (ep.human_cat === 'health') groups["Health & Family Safety"].push(ep);
+        else if (ep.human_cat === 'legal') groups["Tenant & Consumer Rights"].push(ep);
+        else if (ep.human_cat === 'safety') groups["Scam & Fraud Defense"].push(ep);
+        else if (ep.human_cat === 'business') groups["Small Business & Work"].push(ep);
+        else if (ep.human_cat === 'community') groups["Non-Profits & Community"].push(ep);
+        else groups["Document & Receipt Reader"].push(ep);
+      });
+
+      let optionsHtml = '';
+      for (const [groupName, eps] of Object.entries(groups)) {
+        optionsHtml += `<optgroup label="${groupName}">`;
+        eps.forEach(ep => {
+          optionsHtml += `<option value="${ep.key}">${ep.title}</option>`;
+        });
+        optionsHtml += `</optgroup>`;
+      }
+      select.innerHTML = optionsHtml;
+    }
+
+    function onStudioEndpointChange() {
+      const select = document.getElementById('studio-endpoint-select');
+      const key = select.value || 'explain-lab';
+      const ep = ALL_ENDPOINTS.find(e => e.key === key) || ALL_ENDPOINTS[0];
+      
+      document.getElementById('studio-title').innerText = ep.title;
+      document.getElementById('studio-subtitle').innerText = ep.human_desc;
+      document.getElementById('studio-header-icon').className = 'fa-solid ' + ep.icon;
+      document.getElementById('studio-input').value = ep.defaultSample;
+      document.getElementById('studio-btn-text').innerText = '✨ ' + ep.action;
+      
+      document.getElementById('studio-dev-route').innerText = ep.route;
+      document.getElementById('studio-assigned-model').innerText = ep.model + ' (' + ep.rationale + ')';
+
+      updateCurlPreview();
+
+      // Show verified precomputed result by default!
+      const cached = PRECOMPUTED_CACHE[key];
+      const visualContainer = document.getElementById('studio-visual-container');
+      const jsonPre = document.getElementById('studio-json-pre');
+      const latencyBadge = document.getElementById('studio-latency');
+
+      if (cached && cached.data) {
+        visualContainer.innerHTML = renderHumanResult(cached.data, key);
+        jsonPre.innerText = JSON.stringify(cached.data, null, 2);
+        latencyBadge.innerText = '0ms (Cached)';
+        latencyBadge.classList.remove('hidden');
+      } else {
+        visualContainer.innerHTML = '<div class="p-4 text-xs text-zinc-400">Click the button below to generate report.</div>';
+        jsonPre.innerText = '// Click execute to generate';
+      }
+    }
+
+    function resetStudioSample() {
+      onStudioEndpointChange();
+      showToast('Verified sample restored!', 'fa-rotate-left');
+    }
+
+    function updateCurlPreview() {
+      const select = document.getElementById('studio-endpoint-select');
+      const ep = ALL_ENDPOINTS.find(e => e.key === select.value) || ALL_ENDPOINTS[0];
+      const host = window.location.origin;
+      const curl = 'curl -X POST "' + host + ep.route + '" \\\n' +
+        '  -H "Content-Type: application/json" \\\n' +
+        '  -d \'{"input": "..."}\'';
+      document.getElementById('studio-curl-pre').innerText = curl;
+    }
+
+    async function runStudioExecution() {
+      const select = document.getElementById('studio-endpoint-select');
+      const key = select.value;
+      const ep = ALL_ENDPOINTS.find(e => e.key === key) || ALL_ENDPOINTS[0];
+      const input = document.getElementById('studio-input').value.trim();
+      const loader = document.getElementById('studio-loader');
+      const visualContainer = document.getElementById('studio-visual-container');
+      const jsonPre = document.getElementById('studio-json-pre');
+      const latencyBadge = document.getElementById('studio-latency');
+      const runBtn = document.getElementById('studio-run-btn');
+
+      if (!input) {
+        showToast("Please enter text or restore sample.", "fa-circle-exclamation");
+        return;
+      }
+
+      loader.classList.remove('hidden');
+      latencyBadge.classList.add('hidden');
+      runBtn.disabled = true;
+      runBtn.classList.add('opacity-50');
+
+      try {
+        const targetUrl = window.location.hostname.includes('pages.dev')
+          ? 'https://smart-eaas.muhammadamran40.workers.dev/api/execute'
+          : '/api/execute';
+
+        const resp = await fetch(targetUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            endpoint: key,
+            model: ep.model,
+            input: input
+          })
+        });
+
+        const data = await resp.json();
+        loader.classList.add('hidden');
+        runBtn.disabled = false;
+        runBtn.classList.remove('opacity-50');
+
+        if (data.success) {
+          visualContainer.innerHTML = renderHumanResult(data.data, key);
+          jsonPre.innerText = JSON.stringify(data.data, null, 2);
+          latencyBadge.innerText = data.latency_ms + 'ms';
+          latencyBadge.classList.remove('hidden');
+          showToast('Live clarity report generated!', 'fa-sparkles');
+        } else {
+          visualContainer.innerHTML = '<div class="p-4 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs">Error: ' + (data.error || 'Execution failed') + '</div>';
+          jsonPre.innerText = '// Error: ' + (data.error || 'Execution failed');
+        }
+      } catch (err) {
+        loader.classList.add('hidden');
+        runBtn.disabled = false;
+        runBtn.classList.remove('opacity-50');
+        visualContainer.innerHTML = '<div class="p-4 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs">Network Error: ' + err.message + '</div>';
+        jsonPre.innerText = '// Network Error: ' + err.message;
+      }
+    }
+
+    // ==================== VISUAL HUMAN RESULT RENDERER ====================
+    function renderHumanResult(data, key) {
+      if (!data) return '<div class="text-zinc-500 text-xs p-4">No data available.</div>';
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch(e) { 
+          return '<div class="text-zinc-300 text-xs p-4 whitespace-pre-wrap bg-zinc-900 rounded-xl">' + data + '</div>'; 
+        }
+      }
+
+      let html = '<div class="space-y-3.5">';
+
+      // 1. SCAM DETECTOR SPECIAL CARD
+      if (data.is_scam !== undefined || data.scam_type) {
+        const isScam = data.is_scam === true || data.is_scam === 'true';
+        const conf = data.confidence_score ? Math.round(data.confidence_score * 100) : 99;
+        
+        html += `
+          <div class="p-4 rounded-xl ${isScam ? 'bg-red-500/15 border border-red-500/40 text-red-200' : 'bg-emerald-500/15 border border-emerald-500/40 text-emerald-200'}">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2 ${isScam ? 'text-red-400' : 'text-emerald-400'} font-bold text-sm">
+                <i class="fa-solid ${isScam ? 'fa-triangle-exclamation' : 'fa-circle-check'} text-base" aria-hidden="true"></i>
+                ${isScam ? conf + '% SCAM CONFIRMED' : 'LIKELY LEGITIMATE & SAFE'}
+              </div>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded-full ${isScam ? 'bg-red-500/20 text-red-300 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">
+                ${data.scam_type || 'Fraud Triage'}
+              </span>
+            </div>
+            <p class="text-xs text-zinc-200 leading-relaxed font-medium">${data.plain_language_verdict || data.summary || 'Assessment complete.'}</p>
+          </div>
+        `;
+
+        if (data.red_flags && data.red_flags.length > 0) {
+          html += `
+            <div class="p-3.5 rounded-xl bg-zinc-900/80 border border-white/[0.08]">
+              <div class="text-xs font-bold text-red-400 mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-flag" aria-hidden="true"></i> Red Flags Detected:
+              </div>
+              <ul class="space-y-1.5 text-xs text-zinc-300">
+                ${data.red_flags.map(f => `<li class="flex items-start gap-2"><span class="text-red-400 font-bold">•</span><span>${f}</span></li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+
+        if (data.safe_action_steps && data.safe_action_steps.length > 0) {
+          html += `
+            <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30">
+              <div class="text-xs font-bold text-emerald-400 mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> What You Should Do Right Now:
+              </div>
+              <ul class="space-y-1.5 text-xs text-zinc-200">
+                ${data.safe_action_steps.map((s, i) => `<li class="flex items-start gap-2"><span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px] shrink-0 mt-0.5 font-bold">${i+1}</span><span>${s}</span></li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+        html += '</div>';
+        return html;
+      }
+
+      // 2. LEASE AUDIT SPECIAL CARD
+      if (data.risk_score || data.flagged_clauses) {
+        const risk = (data.risk_score || 'medium').toLowerCase();
+        const isHigh = risk === 'critical' || risk === 'high';
+        const colorClass = isHigh ? 'red' : (risk === 'medium' ? 'amber' : 'emerald');
+        
+        html += `
+          <div class="p-4 rounded-xl bg-${colorClass}-500/15 border border-${colorClass}-500/30">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="text-xs font-bold uppercase tracking-wider text-${colorClass}-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-scale-unbalanced" aria-hidden="true"></i> Lease Risk Score: ${risk.toUpperCase()}
+              </div>
+            </div>
+            <p class="text-xs text-zinc-200 leading-relaxed font-medium">${data.summary || 'Audit complete.'}</p>
+          </div>
+        `;
+
+        if (data.flagged_clauses && data.flagged_clauses.length > 0) {
+          html += `
+            <div class="space-y-2.5">
+              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                <i class="fa-solid fa-triangle-exclamation text-amber-400" aria-hidden="true"></i> Flagged Clauses to Beware Of:
+              </div>
+              ${data.flagged_clauses.map(c => `
+                <div class="p-3.5 rounded-xl bg-zinc-900/80 border border-white/[0.08] space-y-1.5">
+                  <div class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    ${c.clause_title || 'Unfair Clause'}
+                  </div>
+                  <p class="text-[11px] text-zinc-400 italic bg-black/40 p-2 rounded-lg border border-white/[0.04]">${c.original_text || ''}</p>
+                  <p class="text-xs text-zinc-300"><strong>The Problem:</strong> ${c.issue_explanation || c.state_law_concern || ''}</p>
+                  <div class="text-xs text-emerald-300 bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20">
+                    <strong>Recommended Action:</strong> ${c.recommended_action || ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        if (data.tenant_negotiation_checklist && data.tenant_negotiation_checklist.length > 0) {
+          html += `
+            <div class="p-3.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30">
+              <div class="text-xs font-bold text-indigo-300 mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-list-check" aria-hidden="true"></i> What to Ask Before Signing:
+              </div>
+              <ul class="space-y-1.5 text-xs text-zinc-200">
+                ${data.tenant_negotiation_checklist.map(t => `<li class="flex items-start gap-2"><i class="fa-regular fa-square-check text-indigo-400 mt-0.5" aria-hidden="true"></i><span>${t}</span></li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+        html += '</div>';
+        return html;
+      }
+
+      // 3. MEDICAL LAB REPORT SPECIAL CARD
+      if (data.abnormal_findings) {
+        html += `
+          <div class="p-4 rounded-xl bg-indigo-500/15 border border-indigo-500/30">
+            <div class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-heart-pulse" aria-hidden="true"></i> Plain-English Assessment
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-200 leading-relaxed font-medium">${data.summary || 'Summary of test findings.'}</p>
+          </div>
+        `;
+
+        if (data.abnormal_findings.length > 0) {
+          html += `
+            <div class="space-y-2">
+              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-exclamation text-amber-400" aria-hidden="true"></i> Key Findings to Review:
+              </div>
+              <div class="grid grid-cols-1 gap-2">
+                ${data.abnormal_findings.map(f => `
+                  <div class="p-3 rounded-xl bg-zinc-900/80 border border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <div class="text-xs font-bold text-white flex items-center gap-2">
+                        ${f.test_name}
+                        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${f.urgency === 'high' ? 'bg-red-500/20 text-red-300 border border-red-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">
+                          ${f.value}
+                        </span>
+                      </div>
+                      <div class="text-[11px] text-zinc-400 mt-0.5 leading-relaxed">${f.clinical_meaning}</div>
+                    </div>
+                    <div class="text-[10px] font-mono text-zinc-500 shrink-0 bg-black/40 px-2 py-1 rounded">Normal Range: ${f.reference_range}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        if (data.questions_for_doctor && data.questions_for_doctor.length > 0) {
+          html += `
+            <div class="p-3.5 rounded-xl bg-blue-950/40 border border-blue-500/30">
+              <div class="text-xs font-bold text-blue-300 mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-clipboard-question" aria-hidden="true"></i> 3 Questions to Ask Your Doctor:
+              </div>
+              <ul class="space-y-1.5 text-xs text-zinc-200">
+                ${data.questions_for_doctor.map(q => `<li class="flex items-start gap-2"><i class="fa-solid fa-circle-question text-blue-400 mt-0.5 text-[11px]" aria-hidden="true"></i><span>${q}</span></li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+        html += '</div>';
+        return html;
+      }
+
+      // 4. INVOICE SPECIAL CARD
+      if (data.line_items || data.vendor) {
+        const v = data.vendor || {};
+        const inv = data.invoice_details || {};
+        html += `
+          <div class="p-4 rounded-xl bg-zinc-900/90 border border-white/[0.1] space-y-3">
+            <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+              <div>
+                <div class="text-sm font-bold text-white">${v.name || 'Vendor Invoice'}</div>
+                <div class="text-[11px] text-zinc-400">${v.address || ''} ${v.tax_id ? '• Tax ID: ' + v.tax_id : ''}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs font-mono font-bold text-indigo-400">${inv.invoice_number || 'RECEIPT'}</div>
+                <div class="text-[10px] text-zinc-500">${inv.date || ''}</div>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs">
+                <thead class="text-zinc-500 border-b border-white/[0.06] text-left">
+                  <tr>
+                    <th class="py-1.5">Item Description</th>
+                    <th class="py-1.5 text-center">Qty</th>
+                    <th class="py-1.5 text-right">Price</th>
+                    <th class="py-1.5 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/[0.04] text-zinc-300">
+                  ${(data.line_items || []).map(li => `
+                    <tr>
+                      <td class="py-2">${li.description}</td>
+                      <td class="py-2 text-center text-zinc-400">${li.quantity}</td>
+                      <td class="py-2 text-right font-mono text-zinc-400">$${Number(li.unit_price).toFixed(2)}</td>
+                      <td class="py-2 text-right font-mono font-medium text-white">$${Number(li.total).toFixed(2)}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pt-2.5 border-t border-white/[0.08] flex justify-between items-center text-xs">
+              <span class="text-zinc-400">Total Due (${data.currency || 'USD'})</span>
+              <span class="text-base font-bold text-emerald-400 font-mono">$${Number(data.total_amount || 0).toFixed(2)}</span>
+            </div>
+          </div>
+        `;
+        html += '</div>';
+        return html;
+      }
+
+      // 5. UNIVERSAL SMART RENDERER FOR OTHER 52 ENDPOINTS
+      const mainSummary = data.summary || data.verdict || data.plain_language_verdict || data.overview || data.immediate_empathetic_response || data.thematic_topic || data.title;
+      if (mainSummary) {
+        html += `
+          <div class="p-4 rounded-xl bg-indigo-500/15 border border-indigo-500/30">
+            <div class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Executive Summary
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-200 leading-relaxed font-medium">${mainSummary}</p>
+          </div>
+        `;
+      }
+
+      for (const [k, v] of Object.entries(data)) {
+        if (['summary', 'verdict', 'plain_language_verdict', 'overview', 'immediate_empathetic_response', 'thematic_topic', 'title'].includes(k)) continue;
+        const label = k.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+        if (Array.isArray(v)) {
+          html += `
+            <div class="p-3.5 rounded-xl bg-zinc-900/80 border border-white/[0.08]">
+              <div class="text-xs font-bold text-zinc-200 mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-dot text-indigo-400 text-[10px]" aria-hidden="true"></i> ${label}
+              </div>
+              <ul class="space-y-1.5 text-xs text-zinc-300">
+                ${v.map(item => {
+                  if (typeof item === 'object' && item !== null) {
+                    return '<li class="bg-black/40 p-2.5 rounded-lg text-[11px] mb-1.5 border border-white/[0.04] space-y-1">' + 
+                      Object.entries(item).map(([ik, iv]) => `<div class="flex flex-col"><span class="text-zinc-500 font-semibold text-[9.5px] uppercase">${ik.replace(/_/g, ' ')}</span><span class="text-zinc-200">${iv}</span></div>`).join('') + 
+                    '</li>';
+                  }
+                  return `<li class="flex items-start gap-2"><span class="text-indigo-400 font-bold">•</span><span>${item}</span></li>`;
+                }).join('')}
+              </ul>
+            </div>
+          `;
+        } else if (typeof v === 'object' && v !== null) {
+          html += `
+            <div class="p-3.5 rounded-xl bg-zinc-900/80 border border-white/[0.08]">
+              <div class="text-xs font-bold text-zinc-200 mb-2">${label}</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                ${Object.entries(v).map(([ik, iv]) => `
+                  <div class="bg-black/30 p-2 rounded-lg border border-white/[0.04]">
+                    <span class="text-zinc-500 text-[10px] block font-semibold uppercase">${ik.replace(/_/g, ' ')}</span>
+                    <span class="text-zinc-200 font-medium">${iv}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        } else {
+          html += `
+            <div class="p-3 rounded-xl bg-zinc-900/60 border border-white/[0.06] flex items-center justify-between">
+              <span class="text-xs text-zinc-400 font-medium">${label}</span>
+              <span class="text-xs font-semibold text-white">${v}</span>
+            </div>
+          `;
+        }
+      }
+
+      html += '</div>';
+      return html;
+    }
+
+    function switchOutputTab(tab) {
+      ['visual', 'json', 'curl'].forEach(function(t) {
+        const view = document.getElementById('view-out-' + t);
+        const tabBtn = document.getElementById('tab-out-' + t);
+        if (view) view.classList.add('hidden');
+        if (tabBtn) {
+          tabBtn.classList.remove('text-white', 'border-b-2', 'border-indigo-500', 'font-bold');
+          tabBtn.classList.add('text-zinc-400');
+        }
+      });
+
+      const activeView = document.getElementById('view-out-' + tab);
+      const activeTabBtn = document.getElementById('tab-out-' + tab);
+      if (activeView) activeView.classList.remove('hidden');
+      if (activeTabBtn) {
+        activeTabBtn.classList.add('text-white', 'border-b-2', 'border-indigo-500', 'font-bold');
+        activeTabBtn.classList.remove('text-zinc-400');
+      }
+    }
+
+    // Toast Notification System
+    function showToast(message, icon) {
+      icon = icon || 'fa-circle-check';
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#1e1e24]/95 border border-white/20 text-white text-xs font-medium shadow-2xl shadow-black/90 backdrop-blur-md transform transition-all duration-200 opacity-0 translate-y-2 pointer-events-auto';
+      toast.innerHTML = '<i class="fa-solid ' + icon + ' text-emerald-400 text-xs" aria-hidden="true"></i><span>' + message + '</span>';
+      container.appendChild(toast);
+      requestAnimationFrame(function() {
+        toast.classList.remove('opacity-0', 'translate-y-2');
+        toast.classList.add('opacity-100', 'translate-y-0');
+      });
+      setTimeout(function() {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(function() {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 250);
+      }, 2200);
+    }
+
+    function copyActiveReport() {
+      const visualContainer = document.getElementById('studio-visual-container');
+      const textToCopy = visualContainer.innerText || document.getElementById('studio-json-pre').innerText;
+      
+      navigator.clipboard.writeText(textToCopy).then(function() {
+        showToast('Report copied! Ready to paste into WhatsApp or Email.', 'fa-clipboard-check');
+      }).catch(function() {
+        showToast('Failed to copy', 'fa-circle-exclamation');
+      });
+    }
+
+    function copyDirectCurl(route) {
+      const curl = 'curl -X POST "' + window.location.origin + route + '" \\\n' +
+        '  -H "Content-Type: application/json" \\\n' +
+        '  -d \'{"input": "..."}\'';
+      navigator.clipboard.writeText(curl).then(function() {
+        showToast('cURL command copied to clipboard!');
+      }).catch(function() {
+        showToast('Failed to copy cURL', 'fa-circle-exclamation');
+      });
+    }
+
+    // Surface Switcher
+    function switchSurface(surface) {
+      ['whatsapp', 'sheets', 'zapier'].forEach(function(s) {
+        document.getElementById('surface-' + s).classList.add('hidden');
+        document.getElementById('surface-btn-' + s).classList.remove('text-white', 'border-b-2', 'border-indigo-500', 'font-semibold');
+        document.getElementById('surface-btn-' + s).classList.add('text-zinc-400');
+      });
+
+      document.getElementById('surface-' + surface).classList.remove('hidden');
+      document.getElementById('surface-btn-' + surface).classList.add('text-white', 'border-b-2', 'border-indigo-500', 'font-semibold');
+      document.getElementById('surface-btn-' + surface).classList.remove('text-zinc-400');
+    }
+
+    function setSimScenario(scenario) {
+      const chat = document.getElementById('chat-stream');
+      if (scenario === 'scam') {
+        chat.innerHTML = 
+          '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Forward any suspicious SMS or email here.</div>' +
+          '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
+            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-image" aria-hidden="true"></i> [SMS: "Chase Fraud Alert: Account frozen..."]</div>' +
+            'Is this real?' +
+          '</div>' +
+          '<div class="bg-emerald-950/70 border border-emerald-500/30 p-2.5 rounded-2xl rounded-tl-none text-[10px] text-zinc-200 space-y-1">' +
+            '<div class="font-bold text-red-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 99% SCAM CONFIRMED</div>' +
+            '<p class="text-[9.5px]">This is an urgency phishing trap trying to steal your card PIN.</p>' +
+          '</div>';
+      } else if (scenario === 'lab') {
+        chat.innerHTML = 
+          '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Forward any lab test photo here.</div>' +
+          '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
+            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-file-medical" aria-hidden="true"></i> [Photo: Fasting Glucose 118, A1c 5.9%]</div>' +
+            'Doctor is busy until Friday. What does this mean?' +
+          '</div>' +
+          '<div class="bg-blue-950/70 border border-blue-500/30 p-2.5 rounded-2xl rounded-tl-none text-[10px] text-zinc-200 space-y-1">' +
+            '<div class="font-bold text-blue-400 flex items-center gap-1"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i> PRE-DIABETES MARKER DETECTED</div>' +
+            '<p class="text-[9.5px]">Fasting glucose is slightly elevated above 99 mg/dL. This indicates early insulin resistance.</p>' +
+          '</div>';
+      } else if (scenario === 'lease') {
+        chat.innerHTML = 
+          '<div class="bg-zinc-800/90 text-zinc-300 p-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-[10px]">Send lease agreement clause photo or text.</div>' +
+          '<div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-[10px]">' +
+            '<div class="bg-black/30 p-1 rounded mb-1 text-[9px] flex items-center gap-1"><i class="fa-solid fa-file-contract" aria-hidden="true"></i> [Clause: "Tenant pays all repairs under $350..."]</div>' +
+            'Can the landlord make me pay this?' +
+          '</div>' +
+          '<div class="bg-amber-950/70 border border-amber-500/30 p-2.5 rounded-2xl rounded-tl-none text-[10px] text-zinc-200 space-y-1">' +
+            '<div class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> UNLAWFUL CLAUSE WARNING</div>' +
+            '<p class="text-[9.5px]">Most states hold landlords legally responsible for habitability repairs regardless of lease clauses.</p>' +
+          '</div>';
+      }
+    }
+
+    // Init Page
+    window.addEventListener('DOMContentLoaded', function() {
+      initStudioDropdown();
+      renderCards(ALL_ENDPOINTS);
+      onStudioEndpointChange();
+    });
+  </script>
+</body>
+</html>
