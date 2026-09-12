@@ -1,0 +1,9 @@
+name = "omnipoint-eaas"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+
+[vars]
+ROOTSYS_BASE_URL = "https://rootsys.cloud/v1"
+ROOTSYS_API_KEY = "fiq-c05ed74847755db048eef8038724c336"
+DEFAULT_TEXT_MODEL = "deepseek-v4.1-flash"
+DEFAULT_VISION_MODEL = "kimi-k3"
