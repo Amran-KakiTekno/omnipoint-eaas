@@ -3,3 +3,6 @@ node_modules/
 *.log
 test_*.py
 test_*.pdf
+__pycache__/
+*.pyc
+

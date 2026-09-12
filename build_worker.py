@@ -1,11 +1,25 @@
 import json
 import subprocess
+import os
+
+from generate_all_endpoints import ENDPOINTS_DATA
 
 with open("public/index.html", "r", encoding="utf-8") as f:
     html_content = f.read()
 
-# Read the prompts from public/index.html or definition
-from generate_modern_ui import ENDPOINT_PROMPTS
+# Build comprehensive prompts dictionary for all 56 endpoints
+ENDPOINT_PROMPTS = {}
+for ep in ENDPOINTS_DATA:
+    ENDPOINT_PROMPTS[ep["key"]] = {
+        "id": ep["id"],
+        "name": ep["name"],
+        "route": ep["route"],
+        "category": ep["category"],
+        "model": ep["model"],
+        "rationale": ep["rationale"],
+        "systemPrompt": ep["systemPrompt"],
+        "defaultSample": ep["defaultSample"]
+    }
 
 prompts_js = "const ENDPOINT_PROMPTS = " + json.dumps(ENDPOINT_PROMPTS, indent=2) + ";"
 escaped_html = json.dumps(html_content)
@@ -36,8 +50,9 @@ export default {{
       return new Response(JSON.stringify({{
         status: "operational",
         service: "Smart EaaS - Production AI Microservices",
-        version: "2.0.0",
+        version: "2.1.0",
         cloud: "Cloudflare Workers (Edge)",
+        total_endpoints: Object.keys(ENDPOINT_PROMPTS).length,
         models_supported: ["deepseek-v4.1-flash", "kimi-k3", "deepseek-v4-pro", "glm-5.3"]
       }}), {{
         headers: {{ ...corsHeaders, "Content-Type": "application/json" }}
@@ -49,10 +64,10 @@ export default {{
         const body = await request.json();
         const endpointKey = body.endpoint || "explain-lab";
         const customInput = body.input || "";
-        const selectedModel = body.model || env.DEFAULT_TEXT_MODEL || "deepseek-v4.1-flash";
+        const config = ENDPOINT_PROMPTS[endpointKey] || ENDPOINT_PROMPTS["explain-lab"];
+        const selectedModel = body.model || config.model || env.DEFAULT_TEXT_MODEL || "deepseek-v4.1-flash";
         const apiKey = body.api_key || env.ROOTSYS_API_KEY || "fiq-c05ed74847755db048eef8038724c336";
 
-        const config = ENDPOINT_PROMPTS[endpointKey] || ENDPOINT_PROMPTS["explain-lab"];
         const startTime = Date.now();
 
         const llmPayload = {{
@@ -61,6 +76,7 @@ export default {{
             {{ role: "system", content: config.systemPrompt }},
             {{ role: "user", content: customInput }}
           ],
+          max_tokens: 800,
           temperature: 0.1
         }};
 
@@ -68,7 +84,8 @@ export default {{
           method: "POST",
           headers: {{
             "Authorization": `Bearer ${{apiKey}}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
           }},
           body: JSON.stringify(llmPayload)
         }});
@@ -86,7 +103,7 @@ export default {{
 
         const data = await response.json();
         const latencyMs = Date.now() - startTime;
-        let outputContent = data.choices[0]?.message?.content || "{{}}";
+        let outputContent = data.choices[0]?.message?.content || data.choices[0]?.message?.reasoning_content || "{{}}";
 
         outputContent = outputContent.replace(/^```json\\s*/i, "").replace(/^```\\s*/i, "").replace(/\\s*```$/i, "").trim();
 
@@ -116,7 +133,7 @@ export default {{
       }}
     }}
 
-    // Direct REST API paths
+    // Direct REST API paths for all 56 endpoints
     for (const [key, conf] of Object.entries(ENDPOINT_PROMPTS)) {{
       if (path === conf.route && request.method === "POST") {{
         try {{
@@ -129,20 +146,22 @@ export default {{
             method: "POST",
             headers: {{
               "Authorization": `Bearer ${{token}}`,
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
             }},
             body: JSON.stringify({{
-              model: env.DEFAULT_TEXT_MODEL || "deepseek-v4.1-flash",
+              model: conf.model || env.DEFAULT_TEXT_MODEL || "deepseek-v4.1-flash",
               messages: [
                 {{ role: "system", content: conf.systemPrompt }},
                 {{ role: "user", content: typeof rawInput === "string" ? rawInput : JSON.stringify(rawInput) }}
               ],
+              max_tokens: 800,
               temperature: 0.1
             }})
           }});
 
           const data = await response.json();
-          let rawRes = data.choices[0]?.message?.content || "{{}}";
+          let rawRes = data.choices[0]?.message?.content || data.choices[0]?.message?.reasoning_content || "{{}}";
           rawRes = rawRes.replace(/^```json\\s*/i, "").replace(/^```\\s*/i, "").replace(/\\s*```$/i, "").trim();
 
           return new Response(rawRes, {{
@@ -168,7 +187,7 @@ export default {{
 with open("src/index.js", "w", encoding="utf-8") as f:
     f.write(worker_code)
 
-print("src/index.js created. Validating with node...")
+print(f"src/index.js created with {len(ENDPOINT_PROMPTS)} endpoints. Validating with node...")
 res = subprocess.run(["node", "--check", "src/index.js"], capture_output=True, text=True)
 if res.returncode == 0:
     print("[SUCCESS] src/index.js passed syntax check!")

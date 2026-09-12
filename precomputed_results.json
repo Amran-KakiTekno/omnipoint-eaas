@@ -73,7 +73,7 @@
           "clause_title": "Tenant Responsible for Repairs Under $350",
           "original_text": "Tenant shall be responsible for all repairs under $350, including plumbing clogs, HVAC filter servicing, electrical switches, and appliance maintenance.",
           "issue_explanation": "This clause shifts the landlord's duty to maintain habitable premises onto the tenant, requiring them to pay for routine repairs and maintenance. It may discourage tenants from requesting necessary repairs and can lead to unsafe conditions.",
-          "state_law_concern": "In most states, landlords are legally required to maintain rental units in habitable condition, including plumbing, heating, and electrical systems. Such clauses are often void as against public policy, as they attempt to waive the implied warranty of habitability. Specific statutes vary (e.g., California Civil Code \u00a7 1941.1, New York Real Property Law \u00a7 235-b).",
+          "state_law_concern": "In most states, landlords are legally required to maintain rental units in habitable condition, including plumbing, heating, and electrical systems. Such clauses are often void as against public policy, as they attempt to waive the implied warranty of habitability. Specific statutes vary (e.g., California Civil Code § 1941.1, New York Real Property Law § 235-b).",
           "recommended_action": "Tenant should negotiate to remove this clause or limit it to cosmetic damages caused by tenant negligence. Landlord should remain responsible for all repairs related to habitability and normal wear and tear."
         },
         {
@@ -87,14 +87,14 @@
           "clause_title": "Landlord Right to Enter Without Notice",
           "original_text": "Landlord reserves the right to enter the leased premises at any time without advance written notice for routine inspections, showing to prospective buyers, or general premises auditing.",
           "issue_explanation": "This clause grants the landlord unlimited entry rights without prior notice, violating the tenant's right to quiet enjoyment and privacy. It could lead to harassment or unnecessary intrusions.",
-          "state_law_concern": "Most states require landlords to provide reasonable advance notice (typically 24-48 hours) before entering a rental unit, except in emergencies. Such clauses are unenforceable and may violate state landlord-tenant acts (e.g., California Civil Code \u00a7 1954, Texas Property Code \u00a7 92.008).",
+          "state_law_concern": "Most states require landlords to provide reasonable advance notice (typically 24-48 hours) before entering a rental unit, except in emergencies. Such clauses are unenforceable and may violate state landlord-tenant acts (e.g., California Civil Code § 1954, Texas Property Code § 92.008).",
           "recommended_action": "Tenant should negotiate to require at least 24 hours' written notice for non-emergency entries. Entry should be limited to reasonable times and purposes."
         },
         {
           "clause_title": "Non-Refundable Refurbishment and Administrative Fee",
           "original_text": "A non-refundable refurbishment and administrative fee of $500 will be deducted from the security deposit upon vacancy, irrespective of apartment condition.",
           "issue_explanation": "This clause imposes a mandatory $500 deduction from the security deposit regardless of the actual condition of the unit, effectively converting a refundable deposit into a non-refundable fee. This is unlawful in many jurisdictions.",
-          "state_law_concern": "Security deposits are intended to be refundable and can only be withheld for specific reasons such as unpaid rent or damages beyond normal wear and tear. Non-refundable fees deducted from deposits are prohibited in many states (e.g., California Civil Code \u00a7 1950.5, New York General Obligations Law \u00a7 7-103).",
+          "state_law_concern": "Security deposits are intended to be refundable and can only be withheld for specific reasons such as unpaid rent or damages beyond normal wear and tear. Non-refundable fees deducted from deposits are prohibited in many states (e.g., California Civil Code § 1950.5, New York General Obligations Law § 7-103).",
           "recommended_action": "Tenant should refuse to sign this clause and demand that any deductions be itemized and based on actual damages. If already signed, tenant may challenge the fee in court or seek assistance from a tenant rights organization."
         }
       ],
@@ -187,7 +187,7 @@
         "Number of youth trained (high school apprentices)",
         "Pounds of fresh produce distributed",
         "501(c)(3) registration and date of formation (to verify 3-year operating history)",
-        "Overhead/indirect administrative costs as a percentage of total project budget (must be \u226410%)"
+        "Overhead/indirect administrative costs as a percentage of total project budget (must be ≤10%)"
       ],
       "strategic_recommendation": "CityRoots Community Gardens strongly aligns with the RFP's focus on urban agricultural education and youth-led food justice. However, the organization's 2021 founding date creates a significant risk of disqualification if the 3-year operating history requirement is strictly enforced. To become eligible, CityRoots should provide documentation of its 501(c)(3) status and formation date, and if the 3-year threshold is not met, consider partnering with a more established fiscal sponsor or waiting until the requirement is satisfied. Additionally, the proposal must explicitly commit to tracking the two required metrics and capping overhead at 10%. With these assurances, the application would be highly competitive."
     }
@@ -200,8 +200,8 @@
     "data": {
       "is_scope_creep": true,
       "creep_severity": "major",
-      "analysis": "The requested multi-step user registration portal with login, PDF upload, and invoice history is far outside the agreed scope of a 5-page marketing website with CMS integration. It introduces authentication, user roles, secure file storage, database structures, and billing/invoice data integration\u2014none of which are present in the contract. The client's framing that it's 'just adding an account button' drastically understates the complexity (likely 80+ development hours plus security and compliance considerations). This is a major scope change, not a minor addition, and threatens the launch timeline.",
-      "diplomatic_email_draft": "Hi [Client Name],\n\nThank you for the kind words about the site\u2014it's been a pleasure working on it with you.\n\nI'd love to help bring the client portal idea to life, but I want to be upfront that it falls outside our current agreement. The signed scope covers a 5-page marketing website with Webflow CMS for case studies. What you're describing involves user registration, secure login, file uploads, and invoice history\u2014that's a separate web application with authentication, database design, file storage, and security requirements. It's a substantial build, not just a button.\n\nBecause of that, the best path forward is a separate change order. I can put together a detailed proposal with a timeline and fixed price so you can decide if it fits your budget and priorities. We can either tackle it after the current site launches, or adjust the launch date if you'd like to prioritize it now.\n\nJust let me know which direction you prefer, and I'll send the change order over within a day or two. I'm excited about the possibility\u2014it would be a great addition for your clients.\n\nBest,\nAlex",
+      "analysis": "The requested multi-step user registration portal with login, PDF upload, and invoice history is far outside the agreed scope of a 5-page marketing website with CMS integration. It introduces authentication, user roles, secure file storage, database structures, and billing/invoice data integration—none of which are present in the contract. The client's framing that it's 'just adding an account button' drastically understates the complexity (likely 80+ development hours plus security and compliance considerations). This is a major scope change, not a minor addition, and threatens the launch timeline.",
+      "diplomatic_email_draft": "Hi [Client Name],\n\nThank you for the kind words about the site—it's been a pleasure working on it with you.\n\nI'd love to help bring the client portal idea to life, but I want to be upfront that it falls outside our current agreement. The signed scope covers a 5-page marketing website with Webflow CMS for case studies. What you're describing involves user registration, secure login, file uploads, and invoice history—that's a separate web application with authentication, database design, file storage, and security requirements. It's a substantial build, not just a button.\n\nBecause of that, the best path forward is a separate change order. I can put together a detailed proposal with a timeline and fixed price so you can decide if it fits your budget and priorities. We can either tackle it after the current site launches, or adjust the launch date if you'd like to prioritize it now.\n\nJust let me know which direction you prefer, and I'll send the change order over within a day or two. I'm excited about the possibility—it would be a great addition for your clients.\n\nBest,\nAlex",
       "suggested_change_order_fee": "$6,000 - $12,000",
       "estimated_additional_timeline": "4-6 weeks"
     }
@@ -219,7 +219,7 @@
         "assignment": "You will receive a partially completed food web diagram of a wetland ecosystem. The organisms are already drawn, but the arrows are missing. Your tasks: 1) Draw arrows to show the direction of energy flow (from eaten to eater). 2) Color-code each organism by its trophic level: green for producers, yellow for primary consumers, orange for secondary consumers, red for apex predators. 3) In the diagram, an invasive species (zebra mussels) has been introduced. Circle the invasive species and write one sentence explaining which native organism will be most affected and why.",
         "support_scaffolds": [
           "A word bank with definitions of producer, primary consumer, secondary consumer, and apex predator.",
-          "A partially completed example food chain (e.g., algae \u2192 mayfly \u2192 trout) with arrows labeled.",
+          "A partially completed example food chain (e.g., algae → mayfly → trout) with arrows labeled.",
           "Sentence starters: 'The invasive species competes with ____ for ____. This means ____ will have less energy.'"
         ]
       },
@@ -275,6 +275,1273 @@
       "tax_amount": 90.34,
       "total_amount": 1185.34,
       "payment_terms": "Net 30 days. Wire to Bank of America Acct ending in 4921."
+    }
+  },
+  "ingredient-alert": {
+    "success": true,
+    "latency_ms": 3925,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 693,
+    "data": {
+      "safety_status": "DANGEROUS",
+      "detected_allergens": [
+        {
+          "allergen": "Wheat / Gluten",
+          "source_ingredient": "Enriched wheat flour",
+          "allergy_type": "gluten"
+        },
+        {
+          "allergen": "Milk / Dairy",
+          "source_ingredient": "Whey protein concentrate",
+          "allergy_type": "dairy"
+        },
+        {
+          "allergen": "Milk / Dairy",
+          "source_ingredient": "Sodium caseinate",
+          "allergy_type": "dairy"
+        },
+        {
+          "allergen": "Wheat / Gluten",
+          "source_ingredient": "Natural savory flavor (contains hydrolyzed wheat protein)",
+          "allergy_type": "gluten"
+        },
+        {
+          "allergen": "Soy",
+          "source_ingredient": "Soybean oil",
+          "allergy_type": "soy"
+        }
+      ],
+      "flagged_e_numbers": [
+        "E282 - Calcium propionate (preservative) - generally recognized as safe, but may cause skin/mucosal irritation in sensitive individuals; not a common allergen.",
+        "E102 - Tartrazine (synthetic yellow food dye) - can trigger allergic-type reactions (hives, asthma) and hyperactivity in some children; banned in some countries."
+      ],
+      "hidden_derivatives_alert": [
+        "Whey protein concentrate is a direct milk derivative (contains lactose and milk proteins).",
+        "Sodium caseinate is a milk protein derivative (casein).",
+        "Hydrolyzed wheat protein in 'natural savory flavor' is a hidden gluten source.",
+        "Natural savory flavor may contain additional unspecified dairy or gluten derivatives.",
+        "Modified corn starch is typically gluten-free, but cross-contamination during processing is possible."
+      ],
+      "summary_for_parent": "DANGER: This product is unsafe for a child with severe dairy and gluten allergies. It contains multiple milk ingredients (whey, caseinate) and wheat ingredients (flour, hydrolyzed wheat protein). Even small amounts can trigger severe reactions. Do not give this product. Also note artificial colors and preservatives that may cause other sensitivities. Always consult your allergist and read labels carefully."
+    }
+  },
+  "ticket-appeal": {
+    "success": true,
+    "latency_ms": 14033,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 975,
+    "data": {
+      "output": "{\n  \"appeal_strength\": \"high\",\n  \"legal_grounds_cited\": [\n    \"Municipal Code of Chicago § 9-64-080 requires that temporary no-parking signs for street sweeping be posted at least 24 hours in advance of enforcement; the temporary paper sign was posted less than 12 hours prior, violating this notice requirement.\",\n    \"Due process and fundamental fairness require adequate notice before a parking restriction may be enforced; enforcement based on a sign posted less than 12 hours before issuance fails to provide a reasonable opportunity to comply.\",\n    \"The permanent street cleaning sign was not visible from a legally parked vehicle because it was obstructed by dense, unpruned tree branches approximately 14 feet overhead, rendering the notice ineffective and non-compliant with municipal sign visibility requirements.\",\n    \"The City's own street sweeping notice policy and established administrative precedent require both permanent and temporary signage to be clearly visible and posted in a timely manner; failure to maintain the permanent sign or provide 24-hour temporary notice invalidates the citation.\"\n  ],\n  \"formal_appeal_letter\": \"Department of Administrative Hearings\\nCity of Chicago\\n400 W. Superior Street\\nChicago, IL 60654\\n\\nRe: Formal Appeal of Parking Citation\\nCitation Number: [Insert Citation Number]\\nVehicle License Plate: [Insert Plate]\\nDate of Issuance: [Insert Date]\\nLocation: North Clark Street, Chicago, IL\\nViolation Code Cited: 9-64-080 (Street Sweeping)\\n\\nTo the Honorable Administrative Law Judge:\\n\\nI respectfully submit this formal appeal contesting the above-referenced parking citation issued pursuant to Municipal Code of Chicago § 9-64-080. The citation was issued at 9:02 AM on Tuesday while my vehicle was lawfully parked on North Clark Street. I assert that this citation must be dismissed on the grounds that the City failed to provide legally adequate and timely notice of the street sweeping restriction, in violation of the Municipal Code and fundamental principles of due process.\\n\\nFirst, the temporary paper no-parking sign posted for the street sweeping operation was affixed less than twelve (12) hours prior to the issuance of the citation. The Municipal Code of Chicago, as interpreted and applied by the Department of Streets and Sanitation, requires that temporary street sweeping signs be posted at least twenty-four (24) hours in advance of the scheduled sweeping. This advance-notice requirement exists precisely to afford motorists a reasonable opportunity to move their vehicles. The City's failure to comply with its own notice requirement renders the citation void and unenforceable.\\n\\nSecond, the permanent street cleaning sign on North Clark Street was not visible at the time of parking or at the time of the citation because it was obstructed by dense, unpruned tree branches located approximately fourteen (14) feet above the curb. A reasonable motorist exercising ordinary care could not have observed the permanent sign, and no other signage provided adequate notice of the restriction. The City has an affirmative obligation to maintain its signage in a visible and legible condition. Where the City fails to maintain such signage, it cannot lawfully enforce the underlying restriction.\\n\\nThird, the issuance of a citation under these circumstances violates the due process guarantee that a person must receive fair notice before being subjected to a penalty. Enforcement of a parking restriction predicated on an invisible permanent sign and a temporary sign posted less than half the required time in advance fails to satisfy the minimal standards of notice required by law.\\n\\nIn support of this appeal, I have attached photographic evidence demonstrating the obstruction of the permanent sign by tree branches, a time-stamped photograph of the temporary sign, and a written log documenting the time the temporary sign was first observed. I respectfully request that the Administrative Law Judge take judicial notice of the Municipal Code's 24-hour advance posting requirement and dismiss this citation in its entirety.\\n\\nThank you"
+    }
+  },
+  "insurance-appeal": {
+    "success": true,
+    "latency_ms": 13053,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 822,
+    "data": {
+      "denial_category": "Medical Necessity - Step Therapy/Conservative Treatment Requirement",
+      "appeal_strategy": "Challenge the denial based on inapplicability of the 6-week physical therapy requirement due to documented contraindication. Assert that the insurer's own medical policy and evidence-based guidelines (e.g., NASS, ACR) exempt patients with progressive neurologic deficits or red-flag symptoms from conservative care prerequisites. Cite the presence of drop foot and acute disc compression as requiring urgent imaging to prevent permanent nerve damage. Reference prompt-pay and timely utilization review statutes to establish that the denial was not based on a full clinical review and that further delay violates the standard of care.",
+      "formal_appeal_rebuttal": "This appeal challenges the denial of CPT 72148 (Lumbar Spine MRI) for the above-named patient. The denial rationale, citing failure to complete six weeks of physical therapy, is not supported by the clinical record and violates Aetna's own Clinical Policy Bulletin on Lumbar Spine MRI indications. The patient presents with 12 weeks of chronic sciatica, progressive right foot drop (documented motor weakness grade 3/5 on dorsiflexion), and sensory loss in the L5 distribution. Physical therapy was expressly contraindicated by the treating orthopedic surgeon, Dr. Reynolds, due to MRI-suspected acute herniated disc with nerve root compression. Requiring physical therapy in the presence of a progressive neurologic deficit is contrary to the standard of care and could cause irreversible harm. The American College of Radiology (ACR) Appropriateness Criteria and North American Spine Society (NASS) guidelines designate MRI as the appropriate initial imaging modality for progressive neurologic deficit or suspected cauda equina syndrome, without a prerequisite trial of conservative therapy. Aetna's own medical policy recognizes that 'red flag' conditions (progressive motor weakness, new-onset foot drop) warrant immediate advanced imaging. Therefore, the denial based solely on an inapplicable step-therapy requirement constitutes a medically inappropriate determination. Furthermore, under applicable state prompt-pay and utilization review statutes, the denial was issued without a documented physician-to-physician consultation and without adequate consideration of the contraindication, rendering the adverse determination procedurally deficient. We request immediate reversal and payment of $2,400 for the medically necessary MRI.",
+      "required_clinical_documents": [
+        "Orthopedic surgeon's office notes documenting contraindication to physical therapy and clinical findings of foot drop",
+        "Neurological examination results showing progressive motor weakness and sensory deficits (e.g., manual muscle testing, reflex changes)",
+        "Physical therapy contraindication letter or form signed by Dr. Reynolds",
+        "Prior conservative treatment records (e.g., NSAIDs, activity modification, oral steroids) if any were attempted before contraindication was established",
+        "Aetna Lumbar Spine MRI Clinical Policy Bulletin excerpt supporting imaging for red-flag/progressive neurologic deficits",
+        "ACR Appropriateness Criteria for Low Back Pain with Progressive Neurologic Deficit",
+        "Peer-to-peer review documentation or utilization review denial letter with reviewer credentials and specialty",
+        "Patient's longitudinal symptom diary or pain/function questionnaires (e.g., Oswestry Disability Index) showing worsening over 12 weeks"
+      ]
+    }
+  },
+  "auto-quote": {
+    "success": true,
+    "latency_ms": 3640,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 491,
+    "data": {
+      "fair_price_rating": "slightly_high",
+      "estimated_fair_total_range": "$800 - $1100",
+      "quote_total": 1510.0,
+      "critical_safety_repairs": [
+        "Front Brake Pads & Rotors Replacement"
+      ],
+      "optional_or_questionable_upsells": [
+        "Fuel Induction & Throttle Body Flush",
+        "Cabin & Engine Air Filters",
+        "Transmission Fluid Flush",
+        "Shop Supplies & Environmental Disposal Fee"
+      ],
+      "questions_to_ask_mechanic": [
+        "Can you provide the measured thickness of the front brake pads and rotors to confirm they are below the manufacturer's minimum specification?",
+        "Are the cabin and engine air filters visibly dirty or clogged, and can you show me their condition?",
+        "Is the fuel induction and throttle body flush recommended by Honda's maintenance schedule for my vehicle's mileage, or is it a preventive add-on?",
+        "Does the transmission fluid flush follow Honda's specific procedure and use the required genuine Honda transmission fluid?",
+        "What is the breakdown of the shop supplies and environmental disposal fee, and is it negotiable?",
+        "Can you provide a written estimate with parts and labor separated for each service?"
+      ]
+    }
+  },
+  "fridge-chef": {
+    "success": true,
+    "latency_ms": 4744,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 839,
+    "data": {
+      "expiring_ingredients_prioritized": [
+        "heavy cream",
+        "eggs",
+        "baby spinach",
+        "roasted chicken breast",
+        "sun-dried tomatoes",
+        "parmesan rind",
+        "cooked white rice"
+      ],
+      "recipes": [
+        {
+          "title": "Creamy Sun-Dried Tomato and Spinach Skillet Chicken",
+          "prep_time": "15 minutes",
+          "used_items": [
+            "heavy cream",
+            "baby spinach",
+            "roasted chicken breast",
+            "sun-dried tomatoes",
+            "parmesan rind",
+            "garlic",
+            "butter"
+          ],
+          "instructions": [
+            "Melt butter in a skillet over medium heat. Add minced garlic and chopped sun-dried tomatoes; sauté for 1 minute.",
+            "Pour in heavy cream and add the parmesan rind. Simmer gently for 5 minutes to infuse flavor.",
+            "Add the roasted chicken breast (sliced or shredded) and cook until heated through, about 3 minutes.",
+            "Stir in the baby spinach and cook until wilted, about 2 minutes.",
+            "Remove the parmesan rind, season with salt and pepper, and serve hot."
+          ]
+        },
+        {
+          "title": "Spinach and Sun-Dried Tomato Frittata with Parmesan",
+          "prep_time": "20 minutes",
+          "used_items": [
+            "eggs",
+            "heavy cream",
+            "baby spinach",
+            "sun-dried tomatoes",
+            "parmesan rind",
+            "garlic",
+            "butter"
+          ],
+          "instructions": [
+            "Preheat oven to 375°F (190°C).",
+            "In a bowl, whisk eggs with heavy cream, salt, and pepper.",
+            "Melt butter in an oven-safe skillet over medium heat. Sauté garlic and sun-dried tomatoes for 1 minute.",
+            "Add baby spinach and cook until wilted, about 2 minutes.",
+            "Pour egg mixture over the spinach. Grate the parmesan rind (or finely chop) and sprinkle on top.",
+            "Cook without stirring for 2 minutes, then transfer to the oven and bake until set, about 10-12 minutes.",
+            "Slice and serve."
+          ]
+        },
+        {
+          "title": "Creamy Parmesan Rice with Chicken and Spinach",
+          "prep_time": "15 minutes",
+          "used_items": [
+            "cooked white rice",
+            "heavy cream",
+            "parmesan rind",
+            "roasted chicken breast",
+            "baby spinach",
+            "garlic",
+            "butter"
+          ],
+          "instructions": [
+            "In a saucepan, melt butter over medium heat. Add minced garlic and sauté for 30 seconds.",
+            "Add heavy cream and the parmesan rind. Bring to a simmer and cook for 5 minutes to infuse.",
+            "Stir in the cooked white rice and roasted chicken breast (diced). Cook until heated through, about 3 minutes.",
+            "Add baby spinach and cook until wilted, about 2 minutes.",
+            "Remove parmesan rind, season with salt and pepper, and serve."
+          ]
+        }
+      ]
+    }
+  },
+  "iep-analyzer": {
+    "success": true,
+    "latency_ms": 5264,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 920,
+    "data": {
+      "child_summary": "This is a draft IEP for a third-grade student with ADHD and sensory processing needs. It notes challenges with starting tasks and regulating sensory input. The draft offers limited supports: preferred seating only when available, verbal reminders to stay on task, sensory breaks only at teacher discretion, extra testing time only if the student asks, and speech services twice a month for 15 minutes in a group of four.",
+      "diagnosed_needs": [
+        "ADHD (Attention-Deficit/Hyperactivity Disorder)",
+        "Sensory Processing Disorder",
+        "Deficits in task initiation",
+        "Deficits in sensory modulation"
+      ],
+      "accommodations_granted": [
+        "Preferred seating when available",
+        "Verbal reminders to stay on task",
+        "Sensory breaks at teacher discretion",
+        "Extra time on testing provided if requested by student",
+        "Speech services: 15 minutes bi-weekly in a group of 4"
+      ],
+      "missing_or_vague_accommodations": [
+        "Preferred seating is conditional ('when available'), which may result in inconsistent access; needs a guaranteed, assigned seat that meets sensory and attention needs.",
+        "Sensory breaks are at 'teacher discretion,' leaving timing and frequency undefined; should be scheduled proactively and student-initiated as needed.",
+        "Verbal reminders are not specified; should include a consistent visual or verbal prompt system, with frequency and wording defined.",
+        "Extra testing time is only provided 'if requested by student,' which is not appropriate for a child with task initiation and ADHD challenges; testing accommodations should be automatically provided.",
+        "No accommodations for task initiation such as visual schedules, checklists, chunking assignments, or a structured start routine.",
+        "No sensory diet or specific sensory tools (e.g., fidget, weighted lap pad, noise-canceling headphones) are listed.",
+        "Speech services are minimal (15 minutes bi-weekly in a group of 4); the IEP does not specify goals, present levels, or whether this meets the student's needs.",
+        "No assistive technology, organizational supports, or home-school communication plan.",
+        "No behavioral intervention plan or social-emotional supports for ADHD-related impulsivity or frustration.",
+        "No transition accommodations between activities or classes.",
+        "No staff training on ADHD and sensory processing listed."
+      ],
+      "questions_for_the_iep_meeting": [
+        "What data support the current levels of task initiation and sensory modulation, and how were they measured?",
+        "Why is preferred seating only 'when available'? Can it be guaranteed as a required accommodation?",
+        "How will sensory breaks be provided consistently if they are only at teacher discretion? Can the student request them independently?",
+        "What specific visual or verbal prompts will be used for task initiation, and how often will they be given?",
+        "Why must the student request extra time for testing? Given ADHD and task initiation difficulties, will the team make this accommodation automatic?",
+        "What is the speech-language goal, and is 15 minutes bi-weekly in a group of 4 sufficient to meet it? What does the present level of performance show?",
+        "Are there any assistive technology tools or sensory equipment that should be added?",
+        "Is a behavioral intervention plan needed to address impulsivity or frustration?",
+        "What training will staff receive on ADHD and sensory processing?",
+        "How will progress be monitored and reported to parents, and how often?",
+        "Does the student need a sensory diet or occupational therapy services?",
+        "What transition supports are available between activities or classrooms?"
+      ]
+    }
+  },
+  "bill-optimizer": {
+    "success": true,
+    "latency_ms": 2522,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 415,
+    "data": {
+      "current_monthly_cost": 220.8,
+      "projected_optimized_cost": 138.0,
+      "potential_monthly_savings": 82.8,
+      "recommended_tariff": "ConEd Time-of-Use Plan",
+      "appliance_shift_schedule": [
+        "Shift laundry from 2 PM-8 PM to 6 PM-8 PM or after 8 PM",
+        "Shift cooking from 2 PM-6 PM to after 6 PM",
+        "Pre-cool home before 2 PM, then raise AC setpoint during 2 PM-6 PM",
+        "Run dishwasher after 6 PM"
+      ],
+      "immediate_actions": [
+        "Switch to ConEd Time-of-Use Plan",
+        "Avoid running major appliances during 2 PM-6 PM weekdays",
+        "Use smart thermostat or timers to pre-cool before 2 PM",
+        "Schedule laundry and dishwasher for off-peak hours"
+      ]
+    }
+  },
+  "appliance-fix": {
+    "success": true,
+    "latency_ms": 4897,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 639,
+    "data": {
+      "appliance": "Bosch 500 Series Dishwasher",
+      "error_code": "E15",
+      "cause": "E15 indicates water has accumulated in the base tray (leak detection system activated). The continuous pump humming and faucet symbol mean the drain pump is running to remove standing water, and the control is locked out to prevent flooding. Common causes: leaking door seal, loose hose clamp, cracked sump, or a stuck float switch. Power button may not respond because the safety circuit is latched.",
+      "diy_difficulty": "medium",
+      "safety_warning": "Turn off power at the circuit breaker and shut off the water supply before working. Water and electricity are dangerous. Wear gloves and eye protection. If you are not comfortable working with water lines or electrical components, call a technician.",
+      "step_by_step_fix": [
+        "Disconnect power and water. Remove the dishwasher from cabinet if needed for access.",
+        "Place towels and a shallow pan under the unit. Tilt the dishwasher slightly to drain water from the base tray into the pan.",
+        "Remove the bottom access panel (kick plate) and locate the base tray and float switch. The float is a small plastic disc on a stem; it may be stuck up due to debris or water.",
+        "If the float is stuck, clean it and the surrounding area. Ensure it moves freely and drops back down.",
+        "Check for visible leaks: door gasket, sump gasket, hose clamps, and the water inlet valve. Tighten any loose clamps and replace damaged seals.",
+        "If no leak is found, dry the base tray completely with a sponge or towel. Reset the float switch by pressing it down several times.",
+        "Reconnect power and water. Run a short cycle and watch for leaks. If E15 returns, the leak persists and further diagnosis is needed.",
+        "If the error clears but the pump continues humming, the drain pump or control board may be faulty. Test the drain pump for continuity and replace if defective."
+      ],
+      "replacement_parts": [
+        "Door gasket/seal",
+        "Sump gasket",
+        "Hose clamps",
+        "Float switch",
+        "Drain pump",
+        "Control board (if pump circuit is faulty)"
+      ]
+    }
+  },
+  "transition-map": {
+    "success": true,
+    "latency_ms": 5077,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 946,
+    "data": {
+      "output": "{\n  \"target_role\": \"Technical Scrum Master or Junior Operations Program Manager in software tech\",\n  \"transferable_skills\": [\n    {\n      \"legacy_skill\": \"Managing 35 staff across multiple shifts\",\n      \"modern_reframe\": \"Leading cross-functional teams in high-pressure, iterative environments\",\n      \"resume_bullet\": \"Led 35+ person cross-functional team, coordinating daily stand-ups and shift handoffs to ensure 99% on-time coverage and seamless workflow continuity.\"\n    },\n    {\n      \"legacy_skill\": \"Overseeing $4M annual P&L\",\n      \"modern_reframe\": \"Budget ownership and resource allocation for program delivery\",\n      \"resume_bullet\": \"Managed $4M annual P&L, tracking variances and optimizing resource allocation to achieve 12% YoY cost reduction while maintaining service levels.\"\n    },\n    {\n      \"legacy_skill\": \"Inventory logistics and supply chain coordination\",\n      \"modern_reframe\": \"Backlog management and dependency coordination in agile delivery\",\n      \"resume_bullet\": \"Orchestrated end-to-end inventory logistics across 200+ SKUs, prioritizing backlog and resolving blockers to maintain 98% order fulfillment rate.\"\n    },\n    {\n      \"legacy_skill\": \"Scheduling and capacity planning for 35 staff\",\n      \"modern_reframe\": \"Sprint capacity planning and velocity tracking\",\n      \"resume_bullet\": \"Developed capacity planning models for 35 staff, balancing workload and forecasting sprint capacity with 95% accuracy, reducing overtime by 20%.\"\n    },\n    {\n      \"legacy_skill\": \"Driving sales and operational KPIs\",\n      \"modern_reframe\": \"Defining and monitoring agile metrics and OKRs\",\n      \"resume_bullet\": \"Established and tracked KPIs (sales, conversion, shrink), using data to drive continuous improvement and exceed quarterly targets by 15%.\"\n    },\n    {\n      \"legacy_skill\": \"Training and developing team members\",\n      \"modern_reframe\": \"Coaching agile teams and facilitating skill growth\",\n      \"resume_bullet\": \"Coached and mentored 35+ team members, implementing training programs that increased internal promotion rate by 30% and reduced turnover by 25%.\"\n    },\n    {\n      \"legacy_skill\": \"Resolving customer escalations and process bottlenecks\",\n      \"modern_reframe\": \"Removing impediments and fostering continuous improvement\",\n      \"resume_bullet\": \"Resolved complex customer escalations and process bottlenecks, implementing root-cause fixes that cut repeat issues by 40% and improved CSAT to 4.8/5.\"\n    },\n    {\n      \"legacy_skill\": \"Cross-functional collaboration with vendors and corporate\",\n      \"modern_reframe\": \"Stakeholder management and cross-team coordination\",\n      \"resume_bullet\": \"Collaborated with vendors, corporate teams, and peers to align priorities, securing resources and driving projects to completion on time and within budget.\"\n    },\n    {\n      \"legacy_skill\": \"Implementing new processes and technologies\",\n      \"modern_reframe\": \"Facilitating agile adoption and process improvement\",\n      \"resume_bullet\": \"Led adoption of new POS and inventory systems, training staff and iterating on processes to reduce transaction time by 25% and improve accuracy.\"\n    }\n  ],\n  \"skill_gaps_to_bridge\": [\n    \"Agile frameworks (Scrum, Kanban) and ceremonies (sprint planning, retrospectives, daily stand-ups)\",\n    \"Software development lifecycle (SDLC) and technical concepts (CI/CD, APIs, version control)\",\n    \"Agile tools (Jira, Confluence, Trello, Azure DevOps)\",\n    \"Scrum Master certification (CSM, PSM) and practical application\",\n    \"Program management"
+    }
+  },
+  "parenting-coach": {
+    "success": true,
+    "latency_ms": 6252,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 826,
+    "data": {
+      "child_developmental_need": "At 4, your son's brain is still developing impulse control and emotional regulation. He is not 'giving you a hard time'—he is having a hard time. The candy dispenser triggered a strong desire, and your 'no' felt like a loss. He lacks the language and neurology to manage that disappointment, so his body and emotions took over. He needs you to be his calm, confident anchor, not to reason with him or make the meltdown stop. Your presence and safety are what his nervous system needs to coregulate and eventually calm down.",
+      "what_to_say_word_for_word": "Get down to his level and speak slowly and softly: 'You really wanted that candy dispenser. You're feeling so mad and sad that I said no. It's okay to be mad. I'm not going to buy it. I'm right here with you.' If he tries to hit or throw, calmly block: 'I won't let you hurt me. I'm keeping you safe.' Then wait. If he keeps screaming, repeat: 'You're safe. I'm here. I love you.' Do not explain or negotiate. If he starts to calm, offer: 'When you're ready, we can take a deep breath together and go to the car. Do you want to walk or do you want me to carry you?'",
+      "what_to_avoid_saying": "Avoid shaming, threatening, or bargaining: 'Stop it right now!', 'You're embarrassing me.', 'Big boys don't cry.', 'If you stop, I'll buy you something else.', 'Why can't you be good?' These increase his stress and teach him that big feelings are bad or that meltdowns get rewards. Also avoid ignoring him completely, as he needs your calm presence to feel safe.",
+      "calming_physical_action": "First, calm your own body: take a slow, deep breath and relax your shoulders. Then get down to his eye level. If he allows, place a gentle hand on his back or offer a hug. If he is thrashing, stay close but give him space, saying 'I'm right here.' You can also pick him up and hold him securely against your chest (a 'safe hold') while saying 'I've got you. You're safe.' This deep pressure can help him regulate. If he resists, put him in the cart or carry him out of the store to a quieter spot, maintaining a calm, firm presence.",
+      "post_incident_reconnect_script": "Once he is calm, perhaps in the car or at home, reconnect before talking about the incident. Say: 'I love you. That was really hard. You were so mad about the candy. It's okay to be mad, but it's not okay to throw shoes or scream in the store. Next time, we can take a deep breath and use our words. I will always help you.' Then offer a hug or snuggle. Later, you might role-play a simple 'no' scenario with his toys to practice. Reassure him that you love him even when he has big feelings. Avoid rehashing the event repeatedly; keep it brief and focus on connection and the lesson."
+    }
+  },
+  "warranty-claim": {
+    "success": true,
+    "latency_ms": 14062,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 944,
+    "data": {
+      "output": "{\n  \"legal_statute_invoked\": \"Uniform Commercial Code (UCC) § 2-314 (Implied Warranty: Merchantability) and Magnuson-Moss Warranty Act, 15 U.S.C. § 2301 et seq.\",\n  \"formal_demand_letter\": \"VIA CERTIFIED MAIL RETURN RECEIPT REQUESTED AND EMAIL\\n\\n[Date]\\n\\nTechDirect Online\\nAttn: Legal Department / Dispute Resolution\\n[Retailer Address]\\n\\nRe: Formal Demand for Breach of Implied Warranty of Merchantability\\nProduct: UltraView 65-inch OLED TV\\nInvoice/Order No.: [Your Order Number]\\nPurchase Price: $1,299.00\\nDate of Purchase: [Purchase Date]\\n\\nTo Whom It May Concern:\\n\\nI am writing to formally demand immediate redress for the defective UltraView 65-inch OLED TV purchased from TechDirect Online. Despite the expiration of your internal 30-day return window, your obligation under statutory law remains in full force.\\n\\nNATURE OF DEFECT: The television has developed permanent vertical green lines across the entire display panel. This defect occurred approximately four months after normal, intended household use, rendering the product entirely unfit for its ordinary purpose of displaying video content.\\n\\nLEGAL BASIS: Under the Uniform Commercial Code § 2-314, every sale of goods by a merchant carries an implied warranty of merchantability. The product must be fit for the ordinary purposes for which such goods are used and must pass without objection in the trade. A television that fails after four months of normal use manifestly violates this warranty. Your attempt to disclaim responsibility by referencing an internal 30-day return window is legally insufficient to waive the implied warranty of merchantability. Furthermore, the Magnuson-Moss Warranty Act prohibits disclaimers of implied warranties where a written warranty or service contract is offered.\\n\\nYour directive to \\\"contact the manufacturer in China\\\" constitutes a refusal to honor your statutory obligations as the seller. As the retailer, you are directly liable to the consumer for breach of implied warranty, regardless of any third-party manufacturer warranty.\\n\\nDEMAND: I demand the following, at your election:\\n1. A full refund of $1,299.00 to my original payment method, plus reimbursement of any documented shipping costs; OR\\n2. A replacement unit of equivalent or greater value, shipped at your expense, with prepaid return shipping label for the defective unit.\\n\\nYou have fourteen (14) calendar days from receipt of this letter to respond in writing. Failure to comply will result in immediate escalation, including but not limited to: filing a complaint with the Federal Trade Commission and State Attorney General, initiating a credit card chargeback for breach of contract, and filing suit in small claims court for breach of implied warranty, seeking the purchase price plus court costs, statutory damages, and attorneys' fees where permitted.\\n\\nI will not accept a referral to the manufacturer as a resolution. As the seller, you are the party with whom I contracted, and you are the party legally obligated to make me whole.\\n\\nGOVERN YOURSELF ACCORDINGLY.\\n\\nSincerely,\\n\\n[Your Full Name]\\n[Your Address]\\n[Your Phone Number]\\n[Your Email Address]\\n\\nEnclosures:\\n- Copy of purchase receipt\\n- Photographs of defect (timestamped)\\n- Copy of prior correspondence with TechDirect Online\",\n  \"credit_card_chargeback_draft\": \"Chargeback Category: Goods/Services Not as Described / Defective Merchandise\\nCard Network: [Visa/Mastercard/Amex]\\nReason Code: [Select applicable: Visa 13.3 / MC 4853 / Amex C32]\\n\\nCardholder Statement:\\nOn [Purchase Date], I"
+    }
+  },
+  "donor-story": {
+    "success": true,
+    "latency_ms": 3919,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 624,
+    "data": {
+      "headline": "Warmth in the Storm: A Mother's Relief in Moria",
+      "newsletter_story_paragraphs": [
+        "The rain fell in relentless sheets over Camp Moria last Tuesday, turning pathways to mud and chilling the air to the bone. Inside our clinic, however, a quiet miracle unfolded. Thanks to your generosity, we delivered 300 emergency winter care packages to refugee families—each one a lifeline of warmth, dignity, and hope.",
+        "Among the families we met was Amina, a mother of three whose youngest baby fights chronic bronchitis. The damp cold of the camp had made every breath a struggle. Our team provided a nebulizer and thick, warm blankets. As the baby's breathing eased and the children huddled under the new blankets, smiles broke through the gloom. 'You gave us more than supplies,' Amina whispered. 'You gave us a reason to keep going.'",
+        "The entire distribution—300 packages and Amina's nebulizer—cost just $450. That's only $1.50 per family. Yet the impact is immeasurable. Because of you, children are smiling in the midst of a storm. Thank you for being the warmth in their winter."
+      ],
+      "social_media_caption": "In the pouring rain at Camp Moria, your kindness brought 300 winter care packages to families in need. For Amina, a mother of three, it meant a nebulizer for her baby's bronchitis and warm blankets for her children. Smiles through the storm. All for just $450. You make this possible. ❤️ #RefugeeSupport #WinterCare #HopeInMoria",
+      "donor_email_snippet": "Dear [Donor Name],\n\nYesterday, as heavy rain pounded Camp Moria, our team delivered 300 emergency winter care packages to refugee families. One of them was Amina, a mother whose baby suffers from chronic bronchitis. We gave her a nebulizer and warm blankets—simple items that mean the difference between sickness and health, despair and hope.\n\nAs the baby's breathing eased, Amina's children smiled. That smile is your gift. The entire distribution cost only $450, yet its impact is boundless.\n\nThank you for standing with us in the storm.\n\nWith gratitude,\n[Your Name]"
+    }
+  },
+  "ngo-990": {
+    "success": true,
+    "latency_ms": 5831,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 475,
+    "data": {
+      "program_expense_ratio": "77.2%",
+      "overhead_ratio": "22.8%",
+      "liquidity_runway_months": 4.0,
+      "governance_scorecard": "Program ratio of 77.2% exceeds the 65% benchmark, reflecting strong mission alignment. Overhead at 22.8% is within acceptable norms, though fundraising efficiency should be reviewed given $120k raised $550k (21.8% cost per dollar). Liquidity runway of 4.0 months is below the recommended 6-month minimum, indicating a need to build reserves. CEO compensation at $140k represents 9.7% of total revenue and 66.7% of management/admin expense, warranting board review against comparability data.",
+      "board_discussion_questions": [
+        "What is our plan to build reserves from 4 months to the 6-month benchmark, and what revenue diversification strategies can reduce reliance on government grants?",
+        "Is the CEO's $140k salary justified by comparability data and performance metrics, and should the full board approve it annually?",
+        "How can we improve fundraising efficiency (currently $0.22 per dollar raised) and is the $120k fundraising spend generating an acceptable return?",
+        "Should we set a formal board policy to maintain program expense ratio above 75% while still investing adequately in administrative capacity and technology?"
+      ]
+    }
+  },
+  "volunteer-dispatch": {
+    "success": true,
+    "latency_ms": 2463,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 257,
+    "data": {
+      "best_fit_assignment": "Community clinic bilingual intake",
+      "skill_alignment_score": 0.9,
+      "personalized_welcome_sms": "Hi Marcus! Thank you for signing up to volunteer. Based on your fluent Spanish and professional design skills, we'd love your help with bilingual intake at our community clinic on Saturdays. Your communication skills will make a real difference for Spanish-speaking patients. We'll be in touch with next steps. Welcome aboard!",
+      "required_onboarding_check": "Bilingual proficiency verification and background check"
+    }
+  },
+  "localize-notice": {
+    "success": true,
+    "latency_ms": 10968,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 539,
+    "data": {
+      "target_language": "Spanish (Neutral Latin American)",
+      "localized_title": "Clínica Gratuita de Salud Dental y de la Vista",
+      "localized_body_copy": "Este sábado en el Centro Comunitario Saint Mary, habrá una clínica gratuita de salud dental y de la vista. No necesita seguro médico ni identificación. Todas las familias son bienvenidas, sin importar su estatus migratorio. Se atiende por orden de llegada.",
+      "whatsapp_friendly_format": "🦷👁️ *Clínica Gratuita de Salud Dental y de la Vista*\n\n📅 Este sábado\n📍 Centro Comunitario Saint Mary\n\n✅ *No necesita seguro médico*\n✅ *No necesita identificación*\n✅ *Todas las familias son bienvenidas, sin importar su estatus migratorio*\n\n⏰ Se atiende por orden de llegada. ¡Llegue temprano!\n\nComparta esta información con sus vecinos y familiares. 💙",
+      "cultural_framing_notes": "Se evitó traducir literalmente 'undocumented' como 'indocumentado' para reducir el estigma; en su lugar se usó 'sin importar su estatus migratorio', un enfoque más digno y protector. También se cambió 'first come, first served' por 'se atiende por orden de llegada', expresión habitual y respetuosa en español. El lenguaje es cálido, comunitario e inclusivo ('todas las familias'), y responde a valores de confianza, respeto y apoyo mutuo. El formato de WhatsApp facilita la difusión por redes familiares y vecinales, canales clave en comunidades hispanohablantes inmigrantes. Se omitió cualquier referencia a ICE o autoridades migratorias, ya que puede generar temor."
+    }
+  },
+  "sos-triage": {
+    "success": true,
+    "latency_ms": 2462,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 302,
+    "data": {
+      "urgency_level": 5,
+      "trapped_individuals_count": 4,
+      "critical_medical_needs": [
+        "82yo grandfather on oxygen (battery at 10%)",
+        "6mo baby"
+      ],
+      "required_rescue_gear": [
+        "boat",
+        "oxygen supply",
+        "pediatric care equipment"
+      ],
+      "extracted_address_gps": "442 Riverbend Rd near old water tower",
+      "dispatch_priority_summary": "Immediate rescue required for 4 trapped individuals on 2nd floor with rapidly rising water reaching first-floor ceiling. Critical medical needs: elderly on oxygen with low battery and infant. Boat and medical support essential."
+    }
+  },
+  "donor-letter": {
+    "success": true,
+    "latency_ms": 3322,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 435,
+    "data": {
+      "stewardship_letter_text": "Dear Dr. Arthur and Eleanor Sterling,\n\nI am delighted to share some extraordinary news that would not have been possible without your generous support. Your recent gift of $25,000 to the Youth STEM Robotics Lab has already made a profound impact: our first cohort of 40 students just won the regional science competition and received scholarships to continue their education in STEM fields.\n\nThis victory is a testament to your belief in these young minds. Because of you, students who might never have had the opportunity to explore robotics are now recognized as rising stars in science and technology. The scholarships they earned will open doors to colleges and careers that once seemed out of reach.\n\nYour lifetime giving of $185,000 has been a cornerstone of our mission, and this latest gift has ignited a spark that will continue to brighten our community for years to come. We are deeply grateful for your partnership and visionary generosity.\n\nWith heartfelt thanks,\n\n[Your Name]\nMajor Gifts Officer",
+      "suggested_next_touchpoint": "Invite Dr. and Mrs. Sterling to a private luncheon with the winning robotics team and a tour of the lab; follow up with a personalized impact report featuring student testimonials and photos.",
+      "donor_loyalty_notes": "High-net-worth donors with a strong interest in youth education and STEM. They value tangible outcomes and recognition. Engage them with exclusive updates, naming opportunities, and invitations to see their impact firsthand."
+    }
+  },
+  "foodbank-recipes": {
+    "success": true,
+    "latency_ms": 2221,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 477,
+    "data": {
+      "recipes": [
+        {
+          "title": "Savory Pumpkin Pea Soup",
+          "prep_time": "10 minutes",
+          "cook_method": "stovetop",
+          "ingredients_used": [
+            "dried yellow split peas",
+            "canned pumpkin puree",
+            "canned stewed tomatoes",
+            "garlic powder"
+          ],
+          "steps": [
+            "Rinse 1 cup of dried yellow split peas under cold water.",
+            "In a pot, combine peas, 4 cups water, 1 can pumpkin puree, 1 can stewed tomatoes (with juice), and 1 teaspoon garlic powder.",
+            "Bring to a boil, then reduce heat and simmer for 30-40 minutes until peas are soft.",
+            "Mash slightly with a spoon for thicker texture. Serve hot."
+          ]
+        },
+        {
+          "title": "Tuna Oat Patties",
+          "prep_time": "5 minutes",
+          "cook_method": "microwave",
+          "ingredients_used": [
+            "canned tuna",
+            "instant oats",
+            "garlic powder",
+            "canned pumpkin puree"
+          ],
+          "steps": [
+            "Drain 1 can tuna and flake into a bowl.",
+            "Add 1/2 cup instant oats, 1/4 cup pumpkin puree, and 1/2 teaspoon garlic powder.",
+            "Mix until well combined and form into 4 patties.",
+            "Place on a microwave-safe plate and microwave on high for 3-4 minutes, flipping halfway, until firm."
+          ]
+        }
+      ]
+    }
+  },
+  "policy-impact": {
+    "success": true,
+    "latency_ms": 7155,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 515,
+    "data": {
+      "bill_summary": "State Senate Bill 408 introduces two major changes. First, it exempts municipalities with populations under 50,000 from low-income inclusionary zoning requirements, reducing the number of affordable housing units required in smaller towns. Second, it shortens eviction court notice timelines from 30 days to 10 days, expediting the legal process for landlords to remove tenants.",
+      "community_impact_verdict": "negative",
+      "threats_and_concerns": [
+        "Reduces the supply of affordable housing in smaller municipalities, potentially increasing homelessness and housing instability.",
+        "10-day eviction notice creates a severe time crunch for tenants to secure legal counsel, apply for rental assistance, or find new housing.",
+        "Disproportionately impacts low-income families, seniors, and people with disabilities who rely on longer timelines to navigate court systems.",
+        "May increase eviction filing rates and permanent eviction records, creating long-term barriers to future housing.",
+        "Shifts affordable housing burden to larger cities while smaller towns avoid responsibility for regional housing needs."
+      ],
+      "public_hearing_talking_points": [
+        "A 10-day eviction notice is insufficient for vulnerable tenants to access legal aid, gather documentation, or negotiate payment plans with landlords.",
+        "Exempting small municipalities from inclusionary zoning will worsen regional affordable housing shortages and concentrate poverty in larger cities.",
+        "Eviction filings create permanent records that follow tenants for years, making it harder to secure future housing and employment.",
+        "Stable housing is a public health issue — expedited evictions will increase displacement, emergency shelter use, and strain on social services.",
+        "Municipalities under 50,000 population still contain significant low-wage workforces who need affordable housing near their jobs."
+      ]
+    }
+  },
+  "budget-narrative": {
+    "success": true,
+    "latency_ms": 7538,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 616,
+    "data": {
+      "narrative_justification_by_category": [
+        {
+          "category": "Personnel",
+          "amount": 56000.0,
+          "justification_paragraph": "Funding for personnel supports a Lead Coordinator at 0.5 FTE ($32,000) responsible for program oversight, tutor scheduling, and liaison with school partners, and two part-time Tutors ($24,000 combined) who will deliver small-group and one-on-one literacy instruction. Salaries are based on current organizational pay scales and reflect the time required to deliver high-quality tutoring across all program sites."
+        },
+        {
+          "category": "Travel",
+          "amount": 4800.0,
+          "justification_paragraph": "Travel funds provide bus passes for participating students to ensure reliable transportation to and from tutoring sessions and program activities. Removing transportation barriers is essential for consistent attendance and participant retention, particularly for students from low-income households."
+        },
+        {
+          "category": "Equipment",
+          "amount": 8000.0,
+          "justification_paragraph": "Equipment costs cover the purchase of 20 refurbished Chromebooks at $400 each. These devices will enable students to access digital literacy platforms, e-books, and research tools during tutoring sessions, and will be inventoried and maintained by program staff for the duration of the grant period."
+        },
+        {
+          "category": "Supplies",
+          "amount": 16000.0,
+          "justification_paragraph": "Supplies funding supports the purchase of leveled reading books, workbooks, phonics kits, writing journals, and culturally relevant classroom materials. These consumable resources are directly aligned to the grant's literacy curriculum and will be distributed across all participating sites to support differentiated instruction."
+        },
+        {
+          "category": "Admin",
+          "amount": 15200.0,
+          "justification_paragraph": "Indirect costs are calculated at the federally negotiated rate of 15% of direct costs, supporting organizational overhead including facilities, utilities, accounting, and general administrative support necessary to operate the program effectively."
+        }
+      ],
+      "total_budget": 100000.0
+    }
+  },
+  "creator-repurpose": {
+    "success": true,
+    "latency_ms": 3197,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 528,
+    "data": {
+      "x_thread": [
+        "Most freelancers undercharge because they sell time instead of outcomes.",
+        "When you charge $75 an hour, the client monitors your clock. You're a cost to be minimized.",
+        "When you charge $5,000 for a checkout page that boosts sales by $100k, you are a growth partner.",
+        "The shift: move from hourly to value-based pricing.",
+        "Stop selling hours. Start selling outcomes."
+      ],
+      "linkedin_post": "Most freelancers undercharge because they sell time instead of outcomes.\n\nWhen you charge $75 an hour, the client monitors your clock. You become a cost to be minimized.\n\nBut when you charge $5,000 for a checkout page that boosts sales by $100k, you are a growth partner. The conversation shifts from hours to results.\n\nStop selling hours. Start selling outcomes. Make the shift from hourly to value-based pricing.",
+      "tiktok_hooks": [
+        "Are you undercharging as a freelancer? Here's why: you're selling time, not outcomes.",
+        "Stop charging by the hour! Charge $5k for a checkout page that makes $100k.",
+        "Freelancers, stop selling hours. Start selling outcomes. Here's how."
+      ],
+      "newsletter_paragraph": "Most freelancers undercharge because they sell time instead of outcomes. When you charge $75 an hour, the client monitors your clock and sees you as an expense. But when you charge $5,000 for a checkout page that boosts sales by $100k, you become a growth partner. The shift from hourly to value-based pricing isn't just about higher rates—it's about transforming your relationship with clients and being compensated for the value you create. Stop selling hours. Start selling outcomes."
+    }
+  },
+  "audio-shownotes": {
+    "success": true,
+    "latency_ms": 2844,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 556,
+    "data": {
+      "episode_summary": "In this episode, host [Host Name] sits down with Sarah Chen, founder of NeuroFlow, to discuss the critical link between sleep and founder performance. Sarah explains why sleep is the number one predictor of decision fatigue, shares her practical 10-3-2-1-0 wind-down rule, and opens up about a $1 million mistake she made with venture capital.",
+      "timestamps": [
+        {
+          "time": "00:00",
+          "topic": "Intro"
+        },
+        {
+          "time": "02:15",
+          "topic": "Guest introduction: Sarah Chen, founder of NeuroFlow"
+        },
+        {
+          "time": "07:40",
+          "topic": "Why sleep is the #1 predictor of founder decision fatigue"
+        },
+        {
+          "time": "18:30",
+          "topic": "The 10-3-2-1-0 wind-down rule"
+        },
+        {
+          "time": "28:10",
+          "topic": "Sarah's biggest $1M mistake with venture capital"
+        }
+      ],
+      "key_takeaways": [
+        "Sleep is the strongest predictor of decision fatigue for founders, impacting their ability to make high-quality decisions.",
+        "The 10-3-2-1-0 wind-down rule provides a structured routine to improve sleep quality and reduce decision fatigue.",
+        "Learning from a $1 million mistake with venture capital can be a valuable, albeit expensive, lesson for founders."
+      ],
+      "memorable_quotes": [
+        "Sleep is the #1 predictor of founder decision fatigue.",
+        "The 10-3-2-1-0 wind-down rule changed how I approach rest and productivity.",
+        "My biggest $1M mistake with venture capital taught me more than any success ever could."
+      ]
+    }
+  },
+  "portfolio-audit": {
+    "success": true,
+    "latency_ms": 4153,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 519,
+    "data": {
+      "five_second_impression_score": 4,
+      "strengths": [
+        "Clear navigation with six items suggests a structured site, though possibly too many.",
+        "Portfolio format is immediately recognizable as a designer's personal site.",
+        "Case studies are present, indicating a body of work to explore."
+      ],
+      "critical_friction_points": [
+        "Hero headline is vague, buzzword-heavy, and fails to communicate the designer's specialty, target audience, or unique value.",
+        "No problem statements in case studies means recruiters cannot assess the designer's strategic thinking or ability to define user needs.",
+        "Absence of metrics makes it impossible to gauge impact or success of the work.",
+        "Lack of Figma wireframes or process visuals means recruiters see only polished outputs, not the designer's iteration, collaboration, or problem-solving skills.",
+        "Six navigation items may dilute focus and bury the most important content (case studies) under less critical sections."
+      ],
+      "actionable_fixes": [
+        "Rewrite the hero headline to clearly state your role, specialty, and the value you bring (e.g., 'Product Designer specializing in SaaS dashboards that simplify complex data').",
+        "For each case study, add a concise problem statement at the top: what user need or business goal did you address?",
+        "Include at least one quantifiable metric per case study (e.g., increased conversion by 15%, reduced support tickets by 20%).",
+        "Show your process: add 2-3 wireframes or Figma screenshots with brief annotations explaining your design decisions and iterations.",
+        "Reduce navigation to 4-5 essential items (Work, About, Contact, etc.) and ensure case studies are the most prominent element.",
+        "Replace 'passion & synergy' with concrete language that reflects your design philosophy and approach."
+      ]
+    }
+  },
+  "thumbnail-concepts": {
+    "success": true,
+    "latency_ms": 4644,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 645,
+    "data": {
+      "packaging_angles": [
+        {
+          "angle_name": "Curiosity Gap: The Unspoken Productivity Paradox",
+          "titles": [
+            "I Tested AI Coding Tools for 30 Days. The Results Were NOT What I Expected.",
+            "The AI Coding Experiment That Broke My Brain (30-Day Results)",
+            "We Were All Wrong About AI Coders. Here's Proof."
+          ],
+          "visual_thumbnail_concept": "Split image: On the left, a confident software engineer rapidly typing with a sleek AI assistant hologram beside them, clock showing 'Day 1'. On the right, same engineer looking exhausted, surrounded by floating error messages and tangled code lines, clock showing 'Day 30'. A large glowing question mark hovers over the 'Day 30' side.",
+          "text_overlay": "30 Days. Shocking Truth."
+        },
+        {
+          "angle_name": "Contrarian: The Unpopular Truth About AI Productivity",
+          "titles": [
+            "AI Coding Tools Are Making You Slower (And You Don't Even Know It)",
+            "Why I Ditched GitHub Copilot After 30 Days of Testing",
+            "The Dark Side of AI Coding: More Bugs, Less Speed"
+          ],
+          "visual_thumbnail_concept": "A broken robot arm holding a laptop with a cracked screen displaying garbled code. In the background, a stressed engineer face-palming. A red 'X' is overlaid on a logo mashup of popular AI coding tools.",
+          "text_overlay": "AI = Slower & Buggy?"
+        },
+        {
+          "angle_name": "High-Stakes Challenge: The Ultimate 30-Day AI Showdown",
+          "titles": [
+            "I Bet My Career on AI Coding Tools for 30 Days. Here's What Happened.",
+            "30 Days. 2 AI Coders. 1 Epic Fail? (GitHub Copilot vs. Claude)",
+            "The $10,000 AI Coding Challenge: Can AI Really Replace Me?"
+          ],
+          "visual_thumbnail_concept": "A dramatic face-off: On one side, GitHub Copilot logo as a boxer; on the other, Claude logo as a boxer. Between them, a stressed engineer in the middle acting as referee. A ticking clock above and a pile of cash or a 'Job Offer' contract on the line.",
+          "text_overlay": "AI vs. Human: 30-Day Showdown"
+        }
+      ]
+    }
+  },
+  "creator-pitch": {
+    "success": true,
+    "latency_ms": 8456,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 776,
+    "data": {
+      "recommended_rate_range": "$2,250 - $3,750",
+      "cpm_basis": "Based on an average of 15,000 views per video and a tech/developer audience (high CPM niche), the industry standard CPM for YouTube integrations ranges from $15 to $25. Calculation: 15,000 views / 1,000 = 15 M; 15 * $15 = $225 minimum; 15 * $25 = $375 maximum. However, for specialized tech audiences and long-term partnerships, a premium of 50-100% is common, resulting in an effective CPM of $150-$250. Thus, recommended rate is $2,250-$3,750 per integration, reflecting the high value of the audience and the potential for conversion.",
+      "pitch_email_draft": "Subject: Partnership Opportunity: Reach 15K Engaged Developers Per Video\n\nDear [Sponsor Name] Team,\n\nI'm [Your Name], creator of [Channel Name], a YouTube channel dedicated to coding tutorials and tech deep dives. With 42,000 subscribers and an average of 15,000 views per video, my audience consists of highly engaged developers, software engineers, and tech enthusiasts—68% of whom are based in the US and UK, a key market for [Sponsor Product].\n\nI believe [Sponsor Product] would resonate strongly with my viewers, who are constantly seeking tools to enhance their workflow. For instance, [NordVPN/Cursor AI] aligns perfectly with their needs for [secure browsing/AI-powered coding].\n\nI propose a dedicated integration in an upcoming video, where I'll demonstrate how [Sponsor Product] solves real problems for developers. Based on my metrics, I can offer a rate of $2,500 for a 60-second integration, including a custom discount code and tracking link.\n\nI'm also open to a longer-term partnership with multiple videos and exclusive perks for my audience. Let's discuss how we can create value together.\n\nBest regards,\n[Your Name]\n[Channel Link]\n[Contact Info]",
+      "integrated_campaign_concepts": [
+        "Tutorial Integration: Create a coding tutorial where the sponsor's product is seamlessly integrated into the workflow. For Cursor AI, demonstrate how it accelerates coding tasks; for NordVPN, show secure coding in public Wi-Fi environments.",
+        "Dedicated Review Video: Produce a comprehensive review or comparison video featuring the sponsor's product, highlighting its unique features and benefits for developers.",
+        "Giveaway Collaboration: Host a giveaway where viewers can win a subscription to the sponsor's service, encouraging engagement and sign-ups through a dedicated landing page.",
+        "Live Coding Session: Stream a live coding session using the sponsor's product, with real-time commentary on its advantages, and include a limited-time offer for viewers.",
+        "Shorts/Reels Series: Create a series of short-form videos (YouTube Shorts, Instagram Reels, TikTok) that showcase quick tips or tricks using the sponsor's product, driving traffic to the main channel and sponsor's site."
+      ]
+    }
+  },
+  "objection-buster": {
+    "success": true,
+    "latency_ms": 9141,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 850,
+    "data": {
+      "top_objections": [
+        {
+          "objection": "I could build this myself in Notion for free.",
+          "underlying_fear": "Wasting money on something I can replicate, and fear of not being technical enough to build it well.",
+          "high_converting_faq_answer": "You absolutely could build this yourself—but it would take weeks of trial and error, and you'd likely miss critical workflows that prevent client chaos. This system was built by a freelancer who tried that route and failed. You get 3+ years of optimized workflows, tested templates, and a step-by-step setup guide for a one-time $149. That's less than the $200/hr you'd pay a Notion consultant to build a worse version."
+        },
+        {
+          "objection": "I'm not sure it will work for my specific freelance business (e.g., consulting vs. design vs. copywriting).",
+          "underlying_fear": "Buying something generic that doesn't fit, leading to more clutter and frustration.",
+          "high_converting_faq_answer": "This OS is designed for solo consultants, coaches, and service-based freelancers who manage multiple clients. The core modules—client portal, CRM, invoices, project timelines—are universal. Plus, you get a customization guide that shows you exactly which fields to tweak for your niche. If it doesn't fit your workflow, we offer a 14-day money-back guarantee. No risk."
+        },
+        {
+          "objection": "I'm not tech-savvy. Will I be able to set this up and use it?",
+          "underlying_fear": "Feeling overwhelmed, wasting time on setup, and ultimately abandoning the system.",
+          "high_converting_faq_answer": "Yes—even if you've never used Notion before. You get a 10-minute setup video, a click-by-click onboarding checklist, and a private FAQ. We've had users in their 60s and self-proclaimed 'non-techies' get fully operational in an afternoon. And if you get stuck, our support team responds within 24 hours. You're not alone."
+        },
+        {
+          "objection": "$149 feels expensive for a Notion template.",
+          "underlying_fear": "Not getting a strong return on investment, and comparing it to cheap $10 templates.",
+          "high_converting_faq_answer": "Most $10 templates are just a single page. This is a complete operating system with 8 interconnected databases, 20+ pre-built views, and automations that save you 5+ hours per week. If you bill $50/hr, it pays for itself in less than 3 hours. Plus, it's a one-time fee—no subscriptions. Compare that to $20/month for a CRM that doesn't integrate with your Notion projects."
+        },
+        {
+          "objection": "I'm already using another tool (e.g., Trello, Asana, Dubsado). Why should I switch?",
+          "underlying_fear": "Disturbing a working system and losing data or productivity during the transition.",
+          "high_converting_faq_answer": "You don't have to switch cold turkey. Our system includes a migration guide that shows you how to import your existing client list and projects in under an hour. And you can run it alongside your current tools for a week to test. Most users find that consolidating into one workspace eliminates context-switching and saves them $50+/month in subscriptions."
+        }
+      ]
+    }
+  },
+  "lead-qualifier": {
+    "success": true,
+    "latency_ms": 3634,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 550,
+    "data": {
+      "lead_grade": "D",
+      "budget_viability": "unrealistic",
+      "red_flags": [
+        "Budget of $1,200 is far too low for a GPS-enabled, payment-integrated, AI-matching app",
+        "3-week timeline is impossible for a production-ready Uber-like app",
+        "Request to 'build this weekend' indicates lack of understanding of development scope",
+        "No mention of ongoing support, scalability, or legal/compliance needs for payment processing",
+        "Focus on investor demo rather than a functional product suggests potential for scope creep or unrealistic expectations"
+      ],
+      "qualifying_questions_reply": "Hi [Prospect], thanks for reaching out. I'd love to help bring your dog-walking app idea to life. However, I have some concerns about the scope, budget, and timeline that we should discuss.\n\nTo build a functional Uber-like app with GPS tracking, credit card billing, and AI matching, a realistic budget typically starts around $30,000–$50,000 and a timeline of 3–6 months, even for a minimal viable product. The $1,200 budget and 3-week timeline are far below what's needed, especially for an investor demo that needs to impress.\n\nCould you clarify:\n1. What specific features are must-haves for the investor demo vs. the full product?\n2. Is the $1,200 a placeholder or the absolute maximum? If so, we may need to explore alternative solutions like a prototype or no-code tool.\n3. What is the investor demo date, and is it flexible?\n4. Are you open to a phased approach where we start with a proof of concept and scale later?\n\nLet's set up a quick call to align on expectations and see if we can find a path forward that works within your constraints. Best regards, [Your Name]"
+    }
+  },
+  "filler-cleaner": {
+    "success": true,
+    "latency_ms": 3476,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 409,
+    "data": {
+      "total_fillers_detected": 6,
+      "cuts_to_make": [
+        {
+          "time": "00:02.10",
+          "word": "um",
+          "recommended_action": "cut"
+        },
+        {
+          "time": "00:02.10",
+          "word": "ah",
+          "recommended_action": "cut"
+        },
+        {
+          "time": "00:02.10",
+          "word": "you know",
+          "recommended_action": "cut"
+        },
+        {
+          "time": "00:08.40",
+          "word": "Like",
+          "recommended_action": "cut"
+        },
+        {
+          "time": "00:08.40",
+          "word": "basically",
+          "recommended_action": "cut"
+        },
+        {
+          "time": "00:08.40",
+          "word": "uh",
+          "recommended_action": "cut"
+        }
+      ],
+      "cleaned_transcript": "[00:02.10] So today we are going to talk about building microservices. [00:08.40] It is really simple once you understand the architecture."
+    }
+  },
+  "tone-subtitles": {
+    "success": true,
+    "latency_ms": 2844,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 355,
+    "data": {
+      "target_language": "Spanish",
+      "localized_lines": [
+        {
+          "timestamp": "00:01.20",
+          "original": "Bro, this tech stack is literally unhinged.",
+          "localized_sub": "Tío, este stack tecnológico está literalmente zumbado.",
+          "cultural_adaptation": "Used 'zumbado' to convey 'unhinged' as a common slang for crazy, and 'tío' to match the informal 'bro' in Spanish internet culture."
+        },
+        {
+          "timestamp": "00:04.50",
+          "original": "He ghosted the client after getting the deposit, total clown move.",
+          "localized_sub": "Hizo ghosting al cliente después de recibir el anticipo, una jugada de payaso total.",
+          "cultural_adaptation": "Kept 'ghosting' as it is widely used in Spanish internet slang, and translated 'clown move' to 'jugada de payaso' to preserve the mocking tone."
+        }
+      ]
+    }
+  },
+  "menu-digitizer": {
+    "success": true,
+    "latency_ms": 2287,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 372,
+    "data": {
+      "restaurant_menu": [
+        {
+          "category": "Starters",
+          "dishes": [
+            {
+              "name": "Truffle Arancini",
+              "price": 14.0,
+              "dietary_badges": [],
+              "allergens": [
+                "Dairy",
+                "Gluten",
+                "Egg"
+              ]
+            }
+          ]
+        },
+        {
+          "category": "Mains",
+          "dishes": [
+            {
+              "name": "Pan-Seared Chilean Seabass",
+              "price": 38.0,
+              "dietary_badges": [
+                "GF"
+              ],
+              "allergens": [
+                "Dairy",
+                "Fish"
+              ]
+            },
+            {
+              "name": "Wood-Fired Margherita Pizza",
+              "price": 22.0,
+              "dietary_badges": [],
+              "allergens": [
+                "Dairy",
+                "Gluten"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "salon-fill": {
+    "success": true,
+    "latency_ms": 1801,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 213,
+    "data": {
+      "best_matched_client": "Jessica Brown",
+      "personalized_sms_offer": "Hi Jessica! A spot just opened for the Master Balayage & Cut you wanted—tomorrow at 2 PM. As a VIP, we'd love to have you. Book instantly here: [link]",
+      "incentive_offered": "VIP client treatment (no extra discount)"
+    }
+  },
+  "trades-quote": {
+    "success": true,
+    "latency_ms": 6316,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 441,
+    "data": {
+      "job_title": "Miller Job - Repipe with PEX, Valve Installation, and Expansion Tank Replacement",
+      "materials_itemized": [
+        {
+          "item": "PEX Pipe - 30 feet",
+          "cost": 45.0
+        },
+        {
+          "item": "Quarter-Turn Brass Ball Valves - 2 units",
+          "cost": 30.0
+        },
+        {
+          "item": "Expansion Tank",
+          "cost": 80.0
+        },
+        {
+          "item": "Fittings and Connectors for PEX and Copper Transition",
+          "cost": 35.0
+        },
+        {
+          "item": "Miscellaneous Supplies (solder, flux, tape, etc.)",
+          "cost": 20.0
+        }
+      ],
+      "labor_hours": 3.5,
+      "labor_rate": 95.0,
+      "subtotal": 542.5,
+      "total_estimate": 542.5,
+      "terms": "Payment due upon completion. Estimate valid for 30 days. Any additional work or materials will be billed separately at prevailing rates. Job includes removal and disposal of old materials. Workmanship guaranteed for 1 year from date of completion."
+    }
+  },
+  "vendor-slip": {
+    "success": true,
+    "latency_ms": 2492,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 351,
+    "data": {
+      "supplier_name": "GreenValley Organic Wholesalers",
+      "invoice_date": "09/08/2026",
+      "inventory_items": [
+        {
+          "sku": "GV-492",
+          "description": "Oat Milk Barista 6-pack",
+          "qty_received": 10,
+          "wholesale_unit_cost": 18.5,
+          "suggested_retail_price": 27.75
+        },
+        {
+          "sku": "GV-108",
+          "description": "Dark Roast Coffee Beans 5lb",
+          "qty_received": 4,
+          "wholesale_unit_cost": 32.0,
+          "suggested_retail_price": 48.0
+        }
+      ]
+    }
+  },
+  "local-seo": {
+    "success": true,
+    "latency_ms": 5357,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 625,
+    "data": {
+      "optimized_business_bio": "Austin Elite Plumbing is your trusted local plumbing expert serving North Austin, Round Rock, and Cedar Park, TX. We specialize in emergency water heater replacement, fast drain unclogging, and precise slab leak detection. Available 24/7, our licensed plumbers arrive on time with fully stocked trucks. Whether you're in the heart of North Austin or the suburbs of Round Rock and Cedar Park, we deliver prompt, reliable service with upfront pricing. Call now for same-day emergency plumbing!",
+      "target_neighborhood_keywords": [
+        "North Austin plumber",
+        "Round Rock emergency water heater replacement",
+        "Cedar Park drain unclogging",
+        "slab leak detection North Austin",
+        "plumber near Round Rock TX",
+        "emergency plumbing Cedar Park",
+        "water heater replacement North Austin",
+        "drain cleaning Round Rock",
+        "slab leak repair Cedar Park"
+      ],
+      "five_local_posts": [
+        "🚨 Emergency water heater replacement in North Austin! Our licensed plumbers are available 24/7. Call now for same-day service.",
+        "💧 Slow drain in Round Rock? We offer fast drain unclogging with no mess. Book your appointment today!",
+        "🔍 Suspect a slab leak in Cedar Park? We use advanced leak detection technology to pinpoint issues without damaging your floors. Call for a free estimate.",
+        "🏠 North Austin homeowners: Get $50 off any water heater replacement this month. Mention this post when you call!",
+        "⏰ Cedar Park & Round Rock: We're open 24/7 for all your plumbing emergencies. From burst pipes to clogged drains, Austin Elite Plumbing has you covered."
+      ],
+      "voice_search_faqs": [
+        "Who is the best emergency plumber near me in North Austin?",
+        "How much does water heater replacement cost in Round Rock, TX?",
+        "Can I get same-day drain unclogging in Cedar Park?",
+        "What are signs of a slab leak in my North Austin home?",
+        "Is there a 24-hour plumber in Round Rock or Cedar Park?",
+        "How do I detect a slab leak in Cedar Park, TX?",
+        "Which plumber in North Austin offers emergency water heater replacement?",
+        "Where can I find a reliable plumber in Round Rock for drain cleaning?"
+      ]
+    }
+  },
+  "shift-swap": {
+    "success": true,
+    "latency_ms": 4724,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 347,
+    "data": {
+      "approval_recommendation": "APPROVED",
+      "overtime_risk_detected": true,
+      "explanation": "Marco is currently scheduled for 36 hours this week. Accepting Sarah's 8-hour Saturday shift would bring his total to 44 hours, exceeding the 40-hour threshold. Under state law, hours 41–44 (4 hours) would require 1.5x overtime pay. Approval is recommended because the shift swap is otherwise compliant—Marco holds the required espresso machine certification—and the overtime cost appears manageable, though the store should be aware of the incremental payroll impact.",
+      "manager_reply_message": "Hi Marco, thanks for volunteering to cover Sarah's Saturday shift. I've approved the swap. Please note this will push you to 44 hours for the week, so the final 4 hours will be paid at 1.5x overtime per state law. Budget accordingly. Make sure you're set on the espresso machine; keep up the great work!"
+    }
+  },
+  "repair-status": {
+    "success": true,
+    "latency_ms": 4561,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 245,
+    "data": {
+      "customer_sms_update": "Hi! Quick update on your iPhone 14 Pro. We found some liquid damage inside and cleaned up the affected areas, and we replaced the charging port. We're now finishing a small precision repair on the charging board. This added about a day to the timeline, but everything is on track and looking good — we'll let you know as soon as it's done!",
+      "current_stage": "Micro-soldering repair on charging board",
+      "estimated_ready_date": "1 day from now",
+      "cost_update": "Parts: $65, Labor: $110"
+    }
+  },
+  "lease-cam": {
+    "success": true,
+    "latency_ms": 6593,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 497,
+    "data": {
+      "total_overcharge_suspected": 13800.0,
+      "disputed_charges": [
+        {
+          "line_item": "Parking lot repaving capital improvement",
+          "billed_amount": 6500.0,
+          "reason_unallowable": "Capital improvements are not allowable as Common Area Maintenance expenses unless expressly provided in the lease and amortized over the useful life; repaving is a capital expenditure, not routine maintenance."
+        },
+        {
+          "line_item": "Property management holiday bonus",
+          "billed_amount": 3200.0,
+          "reason_unallowable": "Bonuses are discretionary compensation and not a reasonable, ordinary, or necessary CAM operating expense; typically excluded from pass-through charges."
+        },
+        {
+          "line_item": "Roof replacement",
+          "billed_amount": 4100.0,
+          "reason_unallowable": "Roof replacement is a capital expenditure, not a routine maintenance or repair item, and is generally excluded from CAM unless lease expressly provides otherwise and amortization is applied."
+        }
+      ],
+      "formal_dispute_notice": "Tenant hereby formally disputes $13,800.00 of the total CAM charges billed in the annual reconciliation. The disputed amounts relate to unallowable capital expenditures (parking lot repaving and roof replacement) and a discretionary holiday bonus. Under the lease and applicable commercial leasing standards, CAM charges are limited to reasonable, ordinary, and necessary operating and maintenance costs. Capital improvements and discretionary compensation do not qualify. Tenant requests a revised reconciliation excluding these items and a refund or credit of any overpaid amounts within 30 days."
+    }
+  },
+  "maintenance-log": {
+    "success": true,
+    "latency_ms": 2727,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 246,
+    "data": {
+      "machinery_name": "Canning line pneumatic air compressor #2",
+      "symptom_logged": "Running 20 degrees hotter than normal, intermittent clicking sound on stroke, oil level full, descaled filters",
+      "predicted_failure_risk": "medium",
+      "recommended_corrective_action": "Inspect and replace worn valve components and bearings in compressor; check for internal misalignment or debris causing clicking; monitor temperature and schedule vibration analysis.",
+      "next_service_date": "2026-03-15"
+    }
+  },
+  "case-notes": {
+    "success": true,
+    "latency_ms": 19460,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 347,
+    "data": {
+      "date_time": "2023-10-27 16:30",
+      "participants": [
+        "Mother",
+        "Tommy (child)"
+      ],
+      "objective_environmental_observations": [
+        "Dirty dishes present in kitchen sink",
+        "Utilities (electric, water, gas) functioning at time of visit",
+        "Child seated at table consuming applesauce"
+      ],
+      "child_status": "Tommy appeared with clean clothing on and was eating at the table during the visit.",
+      "parental_actions_observed": [
+        "Mother reported she worked late the previous night"
+      ],
+      "formal_case_note": "Home visit conducted at Ramirez residence at 4:30 PM on 10/27/2023. Present: Mother and child Tommy. Environmental observation: dirty dishes in kitchen sink; utilities confirmed working. Child observed with clean clothing, seated at table eating applesauce. Mother reported working late the previous night."
+    }
+  },
+  "rubric-feedback": {
+    "success": true,
+    "latency_ms": 5118,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 366,
+    "data": {
+      "strengths_highlighted": [
+        "Strong quote integration in body paragraph 2, where you weave textual evidence smoothly into your analysis.",
+        "A clear and insightful thesis that directly links Gatsby's wealth to his desire to reclaim the past."
+      ],
+      "revision_targets": [
+        "Expand the one-sentence conclusion into a full paragraph that restates the thesis in fresh language and explores its broader implications.",
+        "Revise the run-on sentences in the introduction by breaking them into shorter, clearer sentences or using proper punctuation."
+      ],
+      "personalized_student_feedback_paragraph": "Your essay shows real promise, especially with your thesis and the way you integrate quotes in body paragraph 2—that's a sophisticated skill. To take your writing further, focus on two key areas: first, expand your conclusion beyond a single sentence to fully reflect on Gatsby's tragedy and the novel's larger message. Second, watch out for run-on sentences in your introduction; breaking them into shorter sentences will make your opening more polished and easier to follow. With these revisions, your essay will be even stronger!"
+    }
+  },
+  "council-digest": {
+    "success": true,
+    "latency_ms": 4076,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 410,
+    "data": {
+      "meeting_date": null,
+      "key_decisions": [
+        {
+          "topic": "Ordinance 24-B: Rezoning Oakwood Industrial Park to mixed-use commercial",
+          "vote_result": "Passed 5-2",
+          "impact_on_residents": "Allows commercial and mixed-use development in the former Oakwood Industrial Park, which could bring new retail and services, create jobs, and change traffic and land use patterns in the surrounding area."
+        },
+        {
+          "topic": "Property tax rate for fiscal year",
+          "vote_result": "Held flat",
+          "impact_on_residents": "Property tax rates remain unchanged, so residents will not see an increase in the city tax rate for the upcoming fiscal year, though total tax bills may still change based on assessments."
+        },
+        {
+          "topic": "Proposed bypass road",
+          "vote_result": "Public hearing held; no vote outcome recorded",
+          "impact_on_residents": "Residents raised safety concerns about school crossings; the proposal remains under consideration and could affect traffic safety and travel routes near schools."
+        }
+      ],
+      "public_comment_summary": "During the public hearing, 14 residents opposed the proposed bypass road, citing safety risks at school crossings."
+    }
+  },
+  "soap-note": {
+    "success": true,
+    "latency_ms": 4102,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 287,
+    "data": {
+      "subjective": "Patient presents with a bad cough and chest tightness for 4 days, productive of yellow phlegm. Reports a low-grade fever of 100.8°F yesterday.",
+      "objective": "Lungs: bilateral expiratory wheezes in lower lobes. No stridor.",
+      "assessment": "Suspected acute bronchitis with bronchospasm.",
+      "plan": "Start albuterol inhaler and amoxicillin.",
+      "suggested_icd10_codes": [
+        "J20.9",
+        "R05",
+        "R06.2",
+        "R09.89"
+      ]
+    }
+  },
+  "parent-comms": {
+    "success": true,
+    "latency_ms": 6021,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 699,
+    "data": {
+      "target_language": "Spanish",
+      "spanish_message": "Estimada mamá de Mateo:\n\nQuiero compartir con usted algunas observaciones sobre Mateo en la escuela. En matemáticas, Mateo está demostrando un desempeño excelente: participa con entusiasmo, resuelve problemas con seguridad y demuestra gran comprensión. ¡Nos sentimos muy orgullosos de su progreso!\n\nAl mismo tiempo, he notado que durante el tiempo de lectura silenciosa, a Mateo le cuesta mantener la concentración. En ocasiones interrumpe a sus compañeros de mesa y ha lanzado clips de papel. Quiero asegurarme de que Mateo tenga el apoyo necesario para tener éxito en todos los aspectos escolares.\n\nMe encantaría contar con su colaboración para ayudarlo a desarrollar habilidades de autorregulación durante actividades tranquilas. ¿Podríamos conversar sobre algunas estrategias que podamos implementar tanto en casa como en la escuela? Su opinión y conocimiento de Mateo son muy valiosos para mí.\n\nLe agradezco de antemano su apoyo y quedó a su disposición para cualquier pregunta o comentario.\n\nAtentamente,\nLa maestra de Mateo",
+      "english_translation": "Dear Mateo's mother,\n\nI want to share with you some observations about Mateo at school. In math, Mateo is demonstrating excellent performance: he participates enthusiastically, solves problems confidently, and shows great understanding. We are very proud of his progress!\n\nAt the same time, I have noticed that during silent reading time, Mateo has difficulty maintaining concentration. Sometimes he interrupts his tablemates and has thrown paper clips. I want to make sure Mateo has the support he needs to succeed in all aspects of school.\n\nI would love to have your collaboration to help him develop self-regulation skills during quiet activities. Could we talk about some strategies we can implement both at home and at school? Your opinion and knowledge of Mateo are very valuable to me.\n\nThank you in advance for your support, and I am available for any questions or comments.\n\nSincerely,\nMateo's teacher",
+      "conversation_starters_for_home": [
+        "¿Qué actividades le ayudan a Mateo a concentrarse en casa?",
+        "¿Han notado si Mateo se distrae fácilmente durante la lectura o tareas tranquilas en casa?",
+        "¿Cómo podemos apoyarlo juntos para que use su energía de manera positiva durante la lectura silenciosa?",
+        "¿Qué estrategias han funcionado en casa para que Mateo espere su turno o maneje la frustración?"
+      ]
+    }
+  },
+  "homeschool-plan": {
+    "success": true,
+    "latency_ms": 6438,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 925,
+    "data": {
+      "output": "{\n  \"thematic_topic\": \"Marine Biology and Ocean Sharks: A Deep Dive into Fractions, Science, and Ocean Exploration\",\n  \"five_day_schedule\": [\n    {\n      \"day\": 1,\n      \"math\": \"Introduction to Fraction Multiplication: Using shark lengths (e.g., Great White Shark = 4.5 meters) to multiply fractions by whole numbers. Students calculate fractions of shark lengths, such as 2/3 of a 6-meter shark.\",\n      \"science\": \"Scientific Method: Formulate a hypothesis about shark behavior (e.g., 'Sharks are more active at dawn'). Learn steps of the scientific method and design a simple observation experiment using a shark cam live stream.\",\n      \"language_arts\": \"Informational Text Comprehension: Read a National Geographic Kids article on shark anatomy. Identify main idea, key details, and answer comprehension questions.\",\n      \"history_art\": \"History of Shark Research: Create a timeline of major shark research milestones. Art: Draw and label a shark diagram with external and internal parts.\"\n    },\n    {\n      \"day\": 2,\n      \"math\": \"Fraction Multiplication Word Problems: Solve problems involving shark feeding (e.g., 'If a shark eats 3/4 of a 12 kg fish, how much does it eat?'). Use visual models and number lines.\",\n      \"science\": \"Scientific Method: Conduct a virtual experiment using a shark tracking website. Collect data on shark movements, record observations, and analyze patterns.\",\n      \"language_arts\": \"Informational Text Comprehension: Compare and contrast two shark species using a Venn diagram. Read a text on shark habitats and identify text structure (cause/effect, compare/contrast).\",\n      \"history_art\": \"Ocean Exploration: Learn about early oceanographers like Jacques Cousteau. Art: Create a 'Shark Fact File' poster with illustrations and key facts.\"\n    },\n    {\n      \"day\": 3,\n      \"math\": \"Multiplying Fractions by Fractions: Use shark size ratios (e.g., 'A baby shark is 1/3 the length of its mother. If the mother is 9 feet, how long is the baby?'). Practice with area models.\",\n      \"science\": \"Scientific Method: Design a shark tagging experiment. Identify variables (independent, dependent, controlled) and write a procedure. Discuss ethics of shark research.\",\n      \"language_arts\": \"Informational Text Comprehension: Analyze a shark conservation article. Summarize the author's purpose and evaluate evidence. Vocabulary: camouflage, apex predator, cartilage.\",\n      \"history_art\": \"History of Shark Attacks and Myths: Research famous shark events (e.g., USS Indianapolis). Art: Create a 'Shark Safety' brochure with facts vs. myths.\"\n    },\n    {\n      \"day\": 4,\n      \"math\": \"Fraction Multiplication in Real-World Contexts: Calculate how much of a shark's diet consists of specific prey (e.g., 'If 2/5 of a shark's diet is seals, and it eats 20 kg, how many kg are seals?'). Use data from research.\",\n      \"science\": \"Scientific Method: Conduct a hands-on experiment simulating shark buoyancy (oil and water density). Record results, draw conclusions, and relate to shark anatomy.\",\n      \"language_arts\": \"Informational Text Comprehension: Read a biography of a marine biologist (e.g., Eugenie Clark). Identify sequence of events and character traits. Write a short summary.\",\n      \"history_art\": \"Ocean Conservation History: Explore the establishment of marine protected areas. Art: Design a 'Save the Sharks' campaign poster with a slogan and illustration.\"\n    },\n    {\n      \"day\": 5,\n      \"math\": \"Fraction Multiplication Review and Application: Create a shark-themed word problem board game. Students solve problems to move forward, reinforcing fraction multiplication skills.\",\n      \"science\": \"Scientific Method"
+    }
+  },
+  "benefits-finder": {
+    "success": true,
+    "latency_ms": 3885,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 751,
+    "data": {
+      "eligible_programs": [
+        {
+          "program_name": "SNAP (Food Assistance)",
+          "estimated_monthly_benefit": "$535",
+          "eligibility_reason": "Gross monthly income of $1,650 is below 130% of the Federal Poverty Level for a household of 3 (approximately $2,495). As a household with children, you meet categorical eligibility criteria.",
+          "direct_application_url": "https://www.michigan.gov/mdhhs/assistance-programs/food/snap"
+        },
+        {
+          "program_name": "Medicaid",
+          "estimated_monthly_benefit": "Full health coverage at no cost",
+          "eligibility_reason": "Income is below 138% of the Federal Poverty Level for a household of 3 (approximately $2,650). Michigan expanded Medicaid under the ACA, so you and your children likely qualify.",
+          "direct_application_url": "https://www.michigan.gov/mdhhs/assistance-programs/medicaid"
+        },
+        {
+          "program_name": "WIC (Women, Infants, and Children)",
+          "estimated_monthly_benefit": "Monthly food benefits and nutrition support",
+          "eligibility_reason": "Your 2-year-old child is under age 5, and you are a mother with a young child. Income is at or below 185% of the Federal Poverty Level (approximately $3,548/month for a household of 3).",
+          "direct_application_url": "https://www.michigan.gov/mdhhs/assistance-programs/wic"
+        },
+        {
+          "program_name": "LIHEAP (Low Income Home Energy Assistance Program)",
+          "estimated_monthly_benefit": "One-time annual credit toward heating bills; amount varies by income and usage (e.g., $300–$800)",
+          "eligibility_reason": "Household income of $1,650 is below 150% of the Federal Poverty Level (approximately $2,880/month for a household of 3). You have a high heating burden relative to income.",
+          "direct_application_url": "https://www.michigan.gov/mdhhs/assistance-programs/liheap"
+        }
+      ],
+      "required_proof_documents": [
+        "Photo ID for all adult household members",
+        "Social Security numbers for all household members",
+        "Proof of income (e.g., pay stubs for the past 30 days, employer letter)",
+        "Proof of Michigan residency (e.g., lease agreement, utility bill)",
+        "Proof of rent/mortgage (e.g., lease, rent receipt)",
+        "Proof of heating costs (e.g., heating bill, utility bill)",
+        "Birth certificates for children",
+        "Immigration documents (if applicable)"
+      ]
+    }
+  },
+  "crisis-aid": {
+    "success": true,
+    "latency_ms": 3125,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 372,
+    "data": {
+      "immediate_empathetic_response": "I'm really sorry you're going through this. Failing midterms and then being screamed at for two hours sounds incredibly painful and overwhelming. Feeling like a disappointment and wishing you could sleep forever makes sense when everything feels this heavy. You're not alone right now—I'm here with you.",
+      "active_listening_follow_up": "Thank you for trusting me with this. Can you tell me more about what's been happening since the screaming stopped? I want to understand how you're holding up right now, and whether you're having any thoughts of hurting yourself or ending your life.",
+      "risk_level": "high",
+      "safety_resources_to_offer": [
+        "988 Suicide & Crisis Lifeline (call or text 988)",
+        "Crisis Text Line: Text HOME to 741741",
+        "Trevor Project (LGBTQ+ youth): 1-866-488-7386 or text START to 678-678",
+        "Local emergency services: 911",
+        "National Alliance on Mental Illness (NAMI) Helpline: 1-800-950-6264"
+      ]
+    }
+  },
+  "court-prep": {
+    "success": true,
+    "latency_ms": 14350,
+    "model_used": "deepseek-v4-pro",
+    "tokens": 911,
+    "data": {
+      "claim_allegations_summary": "The former landlord is suing you for $3,800 in small claims court, alleging that during your 3-year tenancy you: (1) painted the unit without permission, (2) scratched the hardwood floors, and (3) damaged the carpet to the extent that it required replacement. Under California law, a landlord can only deduct from a security deposit or sue for damages that go beyond normal wear and tear. After a 3-year tenancy, most minor scuffs, fading, and carpet wear are considered normal wear and tear and are NOT chargeable to the tenant.",
+      "essential_evidence_to_bring": [
+        "Move-in photos (dated or timestamped if possible) showing condition of walls, floors, and carpet at start of tenancy",
+        "Move-out photos showing the same areas in pristine condition at end of tenancy",
+        "Your original lease agreement (highlight any clauses about painting, alterations, or move-out requirements)",
+        "Any written communications with the landlord about painting, maintenance requests, or move-out inspection",
+        "Your move-out inspection report or checklist, if one was completed",
+        "Any receipts, invoices, or communications showing you requested repairs or that the landlord approved painting",
+        "Your security deposit itemization letter from the landlord, if one was sent (California requires this within 21 days of move-out)",
+        "Witness contact information for anyone who saw the unit at move-out or helped you clean",
+        "Printed copies of all photos (3 sets: one for judge, one for landlord, one for yourself)"
+      ],
+      "opening_statement_outline": "Good morning/afternoon, Your Honor. My name is [Your Name], and I am the tenant in this case. I lived in the property for 3 years from [start date] to [end date]. The landlord is claiming $3,800 for painting, floor scratches, and carpet replacement. I dispute these charges because: First, after 3 years, any minor wear on walls, floors, and carpet is normal wear and tear under California Civil Code Section 1950.4, and I am not responsible for it. Second, my move-in and move-out photos show the unit was left in pristine condition. Third, I have [photos/communications/receipts] that will show [the painting was approved / the floors and carpet had no damage beyond ordinary use]. I am asking the court to find that I do not owe this money and to rule in my favor.",
+      "courtroom_etiquette_rules": [
+        "Arrive at least 30 minutes early to find the courtroom, check in, and observe how the judge handles other cases",
+        "Dress professionally and conservatively (business casual or formal attire; no shorts, flip-flops, or hats)",
+        "Address the judge as 'Your Honor' at all times and never interrupt the judge, the landlord, or any witness",
+        "Bring 3 copies of every piece of evidence: one for the judge, one for the landlord, and one for yourself",
+        "Organize your photos and documents in a binder or folder with labeled tabs so you can find things quickly when asked",
+        "Speak only when it is your turn; take notes instead of reacting while the landlord is speaking",
+        "Stand when the judge enters or leaves the courtroom",
+        "Turn off your cell phone completely before entering the courtroom",
+        "Be calm, respectful, and factual—do not argue with the landlord or show anger, even if they say something untrue",
+        "If the judge asks a question, answer directly and briefly; if you don't know, say 'I don't know' rather than guessing"
+      ]
+    }
+  },
+  "fee-audit": {
+    "success": true,
+    "latency_ms": 4207,
+    "model_used": "deepseek-v4.1-flash",
+    "tokens": 701,
+    "data": {
+      "total_monthly_recurring": 91.92,
+      "recurring_subscriptions": [
+        {
+          "service": "Netflix",
+          "monthly_cost": 22.99,
+          "category": "Streaming",
+          "price_increase_detected": "No",
+          "cancel_url": "https://www.netflix.com/cancelplan"
+        },
+        {
+          "service": "Planet Fitness",
+          "monthly_cost": 24.99,
+          "category": "Fitness",
+          "price_increase_detected": "No",
+          "cancel_url": "https://www.planetfitness.com/contact-us"
+        },
+        {
+          "service": "Audible Premium",
+          "monthly_cost": 14.95,
+          "category": "Audiobooks",
+          "price_increase_detected": "No",
+          "cancel_url": "https://www.audible.com/account/overview"
+        },
+        {
+          "service": "Dropbox Plus",
+          "monthly_cost": 11.99,
+          "category": "Cloud Storage",
+          "price_increase_detected": "Yes: $9.99 in January to $11.99 in August (20% increase)",
+          "cancel_url": "https://www.dropbox.com/account/plan"
+        },
+        {
+          "service": "NYTimes Digital",
+          "monthly_cost": 17.0,
+          "category": "News",
+          "price_increase_detected": "No",
+          "cancel_url": "https://www.nytimes.com/account/subscription"
+        }
+      ],
+      "hidden_or_disputed_fees": [
+        "Annual Membership Fee: $49.00 (likely from Planet Fitness)",
+        "Out-of-Network ATM Surcharge: $4.50",
+        "Calm.com Annual Renewal: $69.99 (annual, not monthly)"
+      ],
+      "projected_annual_savings": 91.92
     }
   }
 }
